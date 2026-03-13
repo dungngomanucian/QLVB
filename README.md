@@ -5,6 +5,7 @@
 1. Clone repository.
 2. Open `QLVB.sln` with Visual Studio 2022.
 3. Restore NuGet packages in Visual Studio (`Restore NuGet Packages`).
+(Trong Visual Studio, chọn NuGet Package Manager, chọn Package Manager Console và gõ lệnh "Update-Package -reinstall")
 4. Build solution.
 
 ## Notes
