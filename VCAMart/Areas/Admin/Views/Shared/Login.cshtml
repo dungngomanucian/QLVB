@@ -1,4 +1,4 @@
-﻿
+
 @{
     Layout = null;
 
@@ -99,8 +99,8 @@
       var url = '/Admin/Login/LoginProcess';
  
       $.post(url, { u: uid, p: pwd }, function (data) {
-          if (data == '100') {
-             window.location = '/Admin/';
+         if (data == '100') {
+             window.location = '/Admin/Home';
           } else {
               $('#txtmsg').html(data);
           }

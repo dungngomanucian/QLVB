@@ -37,6 +37,24 @@ namespace LIB
         {
             _uid = "";
             _pwd = "";
+            try
+            {
+                var session = HttpContext.Current?.Session;
+                if (session != null)
+                {
+                    userId = session["user_id"]?.ToString() ?? "";
+                    userUid = session["user_uid"]?.ToString() ?? userId;
+                    userFullName = session["user_fullname"]?.ToString() ?? userUid;
+                    userAvata = session["user_avata"]?.ToString() ?? "";
+                    userCreated = session["user_created"]?.ToString() ?? "";
+                    rc_id = session["rc_id"]?.ToString() ?? "";
+                    PB_Code = session["PB_Code"]?.ToString() ?? "";
+                }
+            }
+            catch
+            {
+                // no-op fallback
+            }
         }
 
         public CLogin(string uid, string pwd, string connectionString, string cookieTokenName)
@@ -93,8 +111,12 @@ namespace LIB
                 {
                     session["user_id"] = userId;
                     session["user_uid"] = userUid;
+                    session["user_fullname"] = userFullName;
+                    session["user_avata"] = userAvata;
+                    session["user_created"] = userCreated;
                     session["user_logined"] = ConfigInfo.userLoginedConfirm;
                     session["rc_id"] = rc_id;
+                    session["MB_logined"] = ConfigInfo.MBLoginedConfirm;
                 }
             }
             catch
