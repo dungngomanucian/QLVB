@@ -14,8 +14,9 @@ namespace RICTotalAdmin.Controllers
      
         public ActionResult Index()
         {
-            var session = System.Web.HttpContext.Current?.Session;
-            string loginvl = session?["user_logined"]?.ToString() ?? "";
+            
+            string loginvl = "";
+            try { loginvl = System.Web.HttpContext.Current.Session["user_logined"].ToString(); } catch { loginvl = ""; }
             if (loginvl == LIB.ConfigInfo.userLoginedConfirm )
             {
                // Response.Redirect("~/Category/Customer"); 

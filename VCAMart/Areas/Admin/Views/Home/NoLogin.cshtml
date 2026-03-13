@@ -87,7 +87,7 @@
       //alert(url + uid + pwd);
       $.post(url, { u: uid, p: pwd }, function (data) {
           if (data == '100') {
-             window.location = '/Admin/Home';
+             window.location = '/Admin/';
           } else {
               $('#txtmsg').html(data);
           }

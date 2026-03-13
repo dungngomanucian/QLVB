@@ -162,25 +162,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <section class="content-header">
-                <h1>Admin Home</h1>
-            </section>
-            <section class="content">
-                @if (ViewBag.DatabaseWarning != null && ViewBag.DatabaseWarning.ToString() != "")
-                {
-                    <div class="alert alert-warning">
-                        @ViewBag.DatabaseWarning
-                    </div>
-                }
-                else
-                {
-                    <div class="alert alert-success">
-                        Dang nhap thanh cong.
-                    </div>
-                }
-            </section>
-        </div>
+        
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">

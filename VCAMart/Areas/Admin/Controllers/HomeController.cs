@@ -62,22 +62,7 @@ namespace RICTotalAdmin.Controllers
             ViewBag.user_uid = lg.userUid;
             ViewBag.user_fullname = lg.userFullName;
             ViewBag.user_avata = lg.userAvata; //
-            var userMenu = RICTotalAdmin.Models.common.GetMenuAdmin(lg.userId); //common.GetMenuAdmin(lg.userId);
-            if (string.IsNullOrWhiteSpace(userMenu))
-            {
-                // DB/menu query can fail on newly cloned environments.
-                // Keep admin shell usable and show a clear hint instead of a blank page.
-                userMenu = "<li><a href='/Admin/Home'><i class='fa fa-dashboard'></i> <span>Home</span></a></li>";
-                if (!string.IsNullOrWhiteSpace(RICDB.DB.LastError))
-                {
-                    ViewBag.DatabaseWarning = "Khong lay duoc du lieu menu tu CSDL. Chi tiet: " + RICDB.DB.LastError;
-                }
-                else
-                {
-                    ViewBag.DatabaseWarning = "Dang nhap thanh cong nhung tai khoan chua co menu/quyen truy cap.";
-                }
-            }
-            ViewBag.UserMenu = userMenu;
+            ViewBag.UserMenu = RICTotalAdmin.Models.common.GetMenuAdmin(lg.userId); //common.GetMenuAdmin(lg.userId);
             
 
            // ViewBag.PB_Code  ;
