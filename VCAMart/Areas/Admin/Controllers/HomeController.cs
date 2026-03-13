@@ -68,7 +68,14 @@ namespace RICTotalAdmin.Controllers
                 // DB/menu query can fail on newly cloned environments.
                 // Keep admin shell usable and show a clear hint instead of a blank page.
                 userMenu = "<li><a href='/Admin/Home'><i class='fa fa-dashboard'></i> <span>Home</span></a></li>";
-                ViewBag.DatabaseWarning = "Khong lay duoc du lieu menu tu CSDL. Vui long kiem tra chuoi ket noi 'cnn' trong Web.config va quyen truy cap database.";
+                if (!string.IsNullOrWhiteSpace(RICDB.DB.LastError))
+                {
+                    ViewBag.DatabaseWarning = "Khong lay duoc du lieu menu tu CSDL. Chi tiet: " + RICDB.DB.LastError;
+                }
+                else
+                {
+                    ViewBag.DatabaseWarning = "Dang nhap thanh cong nhung tai khoan chua co menu/quyen truy cap.";
+                }
             }
             ViewBag.UserMenu = userMenu;
             

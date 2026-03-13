@@ -104,6 +104,13 @@ namespace LIB
             userCreated = DateTime.Now.ToString("dd/MM/yyyy");
             rc_id = "00000000-0000-0000-0000-000000000000";
 
+            // Legacy code usually expects user_id to be a GUID.
+            // If the provided username is not GUID-shaped, fallback to a valid GUID value.
+            if (!Guid.TryParse(userId, out _))
+            {
+                userId = Guid.Empty.ToString();
+            }
+
             try
             {
                 var session = HttpContext.Current?.Session;
@@ -156,6 +163,8 @@ namespace RICDB
     /// </summary>
     public static class DB
     {
+        public static string LastError { get; private set; } = "";
+
         public static DataTable RunSQL(string sql, ref string msg, string connectionString)
         {
             var dt = new DataTable();
@@ -169,10 +178,12 @@ namespace RICDB
                     cn.Open();
                     da.Fill(dt);
                 }
+                LastError = "";
             }
             catch (Exception ex)
             {
                 msg = ex.Message;
+                LastError = ex.Message;
             }
             return dt;
         }
@@ -187,12 +198,14 @@ namespace RICDB
                 {
                     cn.Open();
                     var result = cmd.ExecuteScalar();
+                    LastError = "";
                     return result?.ToString() ?? "";
                 }
             }
             catch (Exception ex)
             {
                 msg = ex.Message;
+                LastError = ex.Message;
                 return "";
             }
         }
@@ -208,10 +221,12 @@ namespace RICDB
                     cn.Open();
                     cmd.ExecuteNonQuery();
                 }
+                LastError = "";
             }
             catch (Exception ex)
             {
                 msg = ex.Message;
+                LastError = ex.Message;
             }
         }
 
