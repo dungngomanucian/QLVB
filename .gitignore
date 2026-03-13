@@ -17,6 +17,7 @@
 .vs/
 
 # NuGet
+**/[Pp]ackages/*
 !**/[Pp]ackages/build/
 *.nupkg
 *.snupkg

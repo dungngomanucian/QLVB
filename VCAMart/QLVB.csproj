@@ -47,13 +47,13 @@
   <ItemGroup>
     <Reference Include="CKFinder, Version=2.6.0.2792, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\AIPlatform\bin\CKFinder.dll</HintPath>
+      <HintPath>libs\CKFinder.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.12.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.12.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="LIB">
-      <HintPath>..\..\LIB\bin\Debug\LIB.dll</HintPath>
+      <HintPath>libs\LIB.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
@@ -64,7 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ric.db">
-      <HintPath>..\..\LIB\bin\Debug\ric.db.dll</HintPath>
+      <HintPath>libs\ric.db.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
