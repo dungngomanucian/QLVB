@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +14,8 @@ namespace RICTotalAdmin.Controllers
      
         public ActionResult Index()
         {
-            
-            string loginvl = "";
-            try { loginvl = System.Web.HttpContext.Current.Session["user_logined"].ToString(); } catch { loginvl = ""; }
+            var session = System.Web.HttpContext.Current?.Session;
+            string loginvl = session?["user_logined"]?.ToString() ?? "";
             if (loginvl == LIB.ConfigInfo.userLoginedConfirm )
             {
                // Response.Redirect("~/Category/Customer"); 
