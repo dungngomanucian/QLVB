@@ -1,0 +1,781 @@
+﻿/*====================Dinh dang card =========================*/
+
+body {
+    font-family: "Open Sans", sans-serif;
+   
+}
+.firstinfo, .badgescard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    min-height: 80px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    
+}
+
+    .card:after {
+        content: "";
+        display: block;
+        width: 190px;
+        height: 300px;
+        background: cadetblue;
+        position: absolute;
+        animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+       
+    }
+
+.badgescard {
+   padding: 10px 20px; 
+    border-radius: 3px;
+    background-color: #ECECEC;
+    width: 480px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: -1;
+    left: 10px;
+    bottom: 10px;
+    animation: animainfos 0.5s cubic-bezier(0.425, 1.04, 0.47, 1.105) 0.75s forwards;
+}
+
+    .badgescard span {
+        font-size: 1.6em;
+        margin: 0px 6px;
+        opacity: 0.6;
+    }
+
+.firstinfo {
+    flex-direction: row;
+    z-index: 2;
+    position: relative;
+}
+
+    .firstinfo img {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+    }
+
+    .firstinfo .profileinfo {
+        padding: 0px 20px;
+    }
+
+        .firstinfo .profileinfo h1 {
+            font-size: 1.8em;
+        }
+
+        .firstinfo .profileinfo h3 {
+            font-size: 1.2em;
+            color: #009688;
+            
+        }
+
+        .firstinfo .profileinfo p.bio {
+            padding: 10px 0px;
+            color: #5A5A5A;
+            line-height: 1.2;
+            font-style: initial;
+        }
+
+.content_card {
+    position: relative;
+    padding:2px;
+    animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+}
+
+.content_chart {
+    position: relative;
+    padding:2px;
+}
+.chart {
+    width: 100%;
+    min-height: 80px;
+    display: block;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.card2 {
+    width: 100%;
+    min-height: 80px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    
+}
+
+    .card2:after {
+        content: "";
+        display: block;
+        width: 190px;
+        height: 300px;
+        background:#a58888;
+        position: absolute;
+        animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+    }
+
+
+@keyframes animatop {
+    0% {
+        opacity: 0;
+        bottom: -500px;
+    }
+
+    100% {
+        opacity: 1;
+        bottom: 0px;
+    }
+}
+
+@keyframes animainfos {
+    0% {
+        bottom: 10px;
+    }
+
+    100% {
+        bottom: -42px;
+    }
+}
+
+@keyframes rotatemagic {
+    0% {
+        opacity: 0;
+        transform: rotate(0deg);
+        top: -24px;
+        left: -253px;
+    }
+
+    100% {
+        transform: rotate(-30deg);
+        top: -24px;
+        left: -78px;
+    }
+}
+/*========================================================*/
+
+#mytable{
+    border-collapse:separate;
+    border-spacing:10px;
+}
+
+.center{
+    text-align:center;
+}
+        .download-app
+        {
+            text-align: center;
+        }
+        .download-app img {
+            width: 150px;
+        }
+        
+/* hide filter icon when print to pdf */
+    .k-pdf-export .k-filterable .k-grid-filter{
+        display:none;
+      }
+    
+     .ngaydangky{
+            background-color: green;
+    padding: 5px;
+    color: #fff;
+    }
+     .ngayhethan{
+            background-color: #ff6a00;
+    padding: 5px;
+    color: #fff;
+    }  .hethan{
+            background-color: red;
+    padding: 5px;
+    color: #fff;
+    }
+
+.internet_online {
+    color: #007bff;
+    font-size: 14pt;
+     
+}
+ 
+.internet_offline{
+    color:#ff6a00;
+    font-size:14pt;
+ 
+}
+
+ .ajaxloading {
+            display: none;
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            border: none;
+            z-index: 11001;
+            font-size: 50px;
+            color: #ff6a00;
+            text-align: center;
+        }
+
+        .ajaxloading_bg {
+            background-color: #ccc;
+            opacity: 0.7;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            display: none;
+            z-index: 11000;
+        }
+
+/*------------ danh muc */
+.groupname{
+    color:#fff;
+    border:0px solid red;
+    border-radius:0px;
+    padding:3px 5px;
+    margin:3px 5px;
+    background-color: #00a65a;
+    display:inline-block;
+}
+.groupname_hethan{
+    color:#fff;
+    border:0px solid red;
+    border-radius:0px;
+    padding:3px 5px;
+    margin:3px 5px;
+    background-color: #dd4b39;
+}
+
+        #tblexcelimportpreview {
+            border-collapse: collapse;
+            display: none;
+        }
+
+         #tblexcelimportpreview  td {
+                border: 1px solid #848484;
+                padding: 5px 10px;
+          }
+         #tblexcelimportpreview th  {
+                border: 1px solid #848484;
+                padding: 5px 10px;
+                background-color: #ccc;
+          }
+
+/*=========== end danh muc */
+
+/*TOOL BAR CUAR DATATABLE */
+.dt-buttons {
+     float:left;
+}
+.fullscreen{
+    z-index: 1400; 
+    width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+ }
+.btn_fullscreen, .btn_endfullscreen{
+    float:right;
+    cursor:pointer;
+    font-size: 14pt;
+}
+ 
+
+#lbcontent_title{
+    text-transform:capitalize;
+    font-size:16pt;
+    display:none;
+    padding-right:20px;
+}
+
+/* style phan print pdf */
+
+.page-template {
+    font-family: "Arial","DejaVu Sans", sans-serif;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+    .page-template .header {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        border-bottom: 1px solid #888;
+        color: #888;
+    }
+
+    .page-template .footer {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        border-top: 1px solid #888;
+        text-align: center;
+        color: #888;
+    }
+
+    .page-template .watermark {
+        font-weight: bold;
+        font-size: 400%;
+        text-align: center;
+        margin-top: 30%;
+        color: #aaaaaa;
+        opacity: 0.2;
+        transform: rotate(-35deg) scale(1.7, 1.5);
+    }
+
+/* Content styling */
+.customer-photo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: 32px 35px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 32px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+    margin-left: 5px;
+}
+
+kendo-pdf-document .customer-photo {
+    border: 1px solid #dedede;
+}
+
+.customer-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 3px;
+}
+/* ================= END style phan print pdf */
+
+/* style link Sửa trên grid*/
+.item_delete {
+       background-color: #f69047;
+       color:#fff;
+       padding:5px;
+}
+
+.item_delete:hover {
+       background-color: #ee8031;
+       color:#fff;
+}
+
+.item_create {
+       background-color: #5ce17a;
+       color:#fff;
+       padding:5px;
+}
+
+.item_create:hover {
+       background-color: #007bff;
+           color:#fff;
+}
+.item_down {
+       background-color: #138ece;
+       color:#fff;
+       padding:5px;
+}
+
+.item_down:hover {
+       background-color: #007bff;
+           color:#fff;
+}
+.item_down1 {
+       background-color: #3bb6f5;
+       color:#fff;
+       padding:5px;
+}
+
+.item_down1:hover {
+       background-color: #007bff;
+           color:#fff;
+}
+
+.item_detail {
+       background-color: #28a745;
+       color:#fff;
+       padding:5px;
+}
+
+.item_detail:hover {
+       background-color: #007bff;
+           color:#fff;
+}
+.item_edit{
+      /* background-color: #28a745;*/
+       color:#00000;
+       padding:0px;
+}
+
+.item_edit:hover{
+       background-color: #007bff;
+       color:#ff6a00;
+       text-decoration:none;
+       padding:5px;
+}
+.item_edit1{
+       background-color: #f3e009;
+       color:#fff;
+       padding:5px;
+}
+
+.item_edit1:hover{
+       background-color: #f69047;
+           color:#fff;
+}
+
+.mnu_parent {
+    color: #396A92;
+  
+    font-size:20px;
+   vertical-align:middle;
+   margin-right:10px;
+}
+ 
+.mnu_child {
+    color: #f29b59;
+    margin-left:5px;
+}
+ 
+.pos_button {
+    margin-top:10px;
+    background-color: gold;
+    border-radius: 5px;
+    width: 200px;
+    margin-left: 10px;
+    
+}
+ 
+.pos_button i {
+    color:orangered;
+}
+
+.pos_button:hover {
+    background-color: orange !important;
+}
+ 
+.hansudung {font-family:arial;color:#fff; padding:3px 10px; border-radius:3px;}
+
+   .login-bg{
+    background-color:#fff;
+    opacity:0.8;
+
+    }
+    .login-bg:hover, .login-bg:active{
+    background-color:#fff;
+    opacity:1;
+
+    }
+    .home_logo {
+        height: 30px;
+    }
+    .home_logo_small {
+        height: 20px;
+    }
+
+    .home_top {
+        height: 50px;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        /* background-color: #00a65a; */
+        color:#fff;
+        border-bottom: 0px solid green;
+
+    }
+    .home_top .a1{
+           text-decoration: none;
+            color: #fff;
+        margin-right: 10px;
+        background-color: green;
+        opacity: 0.8;
+        border-radius: 5px;
+        padding:10px;
+    }
+    .home_top .a1:hover{
+        color: greenyellow;
+          opacity: 1;
+    }
+    .teamviewer {
+        background: url(/images/teamviewer.png) no-repeat;
+            background-position-y: 2px;
+            padding: 0px 10px;
+    }
+      .ultraview {
+        background: url(/images/ultraviewer.png) no-repeat;
+            background-position-y: 0px;
+            padding: 0px 10px;
+    }
+
+       .riclogo {
+            border: 0px;
+            height: 40px;
+            margin-top: 7px;
+            background-color: green;
+            padding: 5px;
+       } 
+
+/*====================== STYLE LOG HOME */
+      #divlog{
+          height:400px;
+          overflow:auto;
+          
+      }
+       
+      .home_history{
+          font-size:10pt;
+          padding: 10px;
+          width:100%;
+      }
+      .home_history .title{
+        text-align: center;
+        font-size: 14pt;
+        padding: 10px;
+      }
+      .home_history td{
+          padding:5px;
+          border: 1px solid #ccc;
+      }
+      
+      .home_history .ngay{
+         text-align:center;
+      }
+      .home_history .uid{
+       
+      }
+       .home_history .thaotac{
+         background-color: #fff;
+         color: #000;
+         text-align:center;
+          
+      }
+      .home_history .thaotac_them{
+         background-color: #3d85d1;
+         color: #fff;
+         text-align:center;
+         opacity:0.9;
+      }
+      .home_history .thaotac_sua{
+         background-color: #55bb18;
+         color: #fff;text-align:center;
+         opacity:0.9;
+      }
+      .home_history .thaotac_xoa{
+         background-color: #ff6a00;
+         color: #fff;text-align:center;
+         opacity:0.9;
+      }
+      .home_history .noidung{
+          color: #000
+      }
+
+      .home_history .noidung_link{
+          color: blue;
+          text-decoration:none;
+      }
+       .home_history .noidung_link:hover{
+          text-decoration:underline;
+      }
+
+/*=================Link tin tuc===============*/
+
+a.slidebar1:link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color:#000;
+    text-align: left;
+    font-weight:normal;
+}
+
+a.slidebar1:visited {
+    color: #848484;
+    text-align: left;
+    font-weight: normal;
+}
+/* mouse over link */
+a.slidebar1:hover {
+    color: #19ACEE;
+    text-decoration: none;
+    font-weight: normal;
+}
+/* selected link */
+a.slidebar1:active {
+    color: #848484;
+    font-weight: normal;
+}
+/*========================================*/
+a.linkBlue:link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #964a06;
+    text-align: left;
+    font-weight: normal;
+}
+
+a.linkBlue:visited {
+    color: #848484;
+    text-align: left;
+    font-weight: normal;
+}
+/* mouse over link */
+a.linkBlue:hover {
+    color: #19ACEE;
+    text-decoration: none;
+    font-weight: normal;
+}
+/* selected link */
+a.linkBlue:active {
+    color: #848484;
+    font-weight: normal;
+}   
+  /*====================== END STYLE LOG HOME */
+
+.clock {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: #0B814B;
+    font-weight: bold;
+}
+
+.h1_white_center {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+
+.boxContent {
+    border-radius: 15px;
+    /* box-shadow */
+    box-shadow: #C9C6C6 0 0 5px;
+}
+
+.h2_white_center {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+
+.boxTable {
+    border-radius: 15px 15px 0px 0px;
+    /* box-shadow */
+    /*box-shadow: #C9C6C6 5px 0 0 5px;*/
+}
+
+.myBox {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+}
+
+.login_name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.VerticalAlignStyle1 {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+.title_left {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+.h1_white_center {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    color: #317a31
+}
+
+.h1Bold {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    padding:5px;
+}
+
+.h1_center {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.h2_center {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+.BeforProjectDetail {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #d31414;
+}
+.GapProjectDetail {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #0b1ae2;
+}
+.title1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    font-weight:normal;
+}
+
+.head1Bold {
+    font-family:'Times New Roman';
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    padding: 0px;
+}
+.head1{
+    font-family: 'Times New Roman';
+    font-size: 14px;
+     
+    text-align: left;
+    padding: 0px;
+}

@@ -1,0 +1,532 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/main_layout.cshtml";
+}
+
+
+
+
+
+<div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="box-header">
+        <label id="lbcontent_title" style="display:none;">@(ViewBag.Function_Title)</label>
+        <a id="cmdadd_cate" class="btn bg-green btn-flat " data-toggle="modal" data-target="#dlg@(ViewBag.tblname)"> <i class="fa fa-plus"></i> &nbsp;Thêm </a>
+        <a id="cmddelete_cate" class="btn bg-red btn-flat ">      <i class="fa fa-remove"></i> &nbsp;Xóa </a>
+        <a id="cmdprint_cate" class="btn bg-fuchsia  btn-flat ">      <i class="fa fa-print"></i> &nbsp;Print </a>
+
+        <a id="cmdexport2excel" class="btn bg-blue btn-flat" title="Save 2 Excel">      <i class="fa fa-file-excel-o"></i> &nbsp;Excel</a>
+        <a id="cmdexport2pdf" class="btn bg-aqua btn-flat" title="Save 2 PDF">      <i class="fa fa-file-pdf-o"></i> &nbsp;PDF </a>
+        <a id="cmdactive" class="btn bg-olive btn-flat" title="Active/DeActive">      <i class="fa fa-check-square-o"></i> &nbsp;Active/DeActive </a>
+
+
+
+
+        <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+        <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+
+    </div>
+
+    <div class="box-body">
+        <div id="grid_noidung"></div>
+
+    </div>
+</div>
+
+<form id="frm@(ViewBag.tblname)">
+    <div class="modal fade" id="dlg@(ViewBag.tblname)" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">Quản lý chuyên mục</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="cbbCC_ParentId" class="col-sm-4 control-label">Chủ đề cha:</label>
+                            <div class="col-sm-8">
+                                <select id="cbbCC_ParentId" class="form-control" style="width:100%;"></select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Name" class="col-sm-4 control-label">Tên nhóm:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_Name" placeholder="tên nhóm">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_FriendlyUrl" class="col-sm-4 control-label">Địa chỉ URL:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_FriendlyUrl" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_LinkWebsite" class="col-sm-4 control-label">Liên kết website:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_LinkWebsite" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Description" class="col-sm-4 control-label">Mô tả:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_Description" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_SortOrder" class="col-sm-4 control-label">Thứ tự sắp xếp:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_SortOrder" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Position" class="col-sm-4 control-label">Vị trí:</label>
+                            <div class="col-sm-8">
+                                <select id="txtCC_Position" class="form-control"></select>
+
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Status" class="col-sm-4 control-label">Trạng thái:</label>
+                            <div class="col-sm-8">
+                                <select id="txtCC_Status" class="form-control"></select>
+
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_PageTitle" class="col-sm-4 control-label">Tiêu đề trang:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_PageTitle" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_MetaKeyword" class="col-sm-4 control-label">Từ khóa:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_MetaKeyword" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_MetaDescription" class="col-sm-4 control-label">Từ khóa mô tả:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_MetaDescription" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Notes" class="col-sm-4 control-label">Ghi chú:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtCC_Notes" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="ckstatus" class="col-sm-4 control-label">Kiểm duyệt:</label>
+                            <div class="col-sm-8">
+
+                                <input type="checkbox" id="ckstatus" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtCC_Image" class="col-sm-4 control-label">Ảnh đại diện:</label>
+                            <div class="col-sm-8">
+                                <table border="0" style="width:100%">
+                                    <tr>
+                                        <td><input id="txtCC_Image" class="input-control" name="txtCC_Image" type="text" /></td>
+                                        <td><button id="chonanhbia" class="btn btn-default">  Chọn tệp tin  </button></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                        <button type="button" class="btn bg-green pull-left" id="cmdsave_cate"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- /.modal -->
+</form>
+
+
+<style type="text/css">
+    .btn_edit {
+    }
+</style>
+<script>
+
+    var path = "";
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+    //---------File upload
+    $(function () {
+        $("#chonanhbia").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#txtCC_Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+
+
+    //-------FCKEditor
+    $(function () {
+       // createEditor('vi', 'txtDT_NoiDung');
+
+    });
+</script>
+
+<script type="text/javascript">
+
+    js_mn_tt = "@ViewBag.mn_tt";
+    function InitDefault() {
+         iPrintColStart = 3; // cot bat dau in cua kendouigrid
+          iPrintColNumbers = 3; // so cot in
+
+        columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '20%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotalAdmin.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+         controllerURL = '/Admin/@ViewBag.ControllerName';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+          TienTo = ''; // tên trường tiền tố của 1 bảng
+
+          _row = {
+              id: ""
+              , CC_Id: ""
+              , ten: ""
+              , CC_ParentId: ""
+              , CC_LG_Id: ""
+              , CC_Name: ""
+              , CC_FriendlyUrl: ""
+              , CC_LinkWebsite: ""
+              , CC_Image: ""
+              , CC_Description: ""
+              , CC_SortOrder: ""
+              , CC_Position: ""
+              , CC_Status: ""
+              , CC_PageTitle: ""
+              , CC_MetaKeyword: ""
+              , CC_MetaDescription: ""
+              , CC_System: ""
+              , CC_Published: ""
+              , CC_ApproveId: ""
+              , CC_ApprovedDate: ""
+              , CC_Notes: ""
+              , CC_CreatedById: ""
+              , CC_CreatedDate: ""
+              , CC_UpdatedById: ""
+              , CC_UpdatedDate: ""
+              ,active:""
+          };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        //$('#txtpagesize').val(10);
+        $('#txtCC_System').val('1');
+        $('#txtCC_Status').val('1');
+        $('#txtCC_SortOrder').val('1');
+
+        $('#ckstatus').prop('checked', true);
+
+         $('#txtpagesize').val(@ViewBag.pagesize);
+        //$('#ckstatus').prop('checked', true);
+    }
+
+    function load_data_to_combo() {
+        var nv = [{ "ma": "0", "ten": "Chưa xác định" }, { "ma": "5", "ten": "Menu Top Left" }, { "ma": "6", "ten": "Menu Top Right" }, { "ma": "1", "ten": "Menu Header" }, { "ma": "2", "ten": "Chân trang" }, { "ma": "3", "ten": "Giữa trang" }, { "ma": "4", "ten": "Bên phải" }];
+
+        var nv1 = [{ "ma": "0", "ten": "Chưa sử dụng" }, { "ma": "1", "ten": "Đang sử dụng" }]
+
+        var nv2 = [{ "ma": "0", "ten": "Dùng chung" }, { "ma": "1", "ten": "Hệ thống TMĐT" }]
+
+
+        BindDataCombobox(nv1, 'txtCC_Status');
+        BindDataCombobox(nv, 'txtCC_Position');
+        BindDataCombobox(nv2, 'txtCC_System');
+
+
+    }
+
+    $(document).ready(function () {
+        load_data_to_combo();
+
+        loadComboNhom('cbbCC_ParentId', '/Admin/ContentCategory/ListParent/' + 'js_mn_tt','id','ten',"");
+        $('#cbbCC_ParentId').select2();
+
+
+
+        $('#frmuser').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+                // everything looks good!
+
+                return false;
+            }
+        })
+
+    });
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+    function resetAddItem() {
+        $('#cbbCC_ParentId').val([]);
+        $("#cbbCC_ParentId").trigger("change");
+
+        $('#' + dlgAddEdit + ' input').val('');
+        $('#' + dlgAddEdit + ' textarea').val('');
+        $('#' + dlgAddEdit + ' input').attr('disabled', false);
+    }
+   // load du lieu ra form de sua
+    function _editItem(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+        // $('#txtma').prop('readonly', true);
+        disableHideObjects();
+        bAddEdit = false;
+       // var row = jsonData[rowindex];
+        var row = grid.dataItem("tbody tr:eq(" + (rowindex - 1) + ")"); //get data
+        bAddEdit = false;
+        _EDIT_INDEX = rowindex-1;
+        _EDIT_ID = row.id;
+
+        $('#cbbCC_ParentId').val(row.CC_ParentId);
+        $('#txtCC_Name').val(row.CC_Name);
+        $('#txtCC_FriendlyUrl').val(row.CC_FriendlyUrl);
+        $('#txtCC_LinkWebsite').val(row.CC_LinkWebsite);
+        $('#txtCC_Image').val(row.CC_Image);
+
+        $('#txtCC_Description').val(row.CC_Description);
+        $('#txtCC_SortOrder').val(row.CC_SortOrder);
+        $('#txtCC_Position').val(row.CC_Position);
+        $('#txtCC_Status').val(row.CC_Status);
+        $('#txtCC_PageTitle').val(row.CC_PageTitle);
+        $('#txtCC_MetaKeyword').val(row.CC_MetaKeyword);
+        $('#txtCC_MetaDescription').val(row.CC_MetaDescription);
+        $('#txtCC_System').val(row.CC_System);
+        $('#txtCC_Notes').val(row.CC_Notes);
+
+        $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+
+      //  $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+
+       // $('#cbbCC_ParentId').val(row.qid);
+        $("#cbbCC_ParentId").trigger("change");
+       // $("#cbbUser_CV_Id").trigger("change");
+
+    }
+
+
+
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+        _row.CC_Id = _EDIT_ID;
+
+        _row.CC_ParentId = $('#cbbCC_ParentId').val();
+        _row.CC_Name = $('#txtCC_Name').val();
+        _row.CC_FriendlyUrl = $('#txtCC_FriendlyUrl').val();
+        _row.CC_LinkWebsite = $('#txtCC_LinkWebsite').val();
+        _row.CC_Image = $('#txtCC_Image').val();
+        _row.CC_Description = $('#txtCC_Description').val();
+        _row.CC_SortOrder = $('#txtCC_SortOrder').val();
+        _row.CC_Position = $('#txtCC_Position').val();
+        _row.CC_Status = $('#txtCC_Status').val();
+        _row.CC_PageTitle = $('#txtCC_PageTitle').val();
+        _row.CC_MetaKeyword = $('#txtCC_MetaKeyword').val();
+        _row.CC_MetaDescription = $('#txtCC_MetaDescription').val();
+        _row.CC_System = $('#txtCC_System').val();
+        _row.CC_Notes = $('#txtCC_Notes').val();
+
+        _row.active = ($("#ckstatus").is(':checked') ? 1 : 0);
+        _row.TrangThai = ($("#ckstatus").is(':checked') ? 'Đang sử dụng' : 'Không sử dụng');
+
+        _row.ten  =$('#cbbCC_ParentId option:selected').text();
+
+        //_row.active = ($("#ckstatus").is(':checked') ? 1 : 0);
+        msg = '';
+        if (_row.CC_Name == '')
+            msg += '\n+ Tên chủ đề không được để trống';
+
+
+        if (msg != '') {
+           $('#lbthongbao').html('Error: ' + msg);
+            return false;
+        }
+
+        return true;
+    }
+    //------------- end valid a record
+    function _getGroupName(obj)
+    {
+        var s = '';
+        for (i = 0; i < obj.length; i++)
+        {
+            s += '<span class="groupname" >' + obj[i] + '</span>';
+        }
+        return s;
+    }
+
+    function _showGrid() {
+
+
+       var crudServiceBaseUrl = controllerURL;
+
+
+
+        $("#grid_noidung").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "/GetList/" + js_mn_tt,
+                        dataType: "json"
+                    }
+                },
+
+                //data: data,
+                schema: {
+                    parse : function(data) {
+                                return data.data;
+                        }
+                },
+                pageSize: @ViewBag.pagesize
+            },
+            filterable: {
+               // mode:"row",
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains...",
+                        startswith: "Starts with",
+                        eq: "Is equal to"
+                        //, neq: "Is not equal to"
+                    }
+                }
+            },
+
+            // height: 500,
+            //toolbar: ["excel"],
+            scrollable: false,
+            sortable: { mode: "multiple", allowUnsort: true },
+            pageable: { input: false, numeric: true },
+            reorderable: true,
+            resizable: true,
+            groupable: true,
+            allowCopy: true,
+            selectable: "multiple cell",
+            excel: {
+                fileName: exportFileName + ".xlsx",
+                allPages: true,
+                filterable: true
+            },
+            pdf: {
+                author: "RIC Total",
+                creator: "RIC Total",
+                date: new Date(),
+                fileName: exportFileName + ".pdf",
+                subject: "RIC Total: " + exportFileName,
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",
+                landscape: true,
+                scale: 0.8,
+                avoidLinks: true,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                allPages: true
+            },
+
+            columns: [
+                {field: "id", title: "No.", template: "#= ++recordnumber#", filterable: false   , sortable: false},
+                {
+                    title: "<input type=checkbox id='ckcheckall' onclick='_checkAll();'>"
+                    , template: "<input type=checkbox value='#=id#'>"               , filterable: false , sortable: false
+                }, {
+                    title: ""
+                    , template: "<a href='javascript://' class='bg-green' title='Thông tin chi tiết => Sửa'  style='padding:5px;' onclick=' _editItem(\"#=id#\",\"#= recordnumber #\")'  data-toggle='modal' data-target='\\#dlg@(ViewBag.tblname)'><i class='fa fa-edit'></a>"
+                    , filterable: false  , sortable: false
+                },
+              //  { field: "ten", title: "Chủ đề cha", filterable: { cell: { operator: "contains" } } },
+                { field: "CC_Name", title: "Tên chủ đề", filterable: { cell: { operator: "contains" } } },
+             //   { field: "tel", title: "Điện thoại", filterable: { cell: { operator: "contains" } } },
+             //   {title: "Nhóm quyền", template: "#= _getGroupName(qten) #",  filterable: false , sortable: false},
+
+              //  { field: "TrangThai", title: "Trạng thái"}
+
+       ],
+            dataBound: function (e) {
+                recordnumber = 0;
+                for (var i = 0; i < this.columns.length; i++) this.autoFitColumn(i);
+            }
+        }) ;
+
+         grid = $("#grid_noidung").data("kendoGrid");
+    }
+
+
+
+
+    function _gridUpdateItem() {
+
+        var grid = $("#grid_noidung").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var dataItem = grid.dataItem("tbody tr:eq(" + _EDIT_INDEX + ")"); //get data
+        dataItem["CC_Name"] = _row.CC_Name;
+        dataItem["CC_ParentId"] = _row.CC_ParentId;
+        dataItem["ten"] = _row.ten;
+        dataItem["CC_FriendlyUrl"] = _row.CC_FriendlyUrl;
+        dataItem["CC_LinkWebsite"] = _row.CC_LinkWebsite;
+        dataItem["CC_Image"] = _row.CC_Image;
+        dataItem["CC_Description"] = _row.CC_Description;
+        dataItem["CC_SortOrder"] = _row.CC_SortOrder;
+        dataItem["CC_Position"] = _row.CC_Position;
+        dataItem["CC_Status"] = _row.active;
+        dataItem["CC_PageTitle"] = _row.CC_PageTitle;
+        dataItem["CC_MetaKeyword"] = _row.CC_MetaKeyword;
+        dataItem["CC_MetaDescription"] = _row.CC_MetaDescription;
+        dataItem["CC_Published"] = _row.CC_Published;
+        dataItem["CC_Notes"] = _row.CC_Notes;
+
+
+
+        grid.refresh();
+    }
+    //-------------end edit a record
+
+
+</script>

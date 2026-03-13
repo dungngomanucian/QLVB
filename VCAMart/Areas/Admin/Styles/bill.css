@@ -1,0 +1,439 @@
+﻿.item_promotion{
+    color:red;
+    font-size:12pt;
+}
+.box-header a,.navbar-static-top,.navbar,.logo{border-top:1px solid #fff !important;} 
+        .hoadon .bill_label {
+            padding-top:10px;
+        }
+        .top_sperate{
+            border-top:1px solid #ecf0f5;
+            padding-top: 5px;
+        }
+        .remove_tab{
+            margin-left:5px;
+            cursor:pointer;
+            padding:5px;
+        }
+
+        .remove_tab:hover{
+            color:red;
+        }
+        .nav-tabs>li>a {
+            padding:5px 10px;
+            margin-top: 5px;
+            margin-right: 5px;
+            line-height: 1.42857143;
+            border-radius: 4px 4px 0 0;
+            border: 1px solid #ccc;
+        }
+        .nav-tabs>li>a:focus {
+                color:red!important;
+        }
+
+       .nav-tabs>li.active {
+            font-weight:bold;
+           
+        }
+
+        .hoadon {
+            border: 0px solid red;
+            padding: 2px;
+           
+        }
+
+      .hoadon  .bill_more_menu{
+          border-left:1px solid #70b7e0;
+          background-color: #ddd;
+          
+        
+        }
+       .hoadon  .bill_more_menu:hover{
+          color: #3c8dbc;
+        
+        }
+            .hoadon .bill-header {
+               
+            }
+
+            .hoadon .bill-body {
+                border-right: 1px solid #ecf0f5;
+              
+                min-height:100px;
+            }
+
+            .hoadon .bill-footer {
+                
+            }
+            .hoadon .bill-footer-toolbar {
+                  position: fixed;
+				bottom: 10px;
+				right: 20px;
+				background-color: #ECF0F5;
+				border-radius: 5px;
+				text-align: center;
+				z-index: 1000;
+				padding: 5px 10px 5px 5px;
+				max-width: 440px;
+				border: 1px solid #CCC;
+				opacity: 1;
+            }
+            .hoadon .bill-footer-toolbar:hover {opacity:1;}
+
+ .bill_chietkhau, .bill_conno, .bill_nocu, .bill_phaitra, .bill_thanhtoan, .bill_tongtien{
+     text-align:right;
+     margin-left:0px;padding-left:0px;
+
+ }
+ 
+
+        .button-container {
+            padding-top: 1em;
+            text-align: right;
+        }
+
+        .k-tabstrip .k-tabstrip-items li .k-link {
+            padding-right: 0.46em;
+        }
+
+            .k-tabstrip .k-tabstrip-items li .k-link[data-type='remove'] {
+                padding-left: 0.46em;
+            }
+
+            .k-tabstrip .k-tabstrip-items li .k-link .k-icon {
+                margin: 0;
+            }
+
+                .k-tabstrip .k-tabstrip-items li .k-link .k-icon:hover {
+                    color: red;
+                }
+
+        .k-tabstrip .k-content {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #hint {
+            border: none;
+        }
+
+            #hint .k-tabstrip-items {
+                padding: 0;
+            }
+
+ 
+            
+ 
+ 
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 2px;
+    padding-left: 2px;
+   margin-top:1px;
+ 
+}
+.hoadon .bill-body-grid{
+    overflow:auto;
+}
+.hoadon .bill-body-grid td,.hoadon .bill-body-grid tr,.hoadon .bill-body-grid th,.hoadon .bill-body-grid table {
+    padding:0px;margin:0px;
+}
+.hoadon .bill-body-grid th{
+    background-color: #d2d6d3 !important;
+}
+.hoadon .bill-body-grid table {
+    border: 1px solid #ccc;
+}
+.hoadon .bill-body-grid td,.hoadon .bill-body-grid th {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    vertical-align:middle;
+}
+.hoadon .bill-body-grid th {
+    text-align:center;
+    padding:5px 0px;
+
+}
+
+.hoadon .bill-body-grid input  {
+    width:100%;
+    padding:5px 0px; 
+    border:0px;
+}
+.hoadon .bill-body-grid .ma {
+    width: 15%;
+      text-align:center;
+}
+.hoadon .bill-body-grid .ten {
+    width: 20%;
+      padding-left:10px;
+}
+.hoadon .bill-body-grid .sl {
+  width: 15%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width:120px;
+
+}
+.hoadon .bill-body-grid .sl input {
+    width: 50px;
+    text-align:center;
+    float:left;
+    
+}
+
+ 
+.hoadon .bill-body-grid .sl i{
+    font-size:14pt;
+    cursor:pointer;
+     background-color:#c7cac7;
+    color: #fff;
+    height:100%;
+    padding: 7px 10px;
+    margin:0px;
+}
+
+.hoadon .bill-body-grid .sl i:hover{
+    background-color: #3c8dbc;
+    
+}
+
+.hoadon .bill-body-grid .gia {
+    width: 10%;  background-color: #fff;
+}
+ 
+
+.hoadon .bill-body-grid .ck{
+    width: 12%;background-color: #fff;
+      white-space: nowrap;
+  min-width:100px;
+}
+.hoadon .bill-body-grid .ck input{
+    
+  width:65px;
+}
+.hoadon .bill-body-grid .ck a{
+   border-left:1px solid #fff;
+   background-color:#c7cac7;
+    padding: 5px 0px;
+    width: 35px;
+    text-align: center;
+    color:#fff;
+}
+
+.hoadon .bill-body-grid .ck input,.hoadon .bill-body-grid .sl input{
+    text-align:center;
+}
+.hoadon .bill-body-grid .thanhtien {
+    width: 13%;
+    text-align:right;
+    padding-right:10px;
+}
+.hoadon .bill-body-grid .thanhtien input,.hoadon .bill-body-grid .gia input {
+    text-align:right;
+    padding-right:10px;
+    padding-left:5px;
+}
+
+.hoadon .bill-body-grid .ghichu {
+    width: 12%; background-color: #fff;
+}
+.hoadon .bill-body-grid .ghichu textarea{
+    padding-left:5px;padding-right:5px;
+    border:0px;
+}
+.hoadon .bill-body-grid .xoa {
+    width: 3%;
+    text-align:center;
+}
+    
+
+.btn_addkhachhang {
+    float: right;
+    cursor: pointer;
+    font-size: 14pt;
+}
+
+/*KENDO UI */
+
+.dropdown-header {
+    border-width: 0 0 1px 0;
+    text-transform: uppercase;
+}
+
+    .dropdown-header > span {
+        display: inline-block;
+        padding: 10px;
+    }
+
+        .dropdown-header > span:first-child {
+            width: 50px;
+        }
+
+.k-list-container > .k-footer {
+    padding: 10px;
+}
+.bill_search {
+    min-width:400px !important;
+    /*
+    max-width:700px !important;*/
+    background-color:#fff;
+
+}
+
+.bill_search input{
+    padding:0px;
+    margin:5px;
+}
+.bill_search .k-state-default{
+    
+}
+
+.bill_search .k-input{
+    line-height: 1em;
+    padding: 5px 10px;
+    margin: 5px;
+    width:97%;
+}
+.bill_search-list .k-item {
+    line-height: 1em;
+    min-width: 300px;
+    
+}
+
+/* Material Theme padding adjustment*/
+
+.k-material #customers-list .k-item,
+.k-material #customers-list .k-item.k-state-hover,
+.k-materialblack #customers-list .k-item,
+.k-materialblack #customers-list .k-item.k-state-hover {
+    padding-left: 5px;
+    border-left: 0;
+}
+
+.bill_search-list .k-item > span {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px 10px 10px 5px;
+}
+
+    .bill_search-list .k-item > span:first-child {
+        -moz-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        -webkit-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        margin: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+.bill_search-list h3 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0 0 1px 0;
+    padding: 0;
+}
+
+.bill_search-list p {
+    margin: 0;
+    padding: 0;
+    font-size: .8em;
+}
+
+
+
+#dlgsearchproduct,#dlgsearchkhachhang {
+    z-index:1700;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    min-height: 200px;
+    background-color: #81d4e6;
+}
+
+#dlgsearchproduct_grid,#dlgsearchkhachhang_grid {
+    min-height:200px;
+    max-height:700px;
+    border:1px solid #3c8dbc;
+}
+#dlgsearchproduct_grid td
+    {
+    vertical-align:middle !important;
+    border-bottom: 1px solid #ccc;
+}
+
+.bill_dlg_timkiem_close,.bill_dlg_timkiem_close_khachhang{
+     border-left: 1px solid #81d4e6;
+}
+.bill_dlg_timkiem_close:hover, .bill_btn_add_product:hover, .bill_dlg_timkiem_close_khachhang:hover{
+     color: #3c8dbc;
+}
+.fa-remove:hover {
+    color:#3c8dbc;
+}
+
+ .timkiem_hanghoa_anh {
+    max-width:80px;
+    max-height:80px;
+    border-radius:3px;
+    float:right;
+}
+ .timkiem_hanghoa_chon{
+     padding:10px;
+     
+     background-color: #3c8dbc;
+     border-radius:5px;
+     cursor:pointer;
+     text-align:center;
+ }
+  .timkiem_hanghoa_chon:hover{
+     
+     background-color: #81d4e6;
+ }
+   
+ 
+  .bill_khachhang  .k-animation-container,.bill_khachhang .k-list-container {
+      width:600px !important;
+  }
+  .hoadon  li{
+      border-bottom:1px solid #fff !important;
+  }
+.bill-change{
+    color:red;position:absolute;right:2px;top:2px;font-weight:normal;font-size:8pt;
+}
+
+/*Style cho hoa don - cua source hien thi chi tiet*/
+    #windowBillsShow {font-family:Arial;font-size:11pt;}
+    #windowBillsShow .right{  text-align:right;}
+    #windowBillsShow .header{font-weight:bold;font-size:10pt;padding: 0px 0px 10px 0px;}
+    #windowBillsShow .header p{line-height:150%;padding:0px;margin:0px;}
+    #windowBillsShow .footer p{line-height:150%;padding:0px;margin:0px;}
+    #windowBillsShow .footer{font-weight:bold;font-size:10pt;padding: 10px 0px }
+    #windowBillsShow .tools{}
+    #windowBillsShow table .footer{font-weight:bold; text-align:right;}
+    #divcontent .right {
+        text-align:right;
+    }
+    #grid_noidung{
+
+    }
+    #grid_noidung .k-grid-content
+{
+         min-height: 200px;
+     /*max-height: 500px;*/
+}
+
+        .box-header,.box-body{padding-bottom:2px;padding-top:5px;}
+    .content {padding-top:0px;}
+    .content-header{padding-top:10px;}
+    .content-header>.breadcrumb{padding-top:0px;top:10px;}
+/*END Style cho hoa don - cua source hien thi chi tiet*/
+

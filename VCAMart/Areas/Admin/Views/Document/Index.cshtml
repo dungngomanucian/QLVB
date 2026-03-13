@@ -1,0 +1,818 @@
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/main_layout.cshtml";
+}
+
+
+
+
+<div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="box-header">
+        <label id="lbcontent_title" style="display:none;">@(ViewBag.Function_Title)</label>
+        <a id="cmdadd_cate" class="btn bg-green btn-flat " data-toggle="modal" data-target="#dlg@(ViewBag.tblname)"> <i class="fa fa-plus"></i> &nbsp;Thêm </a>
+        <a id="cmddImportJson" class="btn bg-blue-active btn-flat " data-toggle="modal" data-target="#dlgImport">      <i class="fa fa-upload"></i> &nbsp;Cập nhật nội dung tài liệu </a>
+        <a id="cmdUploadPdf" class="btn bg-purple btn-flat " data-toggle="modal" data-target="#dlgUploadPdf"> <i class="fa fa-file-pdf-o"></i> &nbsp;Tải PDF </a>
+        <a id="cmddelete_cate" class="btn bg-red btn-flat ">      <i class="fa fa-remove"></i> &nbsp;Xóa </a>
+
+    </div>
+
+    <div class="box-body">
+        <div id="grid_noidung"></div>
+    </div>
+</div>
+
+<form id="frmImportJson">
+    <div class="modal fade" id="dlgImport" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">DANH MỤC TÀI LIỆU</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                    <div class="box-body">
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtDocumentContent" class="col-sm-4 control-label">Chọn tệp tin json:</label>
+                            <div class="col-sm-8">
+                                <table border="0" style="width: 100%; border-collapse: separate; border-spacing: 5px; ">
+                                    <tr>
+                                        <td style="width:80%"><input id="txtDocumentContent" class="input-control" name="txtDocumentContent" type="text" /></td>
+                                        <td style="width:20%"><button id="chonanhbia" class="btn btn-default">  Chọn tệp tin  </button></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="right"><label id="lblDocumentContent"></label></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                        <button type="button" class="btn bg-green pull-left" id="cmdsave_data"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+</form>
+
+<form id="frmUploadPdf" enctype="multipart/form-data">
+    <div class="modal fade" id="dlgUploadPdf" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">TẢI TỆP PDF</h3>
+                </div>
+
+                <div id="lbthongbao_pdf" style="color:red;padding:0px  10px;"></div>
+
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="row" style="margin-left:-20px;margin-right:-20px;">
+                            <div class="col-sm-6" style="border-right:1px solid #eee; padding-right:30px; padding-left:30px;">
+                                <h4 style="margin-top:0;">Thủ tục hành chính công</h4>
+
+                                <div class="form-group">
+                                    <label>Nhóm:</label>
+                                    <select id="cbbProcGroup" class="form-control"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại:</label>
+                                    <select id="cbbProcCategory" class="form-control"></select>
+                                </div>
+
+                                <input type="file" id="pdfProcFileInput" accept=".pdf,application/pdf" style="display:none;" />
+                                <div id="pdfProcDropzone" style="border:2px dashed #9aa0a6; border-radius:8px; padding:14px; text-align:center; cursor:pointer;">
+                                    <div style="font-size:14px; font-weight:600;">Kéo & thả PDF thủ tục vào đây</div>
+                                    <div style="margin-top:6px; color:#666;">hoặc bấm để chọn file</div>
+                                    <div id="pdfProcSelectedInfo" style="margin-top:10px; color:#333;"></div>
+                                </div>
+                                <div id="pdfProcUploadProgressWrap" style="display:none; margin-top:10px;">
+                                    <div class="progress">
+                                        <div id="pdfProcUploadProgress" class="progress-bar progress-bar-info" role="progressbar" style="width:0%">0%</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn bg-aqua" id="cmdUploadProcDo" disabled="disabled" style="margin-top:10px;">
+                                    <i class="fa fa-upload"></i>&nbsp; Tải File lên
+                                </button>
+                            </div>
+
+                            <div class="col-sm-6" style="padding-right:30px; padding-left:30px;">
+                                <h4 style="margin-top:0;">Văn bản quy phạm pháp luật</h4>
+
+                                <div class="form-group">
+                                    <label>Nhóm:</label>
+                                    <select id="cbbLawGroup" class="form-control"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại:</label>
+                                    <select id="cbbLawCategory" class="form-control"></select>
+                                </div>
+
+                                <input type="file" id="pdfFileInput" accept=".pdf,application/pdf" style="display:none;" />
+                                <div id="pdfDropzone" style="border:2px dashed #9aa0a6; border-radius:8px; padding:14px; text-align:center; cursor:pointer;">
+                                    <div style="font-size:14px; font-weight:600;">Kéo & thả PDF văn bản vào đây</div>
+                                    <div style="margin-top:6px; color:#666;">hoặc bấm để chọn file</div>
+                                    <div id="pdfSelectedInfo" style="margin-top:10px; color:#333;"></div>
+                                </div>
+                                <div id="pdfUploadProgressWrap" style="display:none; margin-top:10px;">
+                                    <div class="progress">
+                                        <div id="pdfUploadProgress" class="progress-bar progress-bar-success" role="progressbar" style="width:0%">0%</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn bg-green" id="cmdUploadPdfDo" disabled="disabled" style="margin-top:10px;">
+                                    <i class="fa fa-upload"></i>&nbsp; Tải File lên
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form id="frm@(ViewBag.tblname)">
+    <div class="modal fade" id="dlg@(ViewBag.tblname)" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">DANH MỤC TÀI LIỆU</h3>
+                </div>
+
+                <div id="lbthongbao" style="color:red; padding:0px 10px; font-weight:bold;"></div>
+
+                <div class="modal-body">
+                    <div class="box-body">
+
+                        
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Mã tài liệu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-9">
+                                <select id="cbbgroup_id" class="form-control" style="width:100%;"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Mã tài liệu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="txtdoc_code" placeholder="Ví dụ: NQ-01/2026">
+                            </div>
+                        </div>
+
+                       
+
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Tên/Trích yếu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="txtdoc_title" rows="3" placeholder="Nhập tên hoặc trích yếu nội dung tài liệu"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Cơ quan BH:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txtissuing_authority" placeholder="VD: UBND Tỉnh...">
+                            </div>
+                            <label class="col-sm-1 control-label">Cấp:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txtadministrative_level" placeholder="VD: Tỉnh, Huyện...">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Ngày hiệu lực:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="txteffective_date">
+                            </div>
+                            <label class="col-sm-1 control-label">Nguồn:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txtsource_url" placeholder="Link hoặc file đính kèm">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" style="margin-bottom:15px;">
+                            <label class="col-sm-3 control-label">Trạng thái:</label>
+                            <div class="col-sm-9">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="ckactive" checked="checked"> Kích hoạt
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-red pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                    <button type="button" class="btn bg-green pull-right" id="cmdsave" onclick="_save();"><i class="fa fa-save"></i> Lưu lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dialog">
+</div>
+<style type="text/css">
+    .btn_edit {
+    }
+</style>
+<script>
+    $(function () {
+        $("#chonanhbia").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#txtDocumentContent").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+</script>
+<script type="text/javascript">
+
+
+    function InitDefault() {
+          iPrintColStart = 3; // cot bat dau in cua kendouigrid
+          iPrintColNumbers = 3; // so cot in
+
+          columnsWidth = [{ sWidth: '10%' }, { sWidth: '30%' }, { sWidth: '30%' },{ sWidth: '30%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotalAdmin.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+
+        controllerURL = '/Admin/@ViewBag.ControllerName';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+        TienTo = 'CQBH'; // tên trường tiền tố của 1 bảng
+        var userID  ='@ViewBag.login_nv_id.ToString()';
+            _row = {
+                id: ""
+                , Odl_Code: ""
+                , doc_code: ""
+                , doc_title: ""
+                , category_id: ""
+                , issuing_authority: ""
+                , administrative_level: ""
+                , effective_date: ""
+                , source_url: ""
+                , active: 1
+                , jsonFile:""
+                , CreatedById: userID
+            };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        //$('#txtpagesize').val(10);
+       // $('#ckmultilogin').prop('checked', true);
+       // $('#ckstatus').prop('checked', true);
+
+
+         $('#txtpagesize').val(@ViewBag.pagesize);
+        //$('#ckstatus').prop('checked', true);
+    }
+
+
+
+    $(document).ready(function () {
+        js_mn_tt = "@ViewBag.mn_tt";
+        loadCategoryTree();
+        loadLawDropdowns("7", "cbbProcGroup", "cbbProcCategory");
+        loadLawDropdowns("8", "cbbLawGroup", "cbbLawCategory");
+
+        initPdfUploadUi();
+
+        $('#cmdsave_data').click(function () {
+            _saveData();
+        });
+
+        $('#frmuser').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+                // everything looks good!
+
+                return false;
+            }
+        })
+
+    });
+
+    function loadCategoryTree() {
+        $.getJSON(controllerURL + '/GetCategoryTree/1', function (data) {
+
+            let html = '';
+            let currentGroup = '';
+
+            $.each(data, function (i, item) {
+
+                // Group mới
+                if (currentGroup !== item.group_code) {
+                    if (currentGroup !== '') {
+                        html += '</optgroup>';
+                    }
+                    html += `<optgroup label="📁 ${item.group_title}">`;
+                    currentGroup = item.group_code;
+                }
+
+                // Category
+                if (item.category_code) {
+                    html += `
+                    <option value="${item.category_code}">
+                        └─ ${item.category_title}
+                    </option>`;
+                }
+            });
+
+            if (currentGroup !== '') {
+                html += '</optgroup>';
+            }
+
+            $('#cbbgroup_id').html(html);
+        });
+    }
+
+    function loadLawDropdowns(prefix, groupSelectId, categorySelectId) {
+        // Thêm "/1" để buộc route MVC dùng pattern {controller}/{action}/{id}
+        $.getJSON(controllerURL + '/GetLawGroups/1', { prefix: prefix })
+            .done(function (data) {
+                var $g = $('#' + groupSelectId);
+                $g.empty();
+                $g.append('<option value="">-- Chọn --</option>');
+
+                if (!data || !data.length) {
+                    $g.append('<option value="">(Không có dữ liệu)</option>');
+                    return;
+                }
+
+                $.each(data, function (i, item) {
+                    $g.append('<option value="' + item.group_code + '">' + item.group_title + '</option>');
+                });
+            })
+            .fail(function (xhr) {
+                $('#lbthongbao_pdf').html('Không tải được danh sách Luật/Bộ luật (HTTP ' + xhr.status + ').');
+            });
+
+        $('#' + groupSelectId).on('change', function () {
+            var code = $(this).val();
+            var $c = $('#' + categorySelectId);
+            $c.empty();
+            if (!code) {
+                $c.append('<option value="">-- Chọn nhóm --</option>');
+                return;
+            }
+
+            $.getJSON(controllerURL + '/GetLawCategories/1', { groupCode: code, prefix: prefix })
+                .done(function (data) {
+                    $c.append('<option value="">-- Chọn nhóm --</option>');
+
+                    if (!data || !data.length) {
+                        $c.append('<option value="">(Không có dữ liệu)</option>');
+                        return;
+                    }
+
+                    $.each(data, function (i, item) {
+                        $c.append('<option value="' + item.category_code + '">' + item.category_title + '</option>');
+                    });
+                })
+                .fail(function (xhr) {
+                    $('#lbthongbao_pdf').html('Không tải được danh sách Nhóm (HTTP ' + xhr.status + ').');
+                });
+        });
+    }
+
+    function initPdfUploadUi() {
+        var selectedFile = null;
+
+        function resetUi() {
+            selectedFile = null;
+            $('#pdfSelectedInfo').html('');
+            $('#lbthongbao_pdf').html('');
+            $('#cmdUploadPdfDo').prop('disabled', true);
+            $('#pdfUploadProgressWrap').hide();
+            $('#pdfUploadProgress').css('width', '0%').text('0%');
+        }
+
+        function setSelected(file) {
+            selectedFile = file;
+            if (!selectedFile) {
+                resetUi();
+                return;
+            }
+            var ext = (selectedFile.name || '').toLowerCase().split('.').pop();
+            if (ext !== 'pdf') {
+                selectedFile = null;
+                $('#lbthongbao_pdf').html('Chỉ hỗ trợ tệp PDF (*.pdf).');
+                $('#cmdUploadPdfDo').prop('disabled', true);
+                $('#pdfSelectedInfo').html('');
+                return;
+            }
+            var sizeMb = (selectedFile.size / (1024 * 1024)).toFixed(2);
+            $('#pdfSelectedInfo').html('<b>Đã chọn:</b> ' + selectedFile.name + ' <span style="color:#666">(' + sizeMb + ' MB)</span>');
+            $('#cmdUploadPdfDo').prop('disabled', false);
+        }
+
+        $('#dlgUploadPdf').on('show.bs.modal', function () {
+            resetUi();
+        });
+
+        $('#pdfDropzone').on('click', function () {
+            $('#pdfFileInput').val('');
+            $('#pdfFileInput').click();
+        });
+
+        $('#pdfFileInput').on('change', function (e) {
+            var f = (e.target.files && e.target.files.length > 0) ? e.target.files[0] : null;
+            setSelected(f);
+        });
+
+        $('#pdfDropzone').on('dragover', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css('border-color', '#3c8dbc');
+        });
+        $('#pdfDropzone').on('dragleave', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css('border-color', '#9aa0a6');
+        });
+        $('#pdfDropzone').on('drop', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css('border-color', '#9aa0a6');
+            var dt = e.originalEvent.dataTransfer;
+            var f = (dt && dt.files && dt.files.length > 0) ? dt.files[0] : null;
+            setSelected(f);
+        });
+
+        $('#cmdUploadPdfDo').on('click', function () {
+            if (!selectedFile) return;
+
+            var groupCode = $('#cbbLawGroup').val();
+            var categoryCode = $('#cbbLawCategory').val();
+            if (!groupCode || !categoryCode) {
+                $('#lbthongbao_pdf').html('Vui lòng chọn đầy đủ Luật/Bộ luật và Nhóm (Dân sự, Hình sự, ...).');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('groupCode', groupCode);
+            formData.append('categoryCode', categoryCode);
+
+            $('#lbthongbao_pdf').html('');
+            $('#cmdUploadPdfDo').prop('disabled', true);
+            $('#pdfUploadProgressWrap').show();
+
+            $.ajax({
+                url: controllerURL + '/UploadPdf/1',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener('progress', function (evt) {
+                        if (evt.lengthComputable) {
+                            var p = Math.round((evt.loaded / evt.total) * 100);
+                            $('#pdfUploadProgress').css('width', p + '%').text(p + '%');
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function (res) {
+                    if (!res || res.code / 1 !== 100) {
+                        $('#lbthongbao_pdf').html((res && res.msg) ? res.msg : 'Upload thất bại.');
+                        $('#cmdUploadPdfDo').prop('disabled', false);
+                        return;
+                    }
+
+                    // Auto fill vào trường "Nguồn" của form thêm/sửa (nếu user muốn đính kèm)
+                    if (res.data && res.data.fileUrl) {
+                        $('#txtsource_url').val(res.data.fileUrl);
+                    }
+
+                    myalert("Tải PDF thành công", 500);
+                    $('#dlgUploadPdf').modal('hide');
+                },
+                error: function (xhr) {
+                    $('#lbthongbao_pdf').html('Upload thất bại. ' + (xhr && xhr.status ? ('(HTTP ' + xhr.status + ')') : ''));
+                    $('#cmdUploadPdfDo').prop('disabled', false);
+                }
+            });
+        });
+    }
+
+
+    function _saveData() {
+
+        var url = controllerURL + "/ImportJsonToDatabase/1";
+        _row.jsonFile = $('#txtDocumentContent').val();
+
+        $.post(url, { data: JSON.stringify(_row) }, function (data) {
+
+            var dt = data;
+            if (dt.code / 1 != 100) {
+
+                meAlert("Thông báo", dt.msg, 500);
+                return false;
+            }
+            myalert("Cập nhật thành công", 500);
+
+            $('#dlgImport').modal('hide');
+            _showGrid();
+
+        });
+
+        return true; // de ko submit len may chu
+    }
+
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+    function resetAddItem() {
+       // $('#cbbnhomquyen').val([]);
+      //  $("#cbbnhomquyen").trigger("change");
+
+        $('#' + dlgAddEdit + ' input').val('');
+        $('#' + dlgAddEdit + ' textarea').val('');
+        $('#' + dlgAddEdit + ' input').attr('disabled', false);
+    }
+   // load du lieu ra form de sua
+    function _editItem(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+       
+        bAddEdit = false;
+       // var row = jsonData[rowindex];
+        var row = grid.dataItem("tbody tr:eq(" + (rowindex - 1) + ")"); //get data
+
+
+        bAddEdit = false;
+        _EDIT_INDEX = rowindex-1;
+        _EDIT_ID = row.id;
+        _COMMONCODE = row.doc_code;
+
+        $('#txtdoc_code').val(row.doc_code);
+        $('#txtdoc_title').val(row.doc_title);
+
+        //$('#cbbCategory').val(row.category_id);
+
+        $('#txtissuing_authority').val(row.issuing_authority);
+        $('#txtadministrative_level').val(row.administrative_level);
+        $('#txtsource_url').val(row.source_url);
+
+        if (row.effective_date) {
+            var dateStr = kendo.toString(kendo.parseDate(row.effective_date), "yyyy-MM-dd");
+            $('#txteffective_date').val(dateStr);
+        } else {
+            $('#txteffective_date').val('');
+        }
+
+
+        $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+
+        $('#cbbgroup_id').val(row.category_id);
+        $("#cbbgroup_id").trigger("change");
+
+    }
+
+
+
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+        _row.Odl_Code = _COMMONCODE;
+
+        _row.doc_code = $('#txtdoc_code').val();
+        _row.doc_title = $('#txtdoc_title').val();
+        _row.category_id = $('#cbbgroup_id').val();
+
+        _row.issuing_authority = $('#txtissuing_authority').val();
+        _row.administrative_level = $('#txtadministrative_level').val();
+        _row.effective_date = $('#txteffective_date').val();
+        _row.source_url = $('#txtsource_url').val();
+
+        msg = "";
+
+        if (_row.doc_code == "")
+            msg += "<br>+ Chưa nhập Mã tài liệu.";
+
+        if (_row.doc_title == "")
+            msg += "<br>+ Chưa nhập Tên/Trích yếu.";
+
+
+        if (bAddEdit)
+        {
+            //if (_row.pwd == '') msg += '\n- Cần vào Mật khẩu;';
+            //if (_row.pwd1 == '') msg += '\n- Cần vào Mật khẩu xác nhận;';
+        }
+
+        if (msg != '') {
+            meAlert('Thông báo','Chưa nhập đầy đủ thông tin',500);
+            return false;
+        }
+
+        return true;
+    }
+    //------------- end valid a record
+    function _getGroupName(obj)
+    {
+        var s = '';
+        for (i = 0; i < obj.length; i++)
+        {
+            s += '<span class="groupname" >' + obj[i] + '</span>';
+        }
+        return s;
+    }
+
+    function _showGrid() {
+        var crudServiceBaseUrl = controllerURL;
+
+        $("#grid_noidung").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "/GetList/" + js_mn_tt,
+                        dataType: "json",
+                        method: "POST"
+                    }
+                },
+                schema: {
+                    parse: function (data) {
+                        if (typeof data.data === "string") {
+                            data.data = JSON.parse(data.data);
+                        }
+
+                        if (data.data) {
+                            for (var i = 0; i < data.data.length; i++)
+                                data.data[i].active = data.data[i].is_active;
+                        }
+                        return data;
+                    },
+                    data: function (data) {
+                        return data.data;
+                    },
+                    total: function (data) {
+                        return data.total;
+                    },
+                    model: {
+                        fields: {
+                            id: { type: "string" },
+                            doc_code: { type: "string" },
+                            doc_title: { type: "string" },
+                            issuing_authority: { type: "string" },
+                            effective_date: { type: "date" },
+                            active: { type: "number" }
+                        }
+                    }
+                },
+                pageSize: @ViewBag.pagesize,
+                serverPaging: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains...",
+                        startswith: "Starts with",
+                        eq: "Is equal to"
+                    }
+                }
+            },
+            scrollable: false,
+            sortable: { mode: "multiple", allowUnsort: true },
+            pageable: true,
+            reorderable: true,
+            resizable: true,
+            groupable: true,
+            allowCopy: true,
+            selectable: "multiple cell",
+            excel: {
+                fileName: exportFileName + ".xlsx",
+                allPages: true,
+                filterable: true
+            },
+            pdf: {
+                author: "RIC Total",
+                creator: "RIC Total",
+                date: new Date(),
+                fileName: exportFileName + ".pdf",
+                subject: "RIC Total: " + exportFileName,
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",
+                landscape: true,
+                scale: 0.8,
+                avoidLinks: true,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                allPages: true
+            },
+            columns: [
+                {
+                    field: "id", title: "STT", template: "#= ++recordnumber#", width: 50,
+                    headerAttributes: { style: "text-align:center;" }, attributes: { style: "text-align:center;" }
+                },
+                {
+                    title: "<input type=checkbox id='ckcheckall' onclick='_checkAll();'>",
+                    template: "<input type=checkbox value='#=id#'>", width: 40,
+                    headerAttributes: { style: "text-align:center;" }, attributes: { style: "text-align:center;" }
+                },
+                {
+                    title: "Tác vụ",
+                    template: "<a href='javascript://' class='btn btn-xs btn-success' title='Sửa' onclick='_editItem(\"#=uid#\", \"#=recordnumber#\")' data-toggle='modal' data-target='\\#dlg@(ViewBag.tblname)'><i class='fa fa-edit'></i></a>",
+                    width: 60, headerAttributes: { style: "text-align:center;" }, attributes: { style: "text-align:center;" }
+                },
+
+                { field: "doc_code", title: "Mã VB", width: 120, filterable: { cell: { operator: "contains" } } },
+
+                { field: "doc_title", title: "Tên tài liệu / Trích yếu", filterable: { cell: { operator: "contains" } } },
+
+                { field: "issuing_authority", title: "Cơ quan BH", width: 150, filterable: { cell: { operator: "contains" } } },
+
+                {
+                    field: "effective_date", title: "Ngày hiệu lực", width: 120,
+                    template: "#= effective_date ? kendo.toString(kendo.parseDate(effective_date), 'dd/MM/yyyy') : '' #",
+                    headerAttributes: { style: "text-align:center;" }, attributes: { style: "text-align:center;" }
+                },
+
+                {
+                    field: "active", title: "Trạng thái", width: 120,
+                    template: "#= active == 1 ? '<span class=\"label label-primary\">Hiển thị</span>' : '<span class=\"label label-default\">Ẩn</span>' #",
+                    headerAttributes: { style: "text-align:center;" }, attributes: { style: "text-align:center;" }
+                }
+            ],
+            dataBound: function (e) {
+                var grid = this;
+                var dataSource = grid.dataSource;
+                recordnumber = (dataSource.page() - 1) * dataSource.pageSize();
+                for (var i = 0; i < this.columns.length; i++) this.autoFitColumn(i);
+            }
+        });
+
+        grid = $("#grid_noidung").data("kendoGrid");
+    }
+
+
+
+
+    function _gridUpdateItem() {
+
+        var grid = $("#grid_noidung").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var dataItem = grid.dataItem("tbody tr:eq(" + _EDIT_INDEX + ")"); //get data
+        dataItem.set("doc_code", _row.doc_code);
+        dataItem.set("doc_title", _row.doc_title);
+        dataItem.set("issuing_authority", _row.issuing_authority);
+        dataItem.set("active", _row.active);
+
+        // Cập nhật ngày tháng (phải parse về Date object thì Grid mới hiểu)
+        if (_row.effective_date) {
+            dataItem.set("effective_date", kendo.parseDate(_row.effective_date, "yyyy-MM-dd"));
+        } else {
+            dataItem.set("effective_date", null);
+        }
+
+       // dataItem["active"] = _row.active;
+
+        grid.refresh();
+    }
+    //-------------end edit a record
+
+
+</script>

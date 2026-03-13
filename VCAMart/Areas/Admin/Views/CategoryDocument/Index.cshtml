@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/main_layout.cshtml";
+}
+
+
+
+
+<div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="box-header">
+        <label id="lbcontent_title" style="display:none;">@(ViewBag.Function_Title)</label>
+        <a id="cmdadd_cate" class="btn bg-green btn-flat " data-toggle="modal" data-target="#dlg@(ViewBag.tblname)"> <i class="fa fa-plus"></i> &nbsp;Thêm </a>
+        <a id="cmddelete_cate" class="btn bg-red btn-flat ">      <i class="fa fa-remove"></i> &nbsp;Xóa </a>
+        <!--   <a id="cmdprint_cate" class="btn bg-fuchsia  btn-flat ">      <i class="fa fa-print"></i> &nbsp;Print </a>
+
+                <a id="cmdexport2excel" class="btn bg-blue btn-flat" title="Save 2 Excel">      <i class="fa fa-file-excel-o"></i> &nbsp;Excel</a>
+                <a id="cmdexport2pdf" class="btn bg-aqua btn-flat" title="Save 2 PDF">      <i class="fa fa-file-pdf-o"></i> &nbsp;PDF </a>
+                <a id="cmdactive" class="btn bg-olive btn-flat" title="Active/DeActive">      <i class="fa fa-check-square-o"></i> &nbsp;Active/DeActive </a>
+
+
+
+
+                <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+                <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+        -->
+    </div>
+
+    <div class="box-body">
+        <div id="grid_noidung"></div>
+    </div>
+</div>
+
+<form id="frm@(ViewBag.tblname)">
+    <div class="modal fade" id="dlg@(ViewBag.tblname)" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">DANH MỤC LOẠI TÀI LIỆU</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                    <div class="box-body">
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="cbbgroup_id" class="col-sm-4 control-label">Nhóm tài liệu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-8">
+                                <select id="cbbgroup_id" class="form-control" style="width:100%;"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtcategory_code" class="col-sm-4 control-label">Mã loại tài liệu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtcategory_code" placeholder="Ví dụ: VB_HANHCHINH">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtcategory_title" class="col-sm-4 control-label">Tên loại tài liệu <span style="color:red">(*)</span>:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtcategory_title" placeholder="Ví dụ: Văn bản hành chính">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtsort_order" class="col-sm-4 control-label">Thứ tự hiển thị:</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="txtsort_order" value="1" placeholder="Nhập số thứ tự">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="chkCV_Status" class="col-sm-4 control-label">Trạng thái :</label>
+                            <div class="col-sm-8">
+                                <input type="checkbox" id="ckstatus" />
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                        <button type="button" class="btn bg-green pull-left" id="cmdsave_cate"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- /.modal -->
+</form>
+
+<div id="dialog">
+</div>
+<style type="text/css">
+    .btn_edit {
+    }
+</style>
+<script type="text/javascript">
+
+
+    function InitDefault() {
+          iPrintColStart = 3; // cot bat dau in cua kendouigrid
+          iPrintColNumbers = 3; // so cot in
+
+          columnsWidth = [{ sWidth: '10%' }, { sWidth: '30%' }, { sWidth: '30%' },{ sWidth: '30%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotalAdmin.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+
+        controllerURL = '/@ViewBag.ControllerName';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+        TienTo = 'CQBH'; // tên trường tiền tố của 1 bảng
+        var userID  ='@ViewBag.login_nv_id.ToString()';
+            _row = {
+                id: ""
+                , Odl_Code: ""
+                , group_id: ""
+                , category_code: ""
+                , category_title: ""
+                , sort_order: 0
+                , active: 1            // Mặc định active = 1
+                , CreatedById: userID
+            };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        //$('#txtpagesize').val(10);
+       // $('#ckmultilogin').prop('checked', true);
+       // $('#ckstatus').prop('checked', true);
+
+
+         $('#txtpagesize').val(@ViewBag.pagesize);
+        //$('#ckstatus').prop('checked', true);
+    }
+
+
+
+    $(document).ready(function () {
+        js_mn_tt = "@ViewBag.mn_tt";
+        loadComboNhom('cbbgroup_id', '/CategoryDocument/GetParent/' + 'js_mn_tt','id','ten',"");
+        $('#cbbgroup_id').select2();
+
+        $('#frmuser').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+                // everything looks good!
+
+                return false;
+            }
+        })
+
+    });
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+    function resetAddItem() {
+       // $('#cbbnhomquyen').val([]);
+      //  $("#cbbnhomquyen").trigger("change");
+
+        $('#' + dlgAddEdit + ' input').val('');
+        $('#' + dlgAddEdit + ' textarea').val('');
+        $('#' + dlgAddEdit + ' input').attr('disabled', false);
+    }
+   // load du lieu ra form de sua
+    function _editItem(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+        // $('#txtma').prop('readonly', true);
+       // disableHideObjects();
+        bAddEdit = false;
+       // var row = jsonData[rowindex];
+        var row = grid.dataItem("tbody tr:eq(" + (rowindex - 1) + ")"); //get data
+
+
+        bAddEdit = false;
+        _EDIT_INDEX = rowindex-1;
+        _EDIT_ID = row.id;
+        _COMMONCODE = row.category_code;
+
+        $('#txtcategory_code').val(row.category_code);
+        $('#txtcategory_title').val(row.category_title);
+
+
+        $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+        $('#cbbgroup_id').val(row.group_id);
+        $("#cbbgroup_id").trigger("change");
+
+    }
+
+
+
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+        _row.Odl_Code = _COMMONCODE;
+
+        _row.category_code = $('#txtcategory_code').val();
+        _row.category_title = $('#txtcategory_title').val();
+        _row.active = ($("#ckstatus").is(':checked') ? 1 : 0);
+        _row.group_id = $('#cbbgroup_id').val();
+        msg = "";
+
+        if (_row.category_code == "")
+            msg += "<br>+ Chưa nhập mã.";
+
+        if (_row.category_title == "")
+            msg += "<br>+ Chưa nhập tên.";
+
+
+        if (bAddEdit)
+        {
+            //if (_row.pwd == '') msg += '\n- Cần vào Mật khẩu;';
+            //if (_row.pwd1 == '') msg += '\n- Cần vào Mật khẩu xác nhận;';
+        }
+
+        if (msg != '') {
+            meAlert('Thông báo','Chưa nhập đầy đủ thông tin',500);
+            return false;
+        }
+
+        return true;
+    }
+    //------------- end valid a record
+    function _getGroupName(obj)
+    {
+        var s = '';
+        for (i = 0; i < obj.length; i++)
+        {
+            s += '<span class="groupname" >' + obj[i] + '</span>';
+        }
+        return s;
+    }
+
+    function _showGrid() {
+        var crudServiceBaseUrl = controllerURL;
+
+        $("#grid_noidung").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "/GetList/" + js_mn_tt,
+                        dataType: "json",
+                        method: "POST"
+                    }
+                },
+                schema: {
+                    parse: function (data) {
+                        if (typeof data.data === "string") {
+                            data.data = JSON.parse(data.data);
+                        }
+
+                        if (data.data) {
+                            for (var i = 0; i < data.data.length; i++)
+                                data.data[i].active = data.data[i].is_active;
+                        }
+                        return data;
+                    },
+                    data: function (data) {
+                        return data.data;
+                    },
+                    total: function (data) {
+                        return data.total;
+                    },
+                    model: {
+                        fields: {
+                            id: { type: "string" },
+                            category_code: { type: "string" },
+                            category_title: { type: "string" },
+                            active: { type: "number" }
+                        }
+                    }
+                },
+                pageSize: @ViewBag.pagesize,
+                serverPaging: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains...",
+                        startswith: "Starts with",
+                        eq: "Is equal to"
+                    }
+                }
+            },
+            scrollable: false,
+            sortable: { mode: "multiple", allowUnsort: true },
+            pageable: true,
+            reorderable: true,
+            resizable: true,
+            groupable: true,
+            allowCopy: true,
+            selectable: "multiple cell",
+            excel: {
+                fileName: exportFileName + ".xlsx",
+                allPages: true,
+                filterable: true
+            },
+            pdf: {
+                author: "RIC Total",
+                creator: "RIC Total",
+                date: new Date(),
+                fileName: exportFileName + ".pdf",
+                subject: "RIC Total: " + exportFileName,
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",
+                landscape: true,
+                scale: 0.8,
+                avoidLinks: true,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                allPages: true
+            },
+            columns: [
+                {
+                    field: "id", title: "No.", template: "#= ++recordnumber#",
+                    width: 50, filterable: false, sortable: false,
+                    headerAttributes: { style: "text-align:center;" },
+                    attributes: { style: "text-align:center;" }
+                },
+                {
+                    title: "<input type=checkbox id='ckcheckall' onclick='_checkAll();'>",
+                    template: "<input type=checkbox value='#=id#'>",
+                    width: 40, filterable: false, sortable: false,
+                    headerAttributes: { style: "text-align:center;" },
+                    attributes: { style: "text-align:center;" }
+                },
+                {
+                    title: "",
+                    template: "<a href='javascript://' class='bg-green' title='Thông tin chi tiết => Sửa' style='padding:5px;' onclick=' _editItem(\"#=id#\",\"#= recordnumber #\")' data-toggle='modal' data-target='\\#dlg@(ViewBag.tblname)'><i class='fa fa-edit'></a>",
+                    width: 60, filterable: false, sortable: false,
+                    headerAttributes: { style: "text-align:center;" },
+                    attributes: { style: "text-align:center;" }
+                },
+                {
+                    field: "category_code", title: "Mã loại tài liệu", width: 150,
+                    filterable: { cell: { operator: "contains" } }
+                },
+                {
+                    field: "category_title", title: "Tên loại tài liệu",
+                    filterable: { cell: { operator: "contains" } }
+                },
+                {
+                    field: "active", title: "Trạng thái", width: 120,
+                    template: "#= active == 1 ? '<span class=\"label label-primary\">Đang sử dụng</span>' : '<span class=\"label label-default\">Ẩn</span>' #",
+                    headerAttributes: { style: "text-align:center;" },
+                    //attributes: { style: "text-align:center;" }
+                }
+            ],
+            dataBound: function (e) {
+                var grid = this;
+                var dataSource = grid.dataSource;
+                recordnumber = (dataSource.page() - 1) * dataSource.pageSize();
+                for (var i = 0; i < this.columns.length; i++) this.autoFitColumn(i);
+            }
+        });
+
+        grid = $("#grid_noidung").data("kendoGrid");
+    }
+
+
+
+
+    function _gridUpdateItem() {
+
+        var grid = $("#grid_noidung").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var dataItem = grid.dataItem("tbody tr:eq(" + _EDIT_INDEX + ")"); //get data
+        dataItem["category_code"] = _row.category_code;
+        dataItem["category_title"] = _row.category_title;
+
+        dataItem["active"] = _row.active;
+
+       // dataItem["active"] = _row.active;
+
+        grid.refresh();
+    }
+    //-------------end edit a record
+
+
+</script>

@@ -1,0 +1,339 @@
+﻿@{
+    RICTotalAdmin.Models.common.InitDefault();
+    Layout = null;
+    ViewBag.Version = "2019";
+    ViewBag.Copyright =  ViewBag.hansudung  + ViewBag.congty_ten + " - Copyright &copy; 2008-2019 <a href='http://nxbdhsp.edu.vn/'> Software</a>.";
+    ViewBag.ngaygio = DateTime.Now.ToString("yyyyMMddHHmmss");         
+   
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Html.Raw(RICTotalAdmin.Models.common.app_title)</title>
+    <meta content="@Html.Raw(RICTotalAdmin.Models.common.app_keywords)" name="keywords">
+    <meta content= "@Html.Raw(RICTotalAdmin.Models.common.app_description)" name ="description">
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="~/Areas/Admin/Styles/googlefont.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/skin.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/common.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/bill.css">
+
+     
+    <link href="~/Areas/Admin/kendoui/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/kendoui/styles/kendo.default.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/kendoui/styles/kendo.default.mobile.min.css" rel="stylesheet">
+
+    <script src="~/Areas/Admin/Scripts/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/bootstrap.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/lib/admin.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/angular.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/angular-sanitize.js"></script>
+<script>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Areas/Admin/Scripts/common.js")))
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/App/mrictotal.js")))
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/App/home.js")))
+</script>
+    
+
+     <script src="~/Areas/Admin/kendoui/js/kendo.all.min.js"></script>
+
+    <style type="text/css">
+         .login-bg{
+            background-color:#fff;
+            opacity:0.8;
+            
+        }
+        .login-bg:hover, .login-bg:active{
+            background-color:#fff;
+            opacity:1;
+            
+        }
+
+    </style>
+    <script>
+
+    </script>
+</head>
+<body class="hold-transition skin-green-light sidebar-mini fixed" ng-app="mtmain">
+@*<body class="hold-transition skin-blue sidebar-mini">*@
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Areas/Admin/Content/common_dialog.html")))
+
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="admin" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">
+                    <img src="/Areas/Admin/images/logofit.png" alt="Về trang chủ | ATC Group" class="home_logo_small"/>
+                </span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg">
+                    <img src="/Areas/Admin/images/logofit.png" alt="Về trang chủ | ATC Group" class="home_logo"/>
+                </span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+                <div class="navbar-default">
+
+                </div>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                         
+                        
+                        
+
+                        <li class="hidden-sm hidden-xs" style="padding-top:10px;display:none">
+                            <select id="cbbmain_chinhanh" style="padding:3px;max-width: 150px;"></select>
+
+                        </li>
+
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="@ViewBag.user_avata" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@ViewBag.user_uid</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="@ViewBag.user_avata" class="img-circle" alt="User Image">
+                                    <p>
+                                        @ViewBag.user_fullname
+                                        <small>Member since @ViewBag.user_fromdate</small>
+                                    </p>
+                                </li>
+
+
+                                <li class="user-footer" style="background-color:#3c8dbc;border-top:1px solid #fff;">
+                                    <div class="pull-left">
+                                        <a href="#" id="cmdchangepassword" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="/Admin/Logout" class="btn btn-default btn-flat">Thoát</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+          
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    @*<li class="header">MAIN NAVIGATION</li>*@
+                    @Html.Raw(ViewBag.UserMenu)
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> @Html.Raw(ViewBag.Version)
+            </div>
+            <strong>@Html.Raw(ViewBag.Copyright)</strong>
+            @*<strong>Copyright &copy; 2008-2019 <a href="https://ric.vn"> Software</a>.</strong>*@
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-light">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-history"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                
+
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                   
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <div class="ajaxloading fa fa-spinner fa-spin" style="display:none;"></div>
+    <div class="ajaxloading_bg" style="display:none;"></div>
+
+    <div style="display:none" ng-controller="mtbill_home_detail" id="div_home_detail">
+        <div id="windowBillsShow_NX" style="display:none;padding:10px;max-height:550px;">
+            <div class="header">
+                <p>
+                    Ngày:  {{billCurrent.ngay}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                    Mã phiếu: {{billCurrent.ma}}&nbsp;&nbsp; &nbsp;&nbsp;
+                </p>
+                <p>
+                    Từ chi nhánh: {{billCurrent.chid_ten}}&nbsp;&nbsp; &nbsp;&nbsp;
+                <span ng-if="billCurrent.chidto_ten!= ''">
+                    Đến chi nhánh: {{billCurrent.chidto_ten}}
+                </span>
+                    </p>
+            </div>
+
+            <table class="k-grid k-widget" role="grid" style="width:100%;">
+                <thead class="k-grid-header" role="rowgroup">
+                    <tr role="row">
+                        <th role="columnheader" class="k-header">TT</th>
+                        <th role="columnheader" class="k-header">Mã hàng</th>
+                        <th role="columnheader" class="k-header">Tên</th>
+                        <th role="columnheader" class="k-header">Số lượng</th>
+                        <th role="columnheader" class="k-header">Giá</th>
+                        <th role="columnheader" class="k-header">Tổng tiên</th>
+                        <th role="columnheader" class="k-header">Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody role="rowgroup">
+                    <tr ng-repeat="item in billCurrent.products track by $index" role="row">
+                        <td role="gridcell">{{$index+1}}</td>
+                        <td role="gridcell">{{item.ma}}</td>
+                        <td role="gridcell">{{item.ten}}</td>
+                        <td role="gridcell" class="right">{{  item.soluong |number:1}}</td>
+                        <td role="gridcell" class="right">{{  item.gia|number:1}}</td>
+                        <td role="gridcell" class="right">{{  item.phaitra |number:1}}</td>
+                        <td role="gridcell">{{item.ghichu}}</td>
+                    </tr>
+
+
+                    <tr role="row" class="footer">
+                        <td role="gridcell" colspan="3">Tổng:</td>
+                        <td role="gridcell">{{  billCurrent.soluong |number:1}}</td>
+                        <td role="gridcell"></td>
+
+                        <td role="gridcell">{{  billCurrent.thanhtien -  billCurrent.cktien | number:1}}</td>
+                        <td role="gridcell"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="footer">
+                <p>
+
+                    Tổng tiền: {{  billCurrent.phaitra |number:1}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                    Thanh toán: {{  billCurrent.thanhtoan |number:1}}   &nbsp;&nbsp; &nbsp;&nbsp;
+
+                </p>
+                <p ng-if="billCurrent.ghichu!= ''">
+                    Ghi chú: {{billCurrent.ghichu}}
+                </p>
+            </div>
+
+            <div class="tools">
+                <a class="btn bg-red btn-flat" onclick='$("#windowBillsShow_NX").data("kendoWindow").close();'>      <i class="fa fa-close"></i> &nbsp;Đóng </a>
+            </div>
+
+        </div>
+         
+        <div id="windowBillsShow_TC" style="display:none;padding:10px;max-height:550px;">
+            <div class="header" style="padding:20px;">
+                <p>
+                    Chi nhánh: {{billCurrent.chidten}}&nbsp;&nbsp; &nbsp;&nbsp;
+                </p>
+                <p>
+                    Ngày:  {{billCurrent.ngay}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                    Mã phiếu: {{billCurrent.ma}}&nbsp;&nbsp; &nbsp;&nbsp;
+                </p>
+                <p>
+                    Tên:  {{billCurrent.khten}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                <span ng-if="billCurrent.khdiachi!= ''">
+                    Địa chỉ: {{billCurrent.khdiachi}}</span>&nbsp;&nbsp; &nbsp;&nbsp;
+                    <span ng-if="billCurrent.khtel!= ''"> Điện thoại: {{billCurrent.khtel}}</span>&nbsp;&nbsp; &nbsp;&nbsp;
+                </p>
+                <p>
+                    Loại Thu/Chi:  {{billCurrent.ndtcten}}   
+                </p> 
+                <p>
+                    Số tiền: {{billCurrent.sotien|number:1}} <i>&nbsp;&nbsp;   ({{billCurrent.sotien_chu}})</i>
+                </p> 
+                <p ng-if="billCurrent.noidung!= ''">
+                    Nội dung: {{billCurrent.noidung}} 
+                </p>
+                 <p>
+                    Nhân viên: {{billCurrent.nv}}
+                </p>
+
+            </div>
+
+      
+            <div class="tools">
+                <a class="btn bg-red btn-flat" onclick='$("#windowBillsShow_TC").data("kendoWindow").close();'>      <i class="fa fa-close"></i> &nbsp;Đóng </a>
+            </div>
+
+        </div>
+    </div>
+    <script>
+    bill_nvid_logined = '@ViewBag.login_nv_id';
+    </script>
+  <style>
+      .k-grid td {
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    padding: .4em .6em;
+    overflow: hidden;
+    line-height: 1.6em;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+    #windowBillsShow {
+        overflow:hidden;
+    }
+    #windowBillsShow td {
+        padding:5px 10px;
+    }
+      #windowBillsShow .tools {
+        padding-top:10px;
+    }
+  </style>
+  <script src="~/Areas/Admin/js/talk.js"></script>
+</body>
+</html>

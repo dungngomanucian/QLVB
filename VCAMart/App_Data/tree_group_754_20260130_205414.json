@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "source": "https://dichvucong.gov.vn",
+    "group_id": "754",
+    "crawl_time": "2026-01-30T20:54:14.138333"
+  },
+  "data": [
+    {
+      "group_id": "754",
+      "group_title": "Hôn nhân và gia đình",
+      "events": [
+        {
+          "event_id": "286",
+          "category": "Cải chính, trích lục hộ tịch",
+          "children": [
+            {
+              "title": "Thủ tục thay đổi, cải chính, bổ sung thông tin hộ tịch, xác định lại dân tộc",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.004859"
+            },
+            {
+              "title": "Thủ tục thay đổi, cải chính, bổ sung thông tin hộ tịch, xác định lại dân tộc có yếu tố nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=2.000748"
+            }
+          ]
+        },
+        {
+          "event_id": "281",
+          "category": "Nhận con nuôi",
+          "children": [
+            {
+              "title": "Đăng ký việc nuôi con nuôi trong nước",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=2.001263"
+            },
+            {
+              "title": "Giải quyết việc nuôi con nuôi có yếu tố nước ngoài đối với trường hợp cha dượng, mẹ kế nhận con riêng của vợ hoặc chồng; cô, cậu, dì, chú, bác ruột nhận cháu làm con nuôi",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.004878"
+            },
+            {
+              "title": "Thủ tục Đăng ký việc nuôi con nuôi tại Cơ quan đại diện Việt Nam ở nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003213"
+            },
+            {
+              "title": "Cấp giấy xác nhận công dân Việt Nam ở trong nước đủ điều kiện nhận trẻ em nước ngoài làm con nuôi",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003198"
+            },
+            {
+              "title": "Giải quyết việc người nước ngoài thường trú ở Việt Nam nhận trẻ em Việt Nam làm con nuôi",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003160"
+            },
+            {
+              "title": "Đăng ký lại việc nuôi con nuôi trong nước",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=2.001255"
+            },
+            {
+              "title": "Giải quyết việc người nước ngoài cư trú ở khu vực biên giới nước láng giềng nhận trẻ em Việt Nam làm con nuôi",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003005"
+            },
+            {
+              "title": "Giải quyết việc nuôi con nuôi có yếu tố nước ngoài đối với trẻ em sống ở cơ sở nuôi dưỡng",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003976"
+            },
+            {
+              "title": "Đăng ký lại việc nuôi con nuôi có yếu tố nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.003179"
+            }
+          ]
+        },
+        {
+          "event_id": "279",
+          "category": "Nhận cha, mẹ con",
+          "children": [
+            {
+              "title": "Thủ tục đăng ký nhận cha, mẹ, con",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.001022"
+            },
+            {
+              "title": "Thủ tục đăng ký nhận cha, mẹ, con có yếu tố nước ngoài tại khu vực biên giới",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.000080"
+            }
+          ]
+        },
+        {
+          "event_id": "275",
+          "category": "Giám hộ",
+          "children": [
+            {
+              "title": "Thủ tục đăng ký giám hộ",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.004837"
+            },
+            {
+              "title": "Thủ tục đăng ký chấm dứt giám hộ",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.004845"
+            },
+            {
+              "title": "Thủ tục đăng ký giám hộ có yếu tố nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.001669"
+            },
+            {
+              "title": "Thủ tục đăng ký chấm dứt giám hộ có yếu tố nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=2.000756"
+            }
+          ]
+        },
+        {
+          "event_id": "274",
+          "category": "Kết hôn",
+          "children": [
+            {
+              "title": "Thủ tục đăng ký kết hôn",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.000894"
+            },
+            {
+              "title": "Thủ tục đăng ký kết hôn có yếu tố nước ngoài",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=2.000806"
+            },
+            {
+              "title": "Thủ tục đăng ký kết hôn có yếu tố nước ngoài tại khu vực biên giới",
+              "url": "https://dichvucong.gov.vn/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=1.000094"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

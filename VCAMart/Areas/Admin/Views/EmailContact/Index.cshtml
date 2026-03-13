@@ -1,0 +1,350 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/main_layout.cshtml";
+}
+ 
+ 
+
+
+ 
+ <div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+     <div class="box-header">
+        <label id="lbcontent_title" style="display:none;">@(ViewBag.Function_Title)</label>
+      
+        
+
+
+        <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+        <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+
+    </div>
+
+    <div class="box-body">
+            <div id="grid_noidung"></div>
+       
+    </div>
+     </div>
+ 
+<form id="frm@(ViewBag.tblname)">
+    <div class="modal fade" id="dlg@(ViewBag.tblname)" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">THÔNG TIN E-MAIL LIÊN HỆ</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                <div class="box-body">
+                      
+                  
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtEmailName" class="col-sm-4 control-label">Địa chỉ E-mail:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txtEmailName" placeholder="Địa chỉ email liên hệ">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtEmailPass" class="col-sm-4 control-label">Mật khẩu:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txtEmailPass" placeholder="">
+                        </div>
+                    </div>
+                         
+                </div>
+
+
+                 <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                        <button type="button" class="btn bg-green pull-left" id="cmdsave_cate"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                    </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+        </div>
+    <!-- /.modal -->
+</form>
+ 
+
+<style type="text/css">
+    .btn_edit{}
+
+</style>
+<script>
+
+    var path = "";
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+    //---------File upload
+    $(function () {
+        $("#chonanhbia").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#txtBN_Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+
+    
+    //-------FCKEditor
+    $(function () {
+       // createEditor('vi', 'txtDT_NoiDung');
+
+    });
+</script>
+
+<script type="text/javascript">
+
+    js_mn_tt = "@ViewBag.mn_tt";
+    function InitDefault() {
+         iPrintColStart = 3; // cot bat dau in cua kendouigrid
+          iPrintColNumbers = 3; // so cot in
+
+        columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '20%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotalAdmin.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+         controllerURL = '/Admin/EmailContact';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+          TienTo = ''; // tên trường tiền tố của 1 bảng
+
+          _row = {
+              id: ""
+              ,EmailName:""
+              ,EmailPass:""
+
+          };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        //$('#txtpagesize').val(10);
+
+
+
+
+         $('#txtpagesize').val(@ViewBag.pagesize);
+        //$('#ckstatus').prop('checked', true);
+    }
+
+
+
+    $(document).ready(function () {
+
+
+      //  loadComboNhom('cbbCC_ParentId', '/Admin/ContentCategory/ListParent/' + 'js_mn_tt','id','ten',"");
+      //  $('#cbbCC_ParentId').select2();
+
+
+
+        $('#frmuser').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+                // everything looks good!
+
+                return false;
+            }
+        })
+
+    });
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+    function resetAddItem() {
+
+
+        $('#' + dlgAddEdit + ' input').val('');
+        $('#' + dlgAddEdit + ' textarea').val('');
+        $('#' + dlgAddEdit + ' input').attr('disabled', false);
+    }
+   // load du lieu ra form de sua
+    function _editItem(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+        // $('#txtma').prop('readonly', true);
+        disableHideObjects();
+        bAddEdit = false;
+       // var row = jsonData[rowindex];
+        var row = grid.dataItem("tbody tr:eq(" + (rowindex - 1) + ")"); //get data
+        bAddEdit = false;
+        _EDIT_INDEX = rowindex-1;
+        _EDIT_ID = row.id;
+
+        $('#txtEmailName').val(row.EmailName);
+        $('#txtEmailPass').val(row.EmailPass);
+
+
+
+
+
+    }
+
+
+
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+
+
+        _row.EmailName = $('#txtEmailName').val();
+        _row.EmailPass = $('#txtEmailPass').val();
+
+        msg = '';
+
+
+
+        if (msg != '') {
+           $('#lbthongbao').html('Error: ' + msg);
+            return false;
+        }
+
+        return true;
+    }
+    //------------- end valid a record
+    function _getGroupName(obj)
+    {
+        var s = '';
+        for (i = 0; i < obj.length; i++)
+        {
+            s += '<span class="groupname" >' + obj[i] + '</span>';
+        }
+        return s;
+    }
+
+    function _showGrid() {
+
+        debugger;
+       var crudServiceBaseUrl = controllerURL;
+
+
+
+        $("#grid_noidung").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "/GetList/" + js_mn_tt,
+                        dataType: "json"
+                    }
+                },
+
+                //data: data,
+                schema: {
+                    parse : function(data) {
+                                return data.data;
+                        }
+                },
+                pageSize: @ViewBag.pagesize
+            },
+            filterable: {
+               // mode:"row",
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains...",
+                        startswith: "Starts with",
+                        eq: "Is equal to"
+                        //, neq: "Is not equal to"
+                    }
+                }
+            },
+
+            // height: 500,
+            //toolbar: ["excel"],
+            scrollable: false,
+            sortable: { mode: "multiple", allowUnsort: true },
+            pageable: { input: false, numeric: true },
+            reorderable: true,
+            resizable: true,
+            groupable: true,
+            allowCopy: true,
+            selectable: "multiple cell",
+            excel: {
+                fileName: exportFileName + ".xlsx",
+                allPages: true,
+                filterable: true
+            },
+            pdf: {
+                author: "RIC Total",
+                creator: "RIC Total",
+                date: new Date(),
+                fileName: exportFileName + ".pdf",
+                subject: "RIC Total: " + exportFileName,
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",
+                landscape: true,
+                scale: 0.8,
+                avoidLinks: true,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                allPages: true
+            },
+
+            columns: [
+                {field: "id", title: "No.", template: "#= ++recordnumber#", filterable: false   , sortable: false},
+                {
+                    title: "<input type=checkbox id='ckcheckall' onclick='_checkAll();'>"
+                    , template: "<input type=checkbox value='#=id#'>"               , filterable: false , sortable: false
+                }, {
+                    title: ""
+                    , template: "<a href='javascript://' class='bg-green' title='Thông tin chi tiết => Sửa'  style='padding:5px;' onclick=' _editItem(\"#=id#\",\"#= recordnumber #\")'  data-toggle='modal' data-target='\\#dlg@(ViewBag.tblname)'><i class='fa fa-edit'></a>"
+                    , filterable: false  , sortable: false
+                },
+                { field: "EmailName", title: "Địa chỉ email", filterable: { cell: { operator: "contains" } } },
+                { field: "EmailPass", title: "Mật khẩu", filterable: { cell: { operator: "contains" } } },
+
+
+
+       ],
+            dataBound: function (e) {
+                recordnumber = 0;
+                for (var i = 0; i < this.columns.length; i++) this.autoFitColumn(i);
+            }
+        }) ;
+
+         grid = $("#grid_noidung").data("kendoGrid");
+    }
+
+
+
+
+    function _gridUpdateItem() {
+
+        var grid = $("#grid_noidung").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var dataItem = grid.dataItem("tbody tr:eq(" + _EDIT_INDEX + ")"); //get data
+        dataItem["EmailName"] = _row.EmailName;
+        dataItem["EmailPass"] = _row.EmailPass;
+
+
+        grid.refresh();
+    }
+    //-------------end edit a record
+
+
+</script>

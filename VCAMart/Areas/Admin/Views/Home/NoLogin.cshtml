@@ -1,0 +1,114 @@
+﻿@{
+    RICTotalAdmin.Models.common.InitDefault();
+ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ATC - AI Platform system</title>
+    <meta content="@Html.Raw(RICTotalAdmin.Models.common.app_keywords)" name="keywords">
+    <meta content="@Html.Raw(RICTotalAdmin.Models.common.app_description)" name="description">
+
+    <!-- Tell the browser to be responsive to screen width -->
+   
+    <link rel="shortcut icon" href="favicon.ico">
+ 
+    <link href="~/Areas/Admin/Styles/googlefont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/skin.css">
+    <link rel="stylesheet" href="~/Areas/Admin/Styles/common.css?v=2">
+  
+   
+    <script>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Areas/Admin/Scripts/common.js")))
+   
+    </script>
+
+</head>
+<body class="hold-transition login-page"  style="overflow-y:hidden;" >
+ 
+    <div class="login-box login-bg" style="background-color:#fff;border:2px solid green;border-radius:5px;">
+        <div class="login-logo" style="padding-top:10px;margin-bottom:10px;" >
+           
+            <div style="color:#000; margin-top:10px; font-size:20pt;">
+             QUẢN TRỊ HỆ THỐNG</div> 
+            
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body" style="">
+          
+
+            <form>
+               
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <a href="/Admin/Login" class="btn bg-green btn-block btn-flat"><i class="glyphicon glyphicon-ok"> </i>&nbsp;&nbsp;&nbsp;Đăng nhập</a>
+                        <a href="/Admin/Signup" class="btn bg-green btn-block btn-flat"><i class="glyphicon glyphicon-user"> </i>&nbsp;&nbsp;&nbsp;Đăng ký</a>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+ 
+
+            
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery 3 --> 
+    
+    <div class="ajaxloading fa fa-spinner fa-spin" style="display:none;"></div>
+    <div class="ajaxloading_bg" style="display:none;"></div>
+
+
+    <script src="~/Areas/Admin/Scripts/jquery.min.js"></script>
+   
+    <script src="~/Areas/Admin/Scripts/bootstrap.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/common.js"></script>
+
+    <script>
+ 
+
+  function _login() {
+      var uid = $.trim($('#txtuid').val());
+      var pwd = $.trim($('#txtpwd').val());
+      var url = '/Admin/Login/LoginProcess';
+
+      //alert(url + uid + pwd);
+      $.post(url, { u: uid, p: pwd }, function (data) {
+          if (data == '100') {
+             window.location = '/Admin/';
+          } else {
+              $('#txtmsg').html(data);
+          }
+
+
+      });
+  }
+  function InitDefault() {
+      bLoadDataCommon = false;
+  }
+
+  $(document).ready(function () {
+       
+      $('.ajaxloading_bg').hide();
+      $('.ajaxloading').hide();
+      $('#cmdlogin').click(function () {
+          _login(); return false;
+
+      })
+  });
+    </script>
+	<script src="~/Areas/Admin/js/talk.js"></script>
+</body>
+</html>

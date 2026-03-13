@@ -1,0 +1,976 @@
+﻿body{
+    color:#494B49;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    text-align:justify;
+     
+}
+a {
+    text-shadow: none;
+    color: #494B49;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    cursor:pointer;
+    
+}
+ 
+a:hover{
+    color:#DB8E0A;
+}
+img{
+    width:100%;
+    height:auto;
+
+}
+
+#breadcrumb {
+  -webkit-box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.175);
+  box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.175);
+  font-family:Arial;
+  font-size:15px;
+  color:#494B49;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  border: none;
+  border-radius: 0px;
+  padding: 15px 0px;
+  margin: 0;
+  
+  color:#494B49;
+}
+
+.breadcrumb>.active {
+  color: #F8694A;
+}
+
+.breadcrumb>li+li:before {
+  color: #DADADA;
+}
+
+/*----------------------------*\
+	Search header
+\*----------------------------*/
+
+.header-search {
+  display: inline-block;
+   padding: 1px 0px;
+  max-width: 400px;
+}
+
+.header-search>form {
+  position: relative;
+}
+
+.header-search>form .search-input {
+  padding-left: 150px;
+  padding-right: 45px;
+ 
+   
+}
+
+.header-search>form .search-categories {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100px;
+}
+
+.header-search>form .search-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+}
+
+/*----------------------------*\
+	Account header
+\*----------------------------*/
+
+.header-btns>li {
+  display: inline-block;
+  vertical-align: top;
+  padding: 1px 0px;
+}
+
+.header-btns>li+li {
+  margin-left: 15px;
+}
+
+.header-btns>li .header-btns-icon {
+  position: relative;
+  float: left;
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #30323A;
+  background-color: #FFF;
+  border: 1px solid #DADADA;
+  
+}
+
+.header-btns .dropdown-toggle {
+  display: block;
+  cursor: pointer;
+}
+
+.header-account.dropdown .custom-menu>li>a>i {
+  margin-right: 15px;
+  color: #F8694A;
+}
+
+/*----------------------------*\
+	Cart header
+\*----------------------------*/
+
+.header-cart .header-btns-icon .qty {
+  position: absolute;
+  right: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 10px;
+  background: #F8694A;
+  color: #FFF;
+  border-radius: 50%;
+}
+
+.header-cart.dropdown .custom-menu {
+  width: 300px;
+}
+
+#shopping-cart .shopping-cart-list {
+  max-height: 260px;
+  margin-bottom: 15px;
+  overflow-y: scroll;
+}
+
+#shopping-cart .shopping-cart-list .product.product-widget:first-child {
+  margin-top: 0px;
+}
+
+#shopping-cart .shopping-cart-list .product.product-widget:last-child {
+  margin-bottom: 0px;
+}
+
+#shopping-cart .shopping-cart-btns>button {
+  width: calc(50% - 2px);
+}
+
+/*=========================================================
+	03 -> NAVIGATION
+===========================================================*/
+/*Dinh dang form nhap du lieu*/
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0px 15px;
+  border: none;
+  background-color: transparent;
+  -webkit-box-shadow: 0px 0px 0px 1px #DADADA inset, 0px 0px 0px 5px transparent;
+  box-shadow: 0px 0px 0px 1px #DADADA inset, 0px 0px 0px 5px transparent;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+  
+}
+
+.input:focus {
+  -webkit-box-shadow: 0px 0px 0px 1px #F8694A inset, 0px 0px 0px 0px #F8694A;
+  box-shadow: 0px 0px 0px 1px #F8694A inset, 0px 0px 0px 0px #F8694A;
+}
+
+textarea.input {
+  padding: 15px;
+}
+
+.input-checkbox .caption {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: 0.3s max-height;
+  transition: 0.3s max-height;
+}
+
+.input-checkbox>label {
+  color: #30323A;
+}
+
+.input-checkbox input[type="checkbox"]:checked+label+.caption, .input-checkbox input[type="radio"]:checked+label+.caption {
+  max-height: 800px;
+}
+/*====================================================*/
+/*----------------------------*\
+	Dropdowns
+\*----------------------------*/
+
+.custom-menu {
+
+  position: absolute;
+  
+  padding: 0px;
+  background: #1CB20B;
+  -webkit-box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+  z-index: 100;
+  top: 100%;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+  margin-left:-1px;
+    
+}
+
+.dropdown.open>.custom-menu {
+  opacity: 1;
+  visibility: visible;
+   
+}
+.dropdown.open>.custom-menu li a:hover {
+  background-color:#2C7F17;
+   
+}
+
+/*-- Default Dropdown --*/
+
+.dropdown.default-dropdown>.custom-menu {
+  border-top: 1px solid #F8694A;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(15px);
+  -ms-transform: translateX(-50%) translateY(15px);
+  transform: translateX(-50%) translateY(15px);
+  top:105%;
+}
+
+.dropdown.default-dropdown.open>.custom-menu {
+  -webkit-transform: translateX(-50%) translateY(0px);
+  -ms-transform: translateX(-50%) translateY(0px);
+  transform: translateX(-50%) translateY(0px);
+}
+
+.dropdown.default-dropdown>.custom-menu>li>a {
+  display: block;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size:12px;
+  font-weight:normal;
+  color:#E1D5D5;
+   
+}
+
+/*-- Mega Dropdown --*/
+
+.dropdown.mega-dropdown.full-width {
+  position: static !important;
+}
+
+.dropdown.mega-dropdown>.custom-menu {
+  border-top: 2px solid #F8694A;
+  left: 0;
+  -webkit-transform: translate(0px, 15px);
+  -ms-transform: translate(0px, 15px);
+  transform: translate(0px, 15px);
+  width: auto;
+  /*min-width: 750px;*/
+  max-width: 100%;
+}
+
+.dropdown.mega-dropdown.full-width>.custom-menu {
+  width: 100%;
+}
+
+.dropdown.mega-dropdown.open>.custom-menu {
+  -webkit-transform: translate(0px, 0px);
+  -ms-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+}
+
+/*-- Side Dropdown --*/
+
+.dropdown.side-dropdown>.custom-menu {
+/*  border-left: 2px solid #F8694A;*/
+  left: 100%;
+  top: 0;
+  /*width: 750px;*/
+  -webkit-transform: translate(15px, 0px);
+  -ms-transform: translate(15px, 0px);
+  transform: translate(15px, 0px);
+}
+
+.dropdown.side-dropdown.open>.custom-menu {
+  -webkit-transform: translate(0px, 0px);
+  -ms-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+}
+
+/*----------------------------*\
+	Mobile nav
+\*----------------------------*/
+
+#header .nav-toggle {
+  display: none;
+}
+
+/*Tao menu don gian bang ul*/
+.vertical-menu {
+  width: 100%;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+/*===============================================================*/
+/*Begin Grid layout*/
+.grid1 {
+  width: 100%;
+  display: grid;
+  grid-gap: 2%;
+  grid-template-columns: repeat(3, 32%);
+               /* border:1px solid #000;*/
+  margin-bottom: 2em;                             
+}
+      
+.grid4col {
+    width: 100%;
+    display: grid;
+    grid-gap: 2%;
+    grid-template-columns: repeat(4, 23.5%);
+               /* border:1px solid #000;*/
+    margin-bottom: 2em;
+}
+
+.grid4col2 {
+   width: 100%;
+   display: grid;
+   grid-gap: 2%;
+   grid-template-columns: repeat(4, 23.5%);
+               /* border:1px solid #000;*/
+   margin-bottom: 2em;
+}
+ .box1 {
+      background-color:transparent;
+      color: #494B49;
+      border-radius: 0px;
+      padding-top: 5px;
+      padding-bottom:5px;
+     
+      padding-left:0px;
+      padding-right:0px;
+
+    }
+/*-----------------------------------------------*/
+ 
+   
+/* ----------------Dinh dang dong thong tin dia chi dau trang*/
+    .outer{
+         display: inline-block; 
+         margin: 2px;
+         float:left;
+    }
+    .inner{  
+       
+        height: 30px;  
+        vertical-align: middle;
+        text-align: center;
+        display: table-cell;
+        font-size:14px;
+    }    
+    
+    .fusion-header-separator{display:inline-block;padding:0px; color:#494B49}
+    .titleAddressTop{color:#494B49; }
+
+    .FloatRight{
+        float:right;
+    }
+   
+    .fa-facebook-square {
+      color: #1BA3F1;
+      background-image: linear-gradient( to bottom, transparent 20%, white 20%, white 93%, transparent 93% );
+      background-size: 55%;
+      background-position: 70% 0;
+      background-repeat: no-repeat;
+      font-size: 2em;
+    }
+     .fa-twitter-square {
+      color: #1BA3F1;
+      background-image: linear-gradient( to bottom, transparent 20%, white 20%, white 93%, transparent 93% );
+      background-size: 55%;
+      background-position: 70% 0;
+      background-repeat: no-repeat;
+      font-size: 2em;
+    }
+     .img-hot-new{
+         width:114px;
+     }
+
+/* ------------------------------*/
+/*------------Dinh dang cho banner top*/
+    .img-banner-slide{
+        margin-right:30px;
+    }
+
+    .img-counter{
+        width:20px;
+    }
+    .img-visitor{
+        width:16px;
+    }
+
+    .spaceRow1{
+        height:60px;
+    }
+     .spaceRow10{
+        height:0px;
+    }
+   #abc{
+       padding-left:15px;
+   }
+/*----------------------Dinh dang cho slide show top */
+        
+        div.img-banner-slide  div{
+             margin:0px;
+        }
+        
+        .slider {
+            width: 100%;
+            margin-top: 0px;
+           
+        }
+       
+        .slick-slide {
+           
+             margin-left:20px;    
+             margin-right:10px;      
+        } 
+         
+       .slick-slide img {
+          width: 100%;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: black;
+        }
+
+        .slick-slide {
+            transition: all ease-in-out .3s;
+            opacity: 1;
+        }
+
+        .slick-active {
+            opacity: 1;
+            
+        }
+        .slick-current {
+            opacity: 1;
+        }
+/*==================================================================*/
+/*=========Dinh danh cho du lieu text trong trang*/
+    /*Tao thanh ke ngang */
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        /*.separator::before, */
+        .separator::after {
+            content: '';
+            flex: 1;
+            height: 7px;
+            border-bottom: 1px solid #565670;
+            border-top: 1px solid #565670; 
+        }
+        .separator::before {
+            margin-right: .25em;
+        }
+        .separator::after {
+            margin-left: .25em;
+        }
+    /*------Tieu de 1 cho chu dam-------------------*/
+    
+        .head1Bold {
+           font-family:Arial, Helvetica, sans-serif;
+           font-size:14px;
+           font-weight:bold;
+           color:#494B49;
+           text-align:left;
+           padding-top:10px;
+        }
+         .head1BoldWhite {
+           font-family:Arial, Helvetica, sans-serif;
+           font-size:14px;
+           font-weight:bold;
+           color:#ffffff;
+           text-align:left;
+        }
+    .titleHeadMenu
+    {
+         font-family:Arial, Helvetica, sans-serif;
+         font-size:14px;
+         font-weight:bold;
+         color:#ffffff;
+         text-align:left;
+    }
+    .titleBlue{
+       background-color:#247E0C;
+       padding:7px;
+       color:#ffffff;
+       font-weight:bold;
+       font-family:Arial;
+       font-size:14px;
+    }
+    .titleCam{
+        background-color:#DC8D0A;
+       padding:7px;
+       color:#ffffff;
+       font-weight:bold;
+       font-family:Arial;
+       font-size:14px;
+    }
+    .head1
+    {
+        padding-top:10px;
+        text-align:justify;
+    
+    }
+    .TitleVisitor
+    {
+        color:#ffffff;
+        padding-bottom:5px;
+    }
+    /*------------Lien ket ung voi tieu de 1*/
+   a.linkhead1Bold:link {
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:15px;
+        font-weight:bold;
+        color:#494B49;
+        text-align:left;
+    }
+
+    /* visited link */
+    a.linkhead1Bold:visited {
+        color:#494B49;
+        text-align:left;
+    }
+
+    /* mouse over link */
+    a.linkhead1Bold:hover {
+      color: #19ACEE;
+      text-decoration:none;
+    }
+
+    /* selected link */
+    a.linkhead1Bold:active {
+      color: #494B49;
+    }
+   
+    /*=================Link tin tuc===============*/
+   
+     a.newlink:link {
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:14px; 
+        color:#494B49;
+        text-align:left;
+    }
+    a.newlink:visited {
+        color:#F2FFEF;
+        text-align:left;
+    }
+    /* mouse over link */
+    a.newlink:hover {
+      color: #19ACEE;
+      text-decoration:none;
+    }
+    /* selected link */
+    a.newlink:active {
+      color: #494B49;
+    }
+    /*========================================*/
+   
+    .newDocumentDate{
+        color:#F2FFEF;
+        font-family:Arial;
+        font-size:14px;
+        padding-bottom:5px;
+        padding-top:5px;
+        font-style:italic;
+    }
+
+    .tableNewDocument{
+        padding-bottom:5px;
+        padding-top:4px;
+        border-bottom:1px dotted #88889A;
+    }
+    
+  
+
+/*==========Responsive for all image ==========================================*/
+     .img-responsive{
+	    width:100%;
+	    height:auto;
+        padding-bottom:5px;
+      }
+
+  /* Dinh dang chu bao quanh anh*/
+    .bandmemberinfo-container {
+      display: inline-flex;
+      width: 100%;
+     /* background-color: black;*/
+      height: auto;
+      margin-top: 1em;
+     /* border: 1px red solid;*/
+      color: #fff;
+    }
+    .img_wrap {
+      float: left;
+      width: 50%;
+     /* border: 1px yellow dashed;*/
+    }
+    .img_wrap img {
+      height: auto;
+     /* max-width: 100%;*/
+      width:80px;
+    }
+/*----------------------------------------------------*/
+/* Dinh dang chu bao quanh anh cho phan tin tuc*/
+    .newinfo-container {
+      display: inline-flex;
+      width: 100%;
+  
+      height: auto;
+      margin-top: 1em;
+      color: #fff;
+     /* text-transform:lowercase; */
+      text-align:justify;
+      font-family:Arial;
+      font-size:14px;
+      initial-letter:1;
+ 
+    }
+    .new_two::first-letter {
+      text-transform:uppercase;
+    }
+
+    .new_img_wrap {
+      float: left;
+      width: 40%;
+    }
+    .new_img_wrap img {
+      height: auto;
+      max-width: 100%;
+    }
+    .new_two {
+      float: left;
+      margin-top:0px;
+      margin-left:10px;
+      width: 100%;
+    }
+
+    .spaceRight20{
+        margin-right:30px;
+    }
+
+/*Dinh dang thong tin dia chi*/
+    .address{
+        color:#F2FFEF;
+        padding-top:20px;
+        padding-bottom:20px;
+        line-height:2;
+        margin-left:0px;
+    }
+    .address ul{
+        list-style-position: inside; 
+        padding-left: 1.2em;
+    }
+    .address li{
+      list-style:square;
+    }
+
+/*============Dinh dang thong tin footer*/
+    .footer {
+      color:#F2FFEF;
+      text-align:center;
+    }
+
+    .footer .footer-header {
+      font-size: 18px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      color:#F2FFEF;
+    }
+
+    .footer-logo {
+      margin-bottom: 30px;
+    }
+
+    .footer-logo .logo {
+      display: inline-block;
+    }
+
+    .footer-logo .logo>img {
+      width: 100%;
+     /* max-height: 70px;*/
+    }
+
+    .footer-social>li {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 6px;
+  
+    }
+    .footer-social a {
+        color:#494B49;
+    }
+    .footer-social a:hover {
+        color:blue;
+    }
+    .footer-social>li:last-child {
+      margin-right: 0px;
+    }
+
+    .footer-copyright {
+      margin-top: 15px;
+      text-transform: uppercase;
+      font-size: 14px;
+      color:#494B49;
+    }
+ /*--------------Cac dinh dang cho trang contentArtic*/
+  .col-left-ContentArticles{
+        width:270px;
+    }   
+
+/*====DINH DANG CHO TIN TUC VOI KHUNG NHIN===============================================*/
+    .thumb{
+        margin-bottom: 1px;
+        padding: 10px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        position:relative;
+        color:#494B49;
+        background-color:#D7D5DF;
+       /* min-height:450px;*/
+    
+    }
+    .thumb_products{
+         margin-bottom: 5px;
+        padding: 5px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        position:relative;
+        border:solid 1px #cccccc;
+        text-align:center;
+        min-height:340px;
+    }
+
+    .item.list-group-item{
+        float: none;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 5px;
+        display:inline-block;
+        padding:0px;
+        border:0px;
+    }
+/*
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+   
+}*/
+
+        .item.list-group-item .list-group-image{
+            margin-right: 10px;
+        }
+        .item.list-group-item .thumbnail{
+            margin-bottom: 2px;
+        }
+        .item.list-group-item .caption{
+            padding:0px;
+            text-align:left;
+        }
+        .item.list-group-item:nth-of-type(odd){
+            background: #D7D5DF;
+        }
+
+        .item.list-group-item:before, .item.list-group-item:after{
+            display: table;
+            content: " ";
+        }
+
+        .item.list-group-item img{
+            float: left;
+            max-width: 250px;
+        }
+        .item.list-group-item:after{
+            clear: both;
+        }
+        .list-group-item-text{
+            margin: 0 0 11px;
+        }
+/*===============RESPONSIVE FOR MEDIA           */
+
+ 
+@media (max-width: 1199.98px) {
+     
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) {
+
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+     body{
+              font-size:12px;
+              color:#494B49;
+         }
+         a {
+            text-shadow: none;
+            color: #494B49;
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:12px;
+         }
+
+         
+         .inner{
+           font-size:12px;
+         }
+         .img-hot-new{
+            width:95px;
+         }
+         .img-counter{
+             width:16px;
+          }
+       
+        .grid1 {
+            width: 100%;
+            display: grid;
+            grid-gap: 2%;
+            grid-template-columns: repeat(2, 49%);
+                           /* border:1px solid #000;*/
+            margin-bottom: 2em;
+        }
+        .grid4col {
+            width: 100%;
+            display: grid;
+            grid-gap: 2%;
+            grid-template-columns: repeat(2, 49%);
+                       /* border:1px solid #000;*/
+            margin-bottom: 2em;
+        }
+        /*------Tieu de 1 cho chu dam-------------------*/
+        .head1Bold {
+           font-family:Arial, Helvetica, sans-serif;
+           font-size:13px;
+           font-weight:bold;
+           color:#494B49;
+           text-align:left;
+        }
+            /*------------Lien ket ung voi tieu de 1*/
+        a.linkhead1Bold:link {
+           font-family:Arial, Helvetica, sans-serif;
+           font-size:14px;
+           font-weight:bold;
+           color:#494B49;
+           text-align:left;
+        }
+            /* visited link */
+        a.linkhead1Bold:visited {
+          color:#494B49;
+          text-align:left;
+        }
+            /* mouse over link */
+        a.linkhead1Bold:hover {
+           color: #494B49;
+           text-decoration:none;
+        }
+
+            /* selected link */
+        a.linkhead1Bold:active {
+           color: #494B49;
+        }
+       .head1{
+           padding-bottom:10px;
+           padding-top:10px;
+       }
+       .titleBlue{
+           background-color:#247E0C;
+           padding:5px;
+           color:#ffffff;
+           font-weight:bold;
+           font-family:Arial;
+           font-size:13px;
+        }
+    .titleCam{
+       background-color:#DC8D0A;
+       padding:5px;
+       color:#ffffff;
+       font-weight:bold;
+       font-family:Arial;
+       font-size:13px;
+    }
+
+        .img_wrap {
+            float: left;
+            width: 40%;
+             /* border: 1px yellow dashed;*/
+        }
+        .img_wrap img {
+            height: auto;
+             /* max-width: 100%;*/
+            width:100px;
+        }
+
+     
+
+            /*Dinh dang hinh anh trong tin tuc*/
+        .item.list-group-item img{
+           float: left;
+           max-width: 120px;
+        }
+        .spaceRight20{
+             margin-right:0px;
+         }
+         .img-banner-slide{
+            margin-right:2px;
+        }
+        #abc
+        {
+            padding-left:0px;
+        }
+/*-----------------------*/
+}
+
+  
+
+ 

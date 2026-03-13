@@ -1,0 +1,184 @@
+﻿ 
+ 
+
+<div class="modal fade" id="EV_Dlg" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span style="font-family:'Times New Roman'"> Đổi mật khẩu</span></h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="box-body">
+                    <table border="0" style="border-spacing: 10px;border-collapse: separate; width:100%;">
+                        <tr>
+                            <td style="width:40%">Mật khẩu cũ:</td>
+                            <td><input type="password" class="form-control " id="txtOddPassWord" placeholder="Nhập mật khẩu cũ" /></td>
+                        </tr>
+                        <tr>
+                            <td>Mật khẩu mới:</td>
+                            <td><input type="password" class="form-control" id="txtNewPassWord" placeholder="Nhập mật khẩu mới" /></td>
+                        </tr>
+                        <tr>
+                            <td>Xác nhận mật khẩu:</td>
+                            <td><input type="password" class="form-control" id="txtConfirmPassWord" placeholder="Xác nhận mật khẩu mới" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Hủy</button>
+                <button type="button" class="btn btn-primary pull-left" id="cmdSavePassWord"><i class="fa fa-save"></i>&nbsp; Lưu </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+ 
+  <!--Thong tin cac hop hoi thoai trong tep common_dialog-->
+  
+  <!--
+ 
+            <div class="hidden-xs pull-left">             
+               
+                <div class="header-search">
+                    <form>
+                        <input class="input search-input" type="text" placeholder="Tìm kiếm" style="background-color:#ffffff">
+                       <select class="input search-categories" >
+                            <option value="0">Tất cả</option>
+                            <option value="1">Hàng hóa thủ công</option>
+                            <option value="2">Gốm xứ</option>
+                            <option value="3">...</option>
+                        </select> 
+                        <button class="search-btn" type="button"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                
+            </div>
+ -->
+
+          <div class="pull-right" >
+                <ul class="header-btns" style="padding-bottom:0px;margin:10px;z-index:99999">                   
+                    <!-- Account -->
+                    @{
+                        //string a1 = System.Web.HttpContext.Current.Session["user_logined"].ToString();
+                        //string a2 = System.Web.HttpContext.Current.Session["user_logined"].ToString();
+                        //string a3 = LIB.ConfigInfo.userLoginedConfirm.ToString();
+
+                        if (System.Web.HttpContext.Current.Session["MB_logined"] != null && System.Web.HttpContext.Current.Session["MB_logined"].ToString() == LIB.ConfigInfo.MBLoginedConfirm)
+                        {
+                            <li class="header-account dropdown default-dropdown">
+                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                    <div class="header-btns-icon">
+                                        @{if (ViewBag.MB_avata !=null)
+                                            {
+                                                <img src="@ViewBag.MB_avata" style="width:60%;padding:0px;margin:0px;" alt="Avata" class="img-circle" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Images/user2-160x160.jpg" style="width:60%;padding:0px;margin:0px;" alt="Avata" class="img-circle" />
+                                            }
+
+                                        }
+                                        
+                                    </div>
+                                    <span style="color:#000000">@ViewBag.MB_fullname<br />@ViewBag.MB_name <i class="fa fa-caret-down"></i></span>
+                                </div>
+
+                                <ul class="custom-menu" style="list-style:none;">
+                                    <!--
+     <li><a href="~/Member/Profile/1"><i class="fa fa-user-o"></i> Thông tin chung</a></li>
+     <li>
+
+         <a href="#" id="cmdChangePass" data-toggle="modal" data-target="#EV_Dlg"><i class="fa fa-refresh"></i>Đổi mật khẩu </a>
+     </li>
+     -->
+                                    <li><a href="~/Logout"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="header-account dropdown default-dropdown" style="vertical-align:middle; padding-top:10px; list-style:none; color:#000000">
+                                <div class="dropdown-toggle " role="button" >
+                                   <!-- <div class="header-btns-icon">
+                                        <i class="fa fa-user-o"></i>
+                                    </div> -->
+                                    <a style="color:#000000; font-family:Arial;font-size:13px; font-weight:normal" href="~/DangNhap">Đăng nhập</a> 
+                                    |
+                                    <a style="color:#000000; font-family:Arial;font-size:13px; font-weight:normal" href="~/Signup">Đăng ký</a>
+                                   |
+                                    <a href="/Cart/0" style="font-family:Arial, Helvetica, sans-serif; color:#000000; font-size:20px;">
+                                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                        <span id="lblCartCount">@ViewBag.cartCount</span>
+                                    </a>
+                                   
+                                   
+                                </div>
+                            </li>
+                            
+                        }
+                    }
+                    <!-- /Account -->                  
+                   
+                </ul>
+              
+          </div>
+         
+ 
+        
+ 
+<script>
+    $(document).ready(function () {
+
+      
+        $('#cmdSavePassWord').click(function () {
+            saveChangePassword();
+        });
+    });
+
+    function saveChangePassword() {
+
+    
+
+        var mk = '@ViewBag.userPass';
+
+        var o_p = $.trim($('#txtOddPassWord').val());
+        var n_p = $.trim($('#txtNewPassWord').val());
+        var n_p1 = $.trim($('#txtConfirmPassWord').val());
+        o_p = o_p.replace(/\'/g, '');
+        n_p = n_p.replace(/\'/g, '');
+        n_p1 = n_p1.replace(/\'/g, '');
+        var msg = '';
+
+        if (o_p != mk) msg += "<br>+ Mật khẩu không chính xác.";
+        if (o_p == '') msg += "<br> - Vào mật khẩu cũ."
+        if (n_p == '') msg += "<br> - Vào mật khẩu mới."
+        if (n_p1 == '') msg += "<br> - Vào mật khẩu xác nhận."
+
+        if (n_p != n_p1) msg += "<br> - Mật khẩu mới và mật khẩu Xác nhận phải giống nhau."
+        if (msg != '') {
+            meAlert('Thông báo', 'Lỗi:' + msg, 400);
+            return false;
+        }
+
+        var row = {
+            oddPassWord: o_p, newPassWord: n_p, confirmPassWord: n_p1
+        };
+        $.post('/Member/Profile/UpdatePassWord/1', { data: JSON.stringify(row) }, function (data) {
+            if (data.code / 1 != 100) {
+                meAlert('Thông báo', 'Lỗi:' + data.msg, 400);
+                $('#EV_Dlg').modal('hide');
+                return false;
+            }
+           
+            meAlert('Thông báo', 'Đổi mật khẩu thành công.', 400);
+            $('#EV_Dlg').modal('hide');
+            //$("#dlgchangepassword").data("kendoWindow").close();
+        });
+    }
+</script>

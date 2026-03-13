@@ -1,0 +1,298 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Html.Raw(RICTotal.Models.common.app_title)</title>
+    <meta content="@Html.Raw(RICTotal.Models.common.app_keywords)" name="keywords">
+    <meta content="@Html.Raw(RICTotal.Models.common.app_description)" name="description">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" href="~/Marquee/examples.css" />
+
+    <script src="~/Scripts/jQueryCaruel/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+
+    <!--THong tin cho soan thao van ban -->
+    <script src="~/Content/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="~/Content/ckfinder/ckfinder.js" type="text/javascript"></script>
+
+
+
+
+    <script>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/common.js")))
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/App/mrictotal.js")))
+
+    </script>
+
+
+
+</head>
+
+<body style="margin-left:0px; margin-top:0px" ng-app="mtmain">
+    <!--Begin menu top-->
+    <div id="navigation" style="background-color:#484D85; padding:0px; border-bottom:1px solid #7377A3">
+        <div class="container" style="padding:0px">
+            <div class="row">
+                <div class="col-lg-9 col-xs-12 fusion-contact-info">
+                    <a href="https://www.facebook.com/cpavietnam.vn/" target="_blank"><img src="~/img/facebookIcon.jpg" style="width:26px" /></a>
+                    <a href="https://twitter.com/Cpavietnam" target="_blank"><img src="~/img/twisterIcon.jpg" style="width:26px" /></a>
+
+                    024 3783 2121 <span class="fusion-header-separator">|</span> CSKH : 024 3202 6888<span class="fusion-header-separator">|</span>
+                    <a href="mailto: info@cpavietnam.vn"> info@cpavietnam.vn</a> ;
+                    <a href="mailto: hotro@cpavietnam.vn">hotro@cpavietnam.vn</a>
+
+                </div>
+
+
+                <div class="col-lg-3 col-xs-12 fusion-contact-info" style="text-align:right">
+                    <div style="display: inline;  position:relative; padding:0px; margin:0px;padding:4px; border-right:1px solid #597899">
+                        <a href="/Home/ChangeLanguage/1"> <img src="~/img/VietNamFlag.png" style="width:16px" /> Vietnamese </a>
+                    </div>
+                    <div style="display: inline;  position:relative; padding:0px; margin:0px; padding:4px;">
+                        <a href="/Home/ChangeLanguage/2"> <img src="~/img/EnglishFlag.png" style="width:16px" /> English </a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <!--End of menu top-->
+    <!--Begin of Banner Top-->
+    <div class="section" style="background-color:#484D85; padding:0px;  ">
+        <div class="container" style="padding:0px;">
+            <div id="BannerMain">
+                <div id="BanerLEFT">
+                    <a href="/Home">  <img src="~/img/logocpa.png" class="img-responsive" /></a>
+                </div>
+                <div id="BanerCENTER">
+                    <img class="img-responsive" src='@ViewBag.banner_img' />
+                </div>
+                <div id="BanerRIGHT">
+                    <img class="img-responsive" src="~/img/logoMoore.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Banner Top-->
+    <!-- Begin of Main Menu-->
+    <div id="navigation" style="background-color:#187094; padding:0px;  ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11" style="margin:0px; padding:0px;">
+                    @Html.Partial("_header")
+                </div>
+                <div class="menuSearch col-lg-1">
+                    <a href='javascript:displaySearch();'><i style='color:#ffffff' class='glyphicon glyphicon-search'></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End of Main Menu-->
+    <!-- Slogan scroll-->
+    <div class="section" style="background-color:#151522;  ">
+        <div class="container" style="padding-top:5px;padding-bottom:5px; padding-left:0px; padding-right:0px">
+
+            <div class="col-lg-1" style="padding:0px; margin:0px">
+                <img src="@ViewBag.New_Title_Hot" style="width:114px" />
+            </div>
+            <div class="col-lg-11" style="margin-top:5px;margin-right:0px; padding-right:0px">
+                <div class="promo-carousel" id="grouploop-1">
+                    <div class="itemMarquee-wrap">
+
+                        @{
+                            for (int i = 0; i < ViewBag.HotNew.Rows.Count; i++)
+                            {
+                                <div class="itemMarquee active" style="width:250px;max-width:250px;">
+                                    <a href="/ContentArticlesDetails/@ViewBag.HotNew.Rows[i]["CA_Identify"].ToString()">@ViewBag.HotNew.Rows[i]["CC_Name"].ToString()</a>
+                                </div>
+                                <div class="itemMarquee">
+                                    <a href="/ContentArticlesDetails/@ViewBag.HotNew.Rows[i]["CA_Identify"].ToString()"> @ViewBag.HotNew.Rows[i]["CA_Title"].ToString()</a>
+
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- End of Slogan scroll-->
+    <div id="navigation" style="background-color:#282948;">
+        <div class="container" style="border-bottom:solid 1px #4D4E67; ">
+            @Html.Partial("_breadcrumb")
+        </div>
+    </div>
+
+
+    <!--Begin  Menu Left-->
+
+    <div class="section" style="background-color:#282948; padding:0px; ">
+        <div style="height:30px;"></div>
+        <div class="container" style="padding:0px;">
+            @RenderBody()
+        </div>    
+    </div>
+
+
+    <!--Tạo hang trong-->
+    <div id="navigation" style="background-color:#282948; padding:0px; height:30px; "></div>
+
+    <!--End Tạo hang trong-->
+    <!--Begin of Address-->
+    <div class="section" style="background-color:#20213A;">
+        <div style="height:20px"></div>
+        <div class="container" style="padding:0px">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="padding:0px">
+                <div class="newdocument">@ViewBag.Address.Rows[0]["Add_Title"].ToString()</div>
+                <div class="address">@Html.Raw(ViewBag.Address.Rows[0]["Add_ContentBody"].ToString())</div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="newdocument">@ViewBag.Address.Rows[1]["Add_Title"].ToString()</div>
+                <div class="address">@Html.Raw(ViewBag.Address.Rows[1]["Add_ContentBody"].ToString())</div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="newdocument">@ViewBag.Address.Rows[2]["Add_Title"].ToString()</div>
+                <div class="address">@Html.Raw(ViewBag.Address.Rows[2]["Add_ContentBody"].ToString())</div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="newdocument">@ViewBag.Address.Rows[3]["Add_Title"].ToString()</div>
+                <div class="address">@Html.Raw(ViewBag.Address.Rows[3]["Add_ContentBody"].ToString())</div>
+            </div>
+        </div>
+    </div>
+    <!--End of Address-->
+    <!--Begin of Footer-->
+    <div class="section" style="background-color:#187094; padding-top:25px; padding-bottom:25px;">
+        <div class="container" style="padding:0px;">
+            <div class="footer">Copyright 2018 CPA VIETNAM | All Rights Reserved | Powered by cpavietnam.vn</div>
+        </div>
+    </div>
+    <!--End of Footer-->
+
+    <script src="~/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script type="text/javascript" src="~/Marquee/grouploop-1.0.0.min.js"></script>
+    <script>
+            $('#grouploop-1').grouploop({
+                velocity: 1,
+                forward: false,
+                pauseOnHover: true,
+                childNode: ".itemMarquee",
+                childWrapper: ".itemMarquee-wrap",
+                complete: function () { console.log("Initialized a grouploop with id: " + $(this).attr('id')) }
+            });
+
+    </script>
+    <script type="text/javascript">
+            $(document).on('ready', function () {
+                $(".vertical-center-4").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 6,
+                    slidesToScroll: 2,
+                    autoplay: true,
+                });
+                $(".vertical-center-3").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                });
+                $(".vertical-center-2").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                });
+                $(".vertical-center").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                });
+                $(".vertical").slick({
+                    dots: false,
+                    vertical: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 3,
+                    autoplay: true,
+                    nextArrow: '',
+                    prevArrow: '',
+                });
+                $(".regular").slick({
+                    dots: false,
+                    infinite: true,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    autoplay: true,
+                    nextArrow: '',
+                    prevArrow: '',
+
+                });
+
+
+                $(".center").slick({
+                    dots: true,
+                    infinite: true,
+                    centerMode: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 3
+                });
+                $(".variable").slick({
+                    dots: true,
+                    infinite: true,
+                    variableWidth: true
+                });
+                $(".lazy").slick({
+                    lazyLoad: 'ondemand', // ondemand progressive anticipated
+
+                    dots: false,
+                    infinite: true,
+                    autoplay: true,
+                    autoplay: true,
+                    nextArrow: '',
+                    prevArrow: '',
+                    autoplaySpeed: 6000,
+                    fade: true,
+
+                });
+            });
+    </script>
+
+    <!--Xu ly thong tin bo dem Visitor-->
+   
+</body>
+
+</html>
+
+<script src="~/js/talk.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/jquery.zoom.min.js"></script>
+<script src="~/js/main.js"></script>

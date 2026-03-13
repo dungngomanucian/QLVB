@@ -1,0 +1,280 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/main_layout.cshtml";
+}
+ 
+ 
+ <div class="box" style="margin-top: 1px; margin-left:1px;">
+    <div class="box-header">
+      <a id="cmdadd" class="btn bg-olive btn-flat " data-toggle="modal" data-target="#EV_Dlg"> <i class="fa fa-plus"></i> &nbsp;Thêm </a>
+        <a id="cmddelete" class="btn bg-olive btn-flat ">      <i class="fa fa-remove"></i> &nbsp;Xóa </a>
+       
+    </div>
+
+    <div class="box-body">
+
+        <table id="tblSysMenu" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th><input type="checkbox" id="ck_all" class="checkbox" /></th>
+                    <th>Parent</th>
+                    <th>Tên</th>
+                    <th>Thứ tự</th>
+                    <th>URL</th>
+               <th>ICON</th>
+                    <th>Group</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        </table>
+    </div>
+     </div>
+ 
+<form id="frmtblSysMenu" >
+    <div class="modal fade" id="EV_Dlg" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">Quản lý Menu Hệ thống</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="cbbcha" class="col-sm-4 control-label">Parent:</label>
+                            <div class="col-sm-8">
+                                <select id="cbbcha" class="form-control" style="width:100%;"></select>
+                            </div>
+                        </div>
+ 
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtten" class="col-sm-4 control-label">Tên:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" required id="txtten" placeholder="Tên ">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtmota" class="col-sm-4 control-label">Mô tả:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtmota" placeholder="Mô tả ">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txtthutu" class="col-sm-4 control-label">Thứ tự:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtthutu" placeholder="Mô tả ">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txturl" class="col-sm-4 control-label">URL:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txturl" placeholder="URL">
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txticon" class="col-sm-4 control-label">ICON:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txticon" placeholder="ICON">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top:25px;">
+                            <label for="txttarget" class="col-sm-4 control-label">Target:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txttarget" placeholder="Target">
+                            </div>
+                        </div>
+     
+                        <div class="form-group" style="padding-top:25px;">
+                            <label class="col-sm-4 control-label">Status :</label>
+                            <div class="col-sm-8">
+                                <input type="checkbox" id="ckstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Direct:&nbsp;
+                                <input type="checkbox" id="ckdirect" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;BeginGroup:&nbsp;<input type="checkbox" id="ckbegingroup" />
+                            </div>
+                        </div>
+                        @*<div class="form-group" style="padding-top:25px;">
+                            <label class="col-sm-4 control-label">Update  :</label>
+                            <div class="col-sm-8">
+                                <input type="checkbox" id="ckstatus" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Direct:&nbsp;
+                                <input type="checkbox" id="ckdirect" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;BeginGroup:&nbsp;<input type="checkbox" id="ckbegingroup" />
+                            </div>
+                        </div>*@
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                    <button type="submit" class="btn btn-primary pull-left" id="cmdsave"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+        </div>
+    <!-- /.modal -->
+</form>
+<style type="text/css">
+    .btn_edit{}
+
+</style>
+<script type="text/javascript">
+
+
+    function InitDefault() {
+        columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '15%' }, { sWidth: '20%' }, { sWidth: '10%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }, { sWidth: '5%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = true;
+
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotal.Models.common.app_title_short)' + " - " + title;
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+          controllerURL =  '/SysMenus';
+          tblData = 'tblSysMenu'; // tên bảng show dữ liệu
+          dlgAddEdit = 'EV_Dlg'; // dialog chữa form edit
+          TienTo = ''; // tên trường tiền tố của 1 bảng
+
+          _row = {
+              id: ""
+              , thutu: ""
+              , muc: ""
+              , parentid: ""
+              , parentten: ""
+              , ten: ""
+              , mota: ""
+              , url: ""
+              , icon: ""
+              , target: ""
+              , direct: 0
+              , begingroup: 0
+              , active: 0
+              , update: 0
+          };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        $('#txtpagesize').val(10);
+        $('#ckstatus').prop('checked', true);
+        $('#ckdirect').prop('checked', false);
+        $('#ckbegingroup').prop('checked', false);
+        $('#txttarget').val('_blank');
+    }
+
+
+    $(document).ready(function () {
+       //  GetParentMenus('cbbcha');
+        loadComboNhom('cbbcha', "/Common/GetParentMenus", 'id', 'ten',"");
+        
+        $('#frmtblSysMenu').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+
+                return false;
+            }
+        })
+
+    });
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+   // load du lieu ra form de sua
+    function _edit(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+        // $('#txtma').prop('readonly', true);
+        disableHideObjects();
+        bAddEdit = false;
+        var row = jsonData[rowindex];
+        _EDIT_INDEX = rowindex;
+        _EDIT_ID = row.id;
+
+        $('#txtten').val(row.ten);
+        $('#txtthutu').val(row.thutu);
+        $('#txtmota').val(row.mota);
+        $('#txturl').val(row.url);
+        $('#txticon').val(row.icon);
+        $('#txttarget').val(row.target);
+
+        $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+        $('#ckdirect').prop('checked', (row.direct / 1 == 1 ? true : false));
+        $('#ckbegingroup').prop('checked', (row.begingroup / 1 == 1 ? true : false));
+
+        $('#cbbcha').val(row.parentid);
+
+    }
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+
+        _row.ten = $("#txtten").val();
+        _row.mota = $("#txtmota").val();
+        _row.url = $("#txturl").val();
+        _row.target = $("#txttarget").val();
+        _row.thutu = $("#txtthutu").val();
+        _row.icon = $("#txticon").val();
+
+        _row.active = ($("#ckstatus").is(':checked') ? 1 : 0);
+        _row.direct = ($("#ckdirect").is(':checked') ? 1 : 0);
+        _row.begingroup = ($("#ckbegingroup").is(':checked') ? 1 : 0);
+
+        _row.parentid = $("#cbbcha").val();
+
+        // chuan hoa xau
+        _row.ten = _row.ten.replace(reg, '');
+        _row.mota = _row.mota.replace(reg, '');
+        _row.url = _row.url.replace(reg, '');
+        _row.target = _row.target.replace(reg, '');
+        _row.icon = _row.icon.replace(reg, '');
+        _row.thutu = _row.thutu.replace(reg, '');
+
+        msg = '';
+        if (bAddEdit)
+        {
+            if (_row.ten == '') msg += '\n- Cần vào Tên menu;';
+        }
+
+        if (msg != '') {
+           $('#lbthongbao').html('Error: ' + msg);
+            return false;
+        }
+
+        return true;
+    }
+
+    function GetRow(item) {
+        var s = '';
+        s += '<td>' + item.parentten + '</td>';
+        s += '<td>' + item.ten+ '</td>';
+        s += '<td>' + item.thutu + '</td>';
+        s += '<td>' + item.url + '</td>';
+        s += '<td>' + item.icon + '</td>';
+        s += '<td>' + item.begingroup + '</td>';
+        s += '<td>' + item.active + '</td>';
+        return s;
+    }
+
+</script>

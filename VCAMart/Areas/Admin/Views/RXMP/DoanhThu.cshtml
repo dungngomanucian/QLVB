@@ -1,0 +1,432 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/main_layout.cshtml";
+}
+
+
+<script src="~/Scripts/excelexportjs.js"></script>
+<script src="~/Scripts/jspdf.min.js"></script>
+<link href="~/Styles/print.css" rel="stylesheet" />
+
+
+ 
+ <div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="box-header">
+        <label id="lbcontent_title" style="display:none;text-transform:uppercase">@(ViewBag.Function_Title)</label>
+     
+      
+        <a id="cmdprint_report" class="btn bg-fuchsia   btn-flat ">      <i class="fa fa-print"></i> &nbsp;Print </a>
+        
+         
+        <span style="padding-left:30px">
+            Từ ngày: <input id="txttungay" style="width:110px" />
+            Đến ngày: <input id="txtdenngay" style="width:110px" />
+
+            <a id="cmdbilltimkiem" class="btn bg-olive btn-flat" title="Tìm hóa đơn"> <i class="fa fa-search"></i> &nbsp;Xem báo cáo </a>
+            <span class="input-group-btn" style="display:inline">
+                <a class="dropdown-toggle btn btn-flat bg-info" data-toggle="dropdown" href="#" title="Lọc theo thời gian"> <i class="fa fa-calendar"></i> </a>
+                <ul class="dropdown-menu">
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(1)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Hôm nay</a></li>
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(2)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Hôm qua</a></li>
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(3)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tuần này</a></li>
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(4)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tuần trước</a></li>
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(5)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tháng này</a></li>
+                    <li><a class="btn-flat" href="#" onclick="billListFilter(6)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tháng trước</a></li>
+                </ul>
+            </span>
+        </span>
+        <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+        <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+
+    </div>
+
+    <div class="box-body">
+        <div id="grid_noidung_report"  >
+            <div style="font-family:Arial;font-size:12pt;display:none;padding-bottom:10px;" id="divReportHeader" >
+                <span id="lbthongtincongty"></span>
+              
+
+                <div style="text-align:center;font-size:16pt;font-weight:bold">BÁO CÁO DOANH THU</div>
+                <div style="text-align:center;font-size:12pt;font-weight:normal;margin-bottom:10px;" id="lbngay"> </div>
+                </div>
+            <table style="width:100%;border-top:1px solid #808080;border-left:1px solid #808080;font-size:12pt;font-family:Arial;" cellspacing=0 cellpadding=0>
+                
+                <thead>
+                    <tr style="background-color:#dcd6d6">
+                        <th style="padding:3px 5px; border-bottom:1px solid #808080;border-right:1px solid #808080;">TT</th>
+                        <th style="padding:3px 5px; border-bottom:1px solid #808080;border-right:1px solid #808080;">Nhân viên</th>
+                        <th style="padding:3px 5px; border-bottom:1px solid #808080;border-right:1px solid #808080;">Doanh thu</th>
+                        <th style="padding:3px 5px; border-bottom:1px solid #808080;border-right:1px solid #808080;">Tiền hàng trả</th>
+                        <th style="padding:3px 5px; border-bottom:1px solid #808080;border-right:1px solid #808080;">Doanh thu thực</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
+
+</div>
+    </div>
+
+
+</div>
+ 
+<!-- Khai bao window XEM CHI TIET -->
+<div id="windowBillsShow" style="display:none;padding:10px;max-height:530px;overflow:auto;" ng-controller="report_detail">
+    <div id="windowBillsShowBody">
+        <div class="header" style="text-align:center;">
+            <p style="font-size:14pt;font-weight:bold">{{title}}</p>
+            <p>
+                Từ ngày:  {{tungay}}  - Đến ngày : {{denngay}}
+            </p>
+
+        </div>
+        <div style="max-height:400px;overflow:auto;" id="windowBillsShowBody_content">
+            <table class="k-grid k-widget" role="grid" style="width:100%;height: auto;" cellpadding="0" cellspacing="0">
+                <thead class="k-grid-header" role="rowgroup">
+                    <tr role="row">
+                        <th role="columnheader" class="k-header">TT</th>
+                        <th role="columnheader" class="k-header">Mã phiếu</th>
+                        <th role="columnheader" class="k-header">Ngày</th>
+                        <th role="columnheader" class="k-header">Khách hàng</th>
+                        <th role="columnheader" class="k-header">Tổng tiền</th>
+                        <th role="columnheader" class="k-header">Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody role="rowgroup">
+                    <tr ng-repeat="item in list track by $index" role="row">
+                        <td role="gridcell">{{$index+1}}</td>
+                        <td role="gridcell">{{item.ma}}</td>
+                        <td role="gridcell">{{item.ngay}}</td>
+                        <td role="gridcell">{{item.kh}}</td>
+                        <td role="gridcell" style="text-align:right">{{item.tien|number:0}}</td>
+                        <td role="gridcell">{{item.ghichu}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tools">
+        <a class="btn bg-green btn-flat" ng-click="billPrintFromList()">      <i class="fa fa-print"></i> &nbsp;Print </a>
+        <a class="btn bg-red btn-flat" onclick='$(".k-window-content").data("kendoWindow").close();'>      <i class="fa fa-close"></i> &nbsp;Đóng </a>
+    </div>
+    <div id="windowBillsShow_print_temp" style="display:none;"></div>
+</div>
+<!-- END Khai bao window XEM CHI TIET -->
+ 
+
+    <script>
+        var grid ;
+        var mtclient_report_doanhthu = {name:"mtclient_report_doanhthu", value:[]};
+
+
+        $(document).ready(function(){
+            bBillLoadCategory = false;
+            $('#txttungay').kendoDatePicker({ format: "dd/MM/yyyy", value: new Date() });
+            $('#txttungay').trigger('change');
+
+            $('#txtdenngay').kendoDatePicker({ format: "dd/MM/yyyy", value: new Date() });
+            $('#txtdenngay').trigger('change');
+
+              $(window).resize(function(){
+                resizeBillGrid();
+            });
+
+
+            $('#cmdbilltimkiem').click(function(){
+                _loadBillListData();
+            });
+            $('#cmdprint_report').click(function(){
+                printReport();
+            });
+
+            _showBillGrid();
+
+            $('#windowBillsShow').kendoWindow({
+                width: $(window).width()-100, title: "BÁO CÁO CHI TIẾT", visible: false,
+                actions: ["Close" /*/, "Pin",// "Minimize",// "Maximize"*/],
+            }).data("kendoWindow");
+
+        });
+
+        function viewReport(arr)
+        {
+            if (arr.length<=0) return;
+
+            var rpt = $('#grid_noidung_report table>tbody');
+
+            // rpt.clear();
+            rpt.children().remove();
+
+            var i,tongnhom=[0,0,0], tong=[0,0,0], dau='';
+            var tr = '<tr style="font-weight:bold;background-color:whitesmoke">'+
+                '<td colspan=5 style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">' + arr[0].chten + '</td></tr>';
+            rpt.append(tr);
+            dau = arr[0].chten;
+
+            for (i=0; i<arr.length; i++)
+            {
+                var item = arr[i];
+                if (dau != item.chten)
+                {
+                    // tao footer
+                    tr = '<tr style="font-weight:bold;background-color:whitesmoke">'+
+                            '<td colspan=2 style="text-align:right;padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">Tổng:</td>'+
+                            '<td  style="border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + formatSo0(tongnhom[0]) +'</td>'+
+                            '<td  style="border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + formatSo0(tongnhom[1]) +'</td>'+
+                            '<td  style="border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + formatSo0(tongnhom[2]) +'</td></tr>';
+                    tr += '<tr style="font-weight:bold;background-color:whitesmoke">'+
+                            '<td colspan=5  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">' + item.chten + '</td></tr>';
+                    dau = item.chten;
+                    tongnhom = [0,0,0];
+                    rpt.append(tr);
+                }
+                tr = '<tr>'
+                    +'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">' + (i+1) + '</td>'
+                    +'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">' + item.nvten + '</td>'
+                    +'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + (item.doanhthu/1!=0?'<i class="fa fa-eye"  title="Xem chi tiết" data-idx="' + i +',1"></i>':'') + '&nbsp;' + formatSo0(item.doanhthu) + '</td>'
+                    +'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + (item.tra/1!=0?'<i class="fa fa-eye"  title="Xem chi tiết" data-idx="' + i +',2"></i>':'') + '&nbsp;'  + formatSo0(item.tra)+ '</td>'
+                    +'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + '&nbsp;'  + formatSo0(item.thucthu) + '</td>'
+                       //+'<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + (item.thucthu/1!=0?'<i class="fa fa-eye"  title="Xem chi tiết" data-idx="' + i +',3"></i>':'') + '&nbsp;'  + formatSo0(item.thucthu) + '</td>'
+                    +'</tr>';
+                tongnhom[0] = tongnhom[0]/1 + item.doanhthu /1;
+                tongnhom[1] = tongnhom[1]/1 + item.tra /1;
+                tongnhom[2] = tongnhom[2]/1 + item.thucthu /1;
+
+
+                rpt.append(tr);
+            }
+            tr = '<tr style="font-weight:bold;background-color:whitesmoke">'+
+                   '<td colspan=2  style="text-align:right;padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;">Tổng:</td>'+
+                   '<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + formatSo0(tongnhom[0]) +'</td>'+
+                   '<td  style="padding:3px 5px;border-bottom:1px solid #808080;border-right:1px solid #808080;text-align:right;">' + formatSo0(tongnhom[1]) +'</td>'+
+                   '<td  style="padding:3px 5px;border-bottom:1px solid #000;border-right:1px solid #000;text-align:right;">' + formatSo0(tongnhom[2]) +'</td>'+
+                   '</tr>';
+            rpt.append(tr);
+
+            $('#grid_noidung_report').find('i').each(function(){
+                $(this).click(function(){
+                    showDetail($(this).data('idx'));
+                });
+            });
+        }
+
+        mtmain.controller('report_detail', function($scope){
+            $scope.tungay ='';
+            $scope.denngay='';
+            $scope.title ='';
+            $scope.list =[];
+            $scope.show = function (tungay,denngay,title,list){
+                $scope.tungay =tungay;
+                $scope.denngay=denngay;
+                $scope.title =title;
+                $scope.list =list;
+
+                $("#windowBillsShow").data("kendoWindow").center().open();
+            };
+            $scope.billPrintFromList = function(){
+                //xu ly border
+                $('#windowBillsShow_print_temp').html($('#windowBillsShowBody').html());
+                $('#windowBillsShow_print_temp').find('#windowBillsShowBody_content:eq(0)').css({'max-height':'','overflow':''});
+
+                $('#windowBillsShow_print_temp').find('table').each(function(){
+                    $(this).css({"padding":"0px", "margin":"0px","border-top":"1px solid #000","border-left":"1px solid #000"});
+                });
+
+                $('#windowBillsShow_print_temp').find('th').each(function(){
+                    $(this).css({"padding":"3px 5px", "border-bottom":"1px solid #000","border-right":"1px solid #000"});
+                });
+
+                $('#windowBillsShow_print_temp').find('td').each(function(){
+                    $(this).css({"padding":"3px 5px",  "margin":"0px","border-bottom":"1px solid #000","border-right":"1px solid #000"});
+                });
+                printDivReport('#windowBillsShow_print_temp');
+            };
+        });
+
+
+        function showDetail(i){
+            var s = i.split(',');
+            if (i<2) return;
+
+            var row = mtclient_report_doanhthu.value [s[0]/1];
+            var title = s[1] =="1"?"HÓA ĐƠN XUẤT HÀNG":s[1]=="2"?"HÓA ĐƠN TRẢ HÀNG":"PHIẾU THU";
+
+            // tim xem client da co chua, neu co roi thi thoi
+            row = {};
+            row.from  = $('#txttungay').val();
+            row.to  = $('#txtdenngay').val();
+            row.name  = RXMP_NAME;
+            row.p1 =  s[1];
+            row.p2 =  bill_nvid_logined;
+         
+
+            title = ("DANH SÁCH " + title +", NHÂN VIÊN: "  + row.nvten  + " - chi nhánh: " + row.chten).toUpperCase();
+
+
+            var url = controllerURL + '/Detail';
+
+            $.post(url, {data: JSON.stringify(row)}, function(data){
+                if (data.msg =="100"){
+                    // xu ly hien thi
+                    var detail = JSON.parse( data.data);
+                    var scope = angular.element($('#windowBillsShow').get(0)).scope();
+                    scope.$apply(function () {
+                        scope.show(row.tungay,row.denngay, title, detail);
+                    });
+
+
+                }
+                return;
+            });
+
+        }
+
+
+        function printReport(){
+            console.log(congty_thongtin);
+            $('#lbthongtincongty').html('<b>' + congty_thongtin.ten+ ' </b><br>Đia chỉ: ' + congty_thongtin.diachi+ ' <br>Điện thoại: ' + congty_thongtin.tel+ ' ');
+            $('#lbngay').html('<i>Từ ngày: ' + $('#txttungay').val() + '  đến ngày: ' + $('#txtdenngay').val() + '</i>');
+            $('#divReportHeader').show();
+            printDivReport('#grid_noidung_report');
+            $('#divReportHeader').hide();
+        }
+
+        function billListFilter(type)
+        {
+            var tungay, denngay;
+            var ngay = new Date();
+            var dd = ngay.getDate();
+            var mm = ngay.getMonth()+1;
+            var yy = ngay.getFullYear();
+            tungay = dd + '/' +mm + '/' + yy;
+            denngay = tungay;
+
+            switch (type){
+                case 2: // hom qua
+                    ngay.setDate(ngay.getDate() -1);
+                    dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                    tungay = dd + '/' +mm + '/' + yy; denngay  = tungay;
+                    break;
+                case 3: // tuan nay
+                    ngay.setDate(ngay.getDate() - (ngay.getDay()==0?7:ngay.getDay())+1);
+                    dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                    tungay = dd + '/' +mm + '/' + yy; //denngay  = tungay;
+                    break;
+                case 4: // tuan truoc
+                    ngay.setDate(ngay.getDate() - ngay.getDay()-6);
+                    dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                    tungay = dd + '/' +mm + '/' + yy; //denngay  = tungay;
+                    ngay.setDate(ngay.getDate() + 6);
+                    dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                    denngay = dd + '/' +mm + '/' + yy;
+                    break;
+                case 5: // thang nay
+                    tungay = '1/' +mm + '/' + yy; //denngay  = tungay;
+                    break;
+                case 6: // thang truoc
+                    ngay.setDate(ngay.getDate() - ngay.getDate());
+                    dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                    tungay = '1/' +mm + '/' + yy; //denngay  = tungay;
+                    denngay = dd + '/' +mm + '/' + yy;
+                     break;
+            }
+            $('#txttungay').val(tungay);
+            $('#txtdenngay').val(denngay);
+            _loadBillListData();
+        }
+
+
+        function resizeBillGrid(){
+            var h = $(window).height()-300;
+            $('.k-grid-content').height(h);
+        }
+
+        function _loadBillListData()
+        {
+            // tim hoa don tu server
+            var url = controllerURL + "/Run";
+            var row = { from : $('#txttungay').val(), to: $('#txtdenngay').val(), name:RXMP_NAME};
+            debugger
+            $.post(url, {data: JSON.stringify(row) }, function(data){
+                if (data.code == 100)
+                {
+                    var arr = JSON.parse(data.data);
+                    if (arr == null || arr.length ==0) return;
+                    mtclient_report_doanhthu.value = arr;
+                    viewReport(arr);
+                }
+            });
+        }
+
+
+        function _showBillGrid() {
+            debugger
+            var crudServiceBaseUrl = controllerURL;
+                var row = {
+                    from : $('#txttungay').val(), to: $('#txtdenngay').val(), name:RXMP_NAME
+                };
+                $.post(crudServiceBaseUrl + "/Run", {data: JSON.stringify( row)}, function(data){
+                    if (data.code == 100)
+                    {
+                        mtclient_report_doanhthu.value = JSON.parse( data.data);
+                        viewReport(mtclient_report_doanhthu .value );//_showBillGridFillData
+                    }
+                });
+        }
+
+
+
+
+
+        function InitDefault()
+        {
+            pageurl =  '/@ViewBag.ControllerName';
+            RXMP_NAME = "test";
+
+            //_login_nv_id ='@ViewBag.login_nv_id';
+            _page_size = @ViewBag.pagesize;
+            iPrintColStart = 3; // cot bat dau in cua kendouigrid
+            iPrintColNumbers = 7; // so cot in
+            columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '20%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }];
+            columnAutoWidth = true;
+            bLoadDataCommon = false;
+            title = '@Html.Raw(ViewBag.Function_Title)';
+            document.title = '@Html.Raw(RICTotal.Models.common.app_title_short)' + " - " + title;
+            exportFileName = '@ViewBag.ControllerName';
+            myVersion = 2;
+            jsonData = []; // chua du lieu can bind ra bang
+            urlobj;
+            bAddEdit = true; // true: add, false: edit
+            controllerURL = '/@ViewBag.ControllerName';
+            tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+            dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+            TienTo = ''; // tên trường tiền tố của 1 bảng
+            pageid = 0;
+        }
+
+    </script>
+
+<style>
+    .k-grid td {
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    padding: .4em .6em;
+    overflow: hidden;
+    line-height: 1.6em;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+    #windowBillsShow {
+        overflow:hidden;
+    }
+    #windowBillsShow td {
+        padding:5px 10px;
+    }
+      #windowBillsShow .tools {
+        padding-top:10px;
+    }
+
+    
+</style>

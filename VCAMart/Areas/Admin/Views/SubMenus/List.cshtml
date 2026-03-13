@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/main_layout.cshtml";
+}
+
+
+<style type="text/css">
+      .submenu  ul {
+     
+      padding:10px;
+  
+  }
+  .submenu  ul li{
+      list-style: none;
+      padding-top:5px;
+      border-bottom:0px solid #ccc;
+      color:#fff !important;
+  }
+   .submenu  ul li a div{
+     padding:10px;
+     background-color: green;
+     color:#fff;
+     width:300px;
+  }
+      .submenu  ul li div:hover{
+   
+     background-color:darkgreen;
+     color:#fff;
+
+  }
+</style>
+
+<div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="submenu">
+         @Html.Raw( ViewBag.SubMenus)
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+    function InitDefault()
+    {
+              
+        bLoadDataCommon = false;
+    }
+</script>

@@ -1,0 +1,43 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.env
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+**/[Bb]in/*
+.vs/
+
+# NuGet
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+*.snupkg
+
+# Visual Studio
+*.userprefs
+*.cache
+*.pdb
+*.log
+.vshistory/
+
+# Test & coverage
+[Tt]est[Rr]esult*/
+coverage*.json
+coverage*.xml
+
+# Publish
+publish/
+*.pubxml
+
+# Misc
+node_modules/
+*.pfx

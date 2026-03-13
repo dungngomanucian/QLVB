@@ -1,0 +1,221 @@
+﻿ 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@Html.Raw(RICTotal.Models.common.app_title)</title>
+    <meta content="@Html.Raw(RICTotal.Models.common.app_keywords)" name="keywords">
+    <meta content="@Html.Raw(RICTotal.Models.common.app_description)" name="description">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <meta property="og:title" content="Nhà xuất bản đại học Sư Phạm" />
+
+    <meta property="og:url" content="@ViewBag.Url_address" />
+    <meta property="og:image" itemprop="thumbnailUrl" content="@ViewBag.Url" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:site_name" content="CPA VietNam" />
+    <meta property="og:description" content="@ViewBag.Description" />
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="~/Styles/googlefont.css" rel="stylesheet" />
+
+
+
+
+
+    <link rel="stylesheet" href="~/Styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Styles/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/skin.css">
+    <link rel="stylesheet" href="~/Styles/common.css">
+    <link rel="stylesheet" href="~/Styles/bill.css">
+
+
+    <link href="~/KendoUI/kendo.common.min.css" rel="stylesheet">
+
+    <link href="~/KendoUI/kendo.default.min.css" rel="stylesheet">
+    <link href="~/KendoUI/kendo.default.mobile.min.css" rel="stylesheet">
+
+
+    <script src="~/js/jquery.min.js"></script>
+    <!--
+    <script src="~/Scripts/jquery.min.js"></script>
+    -->
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <!--
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    -->
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/lib/admin.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+    <script>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/common.js")))
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/App/mrictotal.js")))
+
+    </script>
+
+
+    <script src="~/kendoui/js/kendo.all.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="~/Marquee/examples.css" />
+
+
+
+    <link href="~/Notification/toastr.css" rel="stylesheet" />
+
+
+    <script src="~/Notification/toastr.js"></script>
+    <script src="~/Notification/script.js"></script>
+
+    <!--Tao menu dropdown-->
+    <link rel="stylesheet" type="text/css" href="/js/menu/default.css" />
+    <link rel="stylesheet" type="text/css" href="/js/menu/component.css" />
+    <script src="/js/menu/modernizr.custom.js"></script>
+
+    <!--Thong tin cho soan thao van ban -->
+    <script src="~/CKeditor/ckeditor/ckeditor.js" charset="utf-8" type="text/javascript"></script>
+    <script src="~/CKeditor/" type="text/javascript"></script>
+    <!--Cong cu cho hop chon select2-->
+    <script src="~/Scripts/select2.min.js"></script>
+    <link href="~/Styles/select2.min.css" rel="stylesheet" />
+
+    <!--Lien ket toi cac tep su dung cho zoom image-->
+    <link rel="stylesheet" type="text/css" href="~/js/zoom/zoom.css" />
+    <script src="~/js/zoom/zoom.js"></script>
+
+</head>
+
+<body style="margin-left:0px; margin-top:0px; background-color:#ffffff">
+    <!--Thong tin top-->
+    <div class="section" style="background-color:#ffffff;  ">
+        <div class="row" style="padding:0px; margin:0">
+            <div class="col-lg-9 col-xs-12">
+                <div class="row">
+                    <div class="hidden-xs outer">
+                        <div class="inner">
+                            <a href="https://www.facebook.com/nxbdhsp.edu.vn" target="_blank">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="outer">
+                        <div class="inner">
+                            &nbsp; <i class="glyphicon glyphicon-phone-alt"></i> &nbsp; 0222.390.2426 <span class="fusion-header-separator">|</span>
+                            &nbsp; <i class="fa fa-fax"></i> : 0222.390.2426<span class="fusion-header-separator">&nbsp; |&nbsp; </span>
+                            <span>
+                                <i class="fa fa-envelope"></i> &nbsp;    <a class="info" href="mailto: atc@samsung.com"> atc@samsung.com</a>
+
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="hidden-xs col-lg-3 col-xs-12">
+                <div class="row">
+                    @Html.Partial("menu_top")
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of top-->
+    <!--Begin of information of Head-->
+    <div class="section" style="background-color:#01A14B; border-top:1px solid #ffffff;">
+        <div class="row topnav" style="padding:0; margin:0">
+            <div style="float:left">
+                @Html.Partial("_header")
+            </div>
+            <div class="search-container">
+                <input type="text" id="txtcontentsearch" class="search-box" placeholder="Search.." name="search" >
+                <button type="submit" id="cmdSearch"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <!--End of menu head-->
+    <!--Begin of content-->
+    <section class="content">
+        @RenderBody()
+    </section>
+    <!--End of Content-->
+    <!--Begin of footer-->
+    <div class="section" style="background-color:#01A14B;">
+        <div class="row" style="padding:0px; margin:0;">
+            <p class="mb-0" style="color: rgba(255,255,255,.5);">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a class="linkFooter" href="https://nxbdhsp.edu.vn" target="_blank">ATC Group</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            <p class="mb-0" style="color: rgba(255,255,255,.5);">
+                Lượt truy cập: 000.000 | Đang truy cập: 000.000
+            </p>
+        </div>
+
+    </div>
+    <!--End of footer-->
+    
+
+
+    
+</body>
+
+
+</html>
+
+<script>
+                $(document).ready(function () {
+                  
+                    $('#cmdSearch').click(function () {
+                      
+                        search();
+
+                    });
+                    document.getElementById("txtcontentsearch").onkeypress = function (event) {
+                        if (event.keyCode == 13 || event.which == 13) {
+                            search();
+                        }
+                    };
+
+                });
+
+                function search()
+                {
+                   
+                    var content = $("#txtcontentsearch").val();
+                    if (content != '') {
+
+                        window.location = "/BookSearch/1?s=" + content.trim();
+                    }
+                    else {
+                        funcBtns.alertWarning('Chưa nhập thông tin tìm kiếm');
+                    }
+                }
+</script>
+
+
+ 
+
+<!--Begin of Menu dropdown-->
+<script src="/js/menu/jquery.dlmenu.js"></script>
+<script>
+			        $(function() {
+				        $( '#dl-menu' ).dlmenu();
+			        });
+</script>
+<!--End of Menu dropdown-->
+<script src="~/js/talk.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/jquery.zoom.min.js"></script>
+<script src="~/js/main.js"></script>

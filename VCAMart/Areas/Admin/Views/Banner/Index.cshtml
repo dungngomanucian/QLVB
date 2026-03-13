@@ -1,0 +1,407 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Areas/Admin/Views/Shared/main_layout.cshtml";
+}
+ 
+ 
+
+
+ 
+ <div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+     <div class="box-header">
+        <label id="lbcontent_title" style="display:none;">@(ViewBag.Function_Title)</label>
+        <a id="cmdadd_cate" class="btn bg-green btn-flat " data-toggle="modal" data-target="#dlg@(ViewBag.tblname)"> <i class="fa fa-plus"></i> &nbsp;Thêm </a>
+        <a id="cmddelete_cate" class="btn bg-red btn-flat ">      <i class="fa fa-remove"></i> &nbsp;Xóa </a>
+        <a id="cmdprint_cate" class="btn bg-fuchsia  btn-flat ">      <i class="fa fa-print"></i> &nbsp;Print </a>
+        
+        <a id="cmdexport2excel" class="btn bg-blue btn-flat" title="Save 2 Excel">      <i class="fa fa-file-excel-o"></i> &nbsp;Excel</a>
+        <a id="cmdexport2pdf" class="btn bg-aqua btn-flat" title="Save 2 PDF">      <i class="fa fa-file-pdf-o"></i> &nbsp;PDF </a>
+        <a id="cmdactive" class="btn bg-olive btn-flat" title="Active/DeActive">      <i class="fa fa-check-square-o"></i> &nbsp;Active/DeActive </a>
+
+
+
+
+        <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+        <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+
+    </div>
+
+    <div class="box-body">
+            <div id="grid_noidung"></div>
+       
+    </div>
+     </div>
+ 
+<form id="frm@(ViewBag.tblname)">
+    <div class="modal fade" id="dlg@(ViewBag.tblname)" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">Quản lý ảnh banner</h3>
+                </div>
+                <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+                <div class="modal-body">
+                <div class="box-body">
+                      
+                   
+
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtBN_Name" class="col-sm-4 control-label">Tên banner:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txtBN_Name" placeholder="tên banner">
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtBN_Type" class="col-sm-4 control-label">Vị trí:</label>
+                        <div class="col-sm-8">
+                            <select id="txtBN_Type">
+                                <option value="1">Banner mức 1</option>
+                                <option value="2">Banner mức 2</option>
+                                <option value="3">Banner mức 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtBN_URL" class="col-sm-4 control-label">Địa chỉ URL:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txtBN_URL" placeholder="">
+                        </div>
+                    </div>
+                                  
+                  
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtBN_Status" class="col-sm-4 control-label">Trạng thái:</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" id="ckstatus" />
+                            
+                        </div>
+                    </div>
+                    
+                  
+                  
+                   
+               
+                      <div class="form-group" style="padding-top:25px;">
+                        <label for="txtBN_Image" class="col-sm-4 control-label">Ảnh đại diện:</label>
+                        <div class="col-sm-8">                           
+                                        <table border="0" style="width:100%">
+                                            <tr>
+                                                <td><input  id="txtBN_Image" class="input-control" name="txtBN_Image" type="text" /></td>
+                                                <td><button id="chonanhbia" class="btn btn-default">  Chọn tệp tin  </button></td>
+                                            </tr>
+                                        </table>                                                               
+                        </div>
+                         <div>
+                             
+                        </div>
+                    </div>   
+                </div>
+
+
+                 <div class="modal-footer">
+                        <button type="button" class="btn bg-red pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                        <button type="button" class="btn bg-green pull-left" id="cmdsave_cate"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                    </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+        </div>
+    <!-- /.modal -->
+</form>
+ 
+
+<style type="text/css">
+    .btn_edit{}
+
+</style>
+<script>
+
+    var path = "";
+    var editor;
+    function createEditor(languageCode, id) {
+        var editor = CKEDITOR.replace(id, {
+            language: languageCode
+        });
+    }
+    //---------File upload
+    $(function () {
+        $("#chonanhbia").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $("#txtBN_Image").val(fileUrl);
+            };
+            finder.popup();
+        });
+    });
+
+    
+    //-------FCKEditor
+    $(function () {
+       // createEditor('vi', 'txtDT_NoiDung');
+
+    });
+</script>
+
+<script type="text/javascript">
+
+    js_mn_tt = "@ViewBag.mn_tt";
+    function InitDefault() {
+         iPrintColStart = 3; // cot bat dau in cua kendouigrid
+          iPrintColNumbers = 3; // so cot in
+          
+        columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '20%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }];
+        columnAutoWidth = false;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotalAdmin.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+
+        myVersion = 2;
+          jsonData= []; // chua du lieu can bind ra bang
+          urlobj;
+          bAddEdit = true; // true: add, false: edit
+         controllerURL = '/Admin/@ViewBag.ControllerName';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+          TienTo = ''; // tên trường tiền tố của 1 bảng
+
+          _row = {
+              id: ""
+              ,BN_Id:""
+              ,BN_Status:""
+              ,active:""
+              , BN_Name:""
+              , BN_Image:""
+              , BN_LG_Id:""
+              , BN_Type:""
+              , BN_URL:""
+          };
+    }
+
+    // khoi tao cac gia tri mac dinh khi addnew sau khi reset
+    function InitDefaultValue() {
+        //$('#txtpagesize').val(10);
+        $('#txtBN_Type').val('1');
+      
+     
+        
+         $('#txtpagesize').val(@ViewBag.pagesize);
+        //$('#ckstatus').prop('checked', true);
+    }
+
+    
+
+    $(document).ready(function () {
+      
+        
+      //  loadComboNhom('cbbCC_ParentId', '/Admin/ContentCategory/ListParent/' + 'js_mn_tt','id','ten',"");
+      //  $('#cbbCC_ParentId').select2();
+
+      
+       
+        $('#frmuser').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            } else {
+                // everything looks good!
+
+                return false;
+            }
+        })
+
+    });
+
+    function disableHideObjects()
+    {
+       // $('#txtuid').attr('disabled', true);
+    }
+
+    function resetAddItem() {
+        $('#txtBN_Type').val('1');
+        $("#txtBN_Type").trigger("change");
+       
+        $('#' + dlgAddEdit + ' input').val('');
+        $('#' + dlgAddEdit + ' textarea').val('');
+        $('#' + dlgAddEdit + ' input').attr('disabled', false);
+    }
+   // load du lieu ra form de sua
+    function _editItem(obj, rowindex) {
+        $('#lbthongbao').html('');
+
+        // $('#txtma').prop('readonly', true);
+        disableHideObjects();
+        bAddEdit = false;
+       // var row = jsonData[rowindex];
+        var row = grid.dataItem("tbody tr:eq(" + (rowindex - 1) + ")"); //get data
+        bAddEdit = false;
+        _EDIT_INDEX = rowindex-1;
+        _EDIT_ID = row.id;
+       
+        $('#txtBN_Name').val(row.BN_Name);
+        $('#txtBN_Image').val(row.BN_Image);
+        $('#txtBN_Type').val(row.BN_Type);
+        $('#txtBN_URL').val(row.BN_URL);
+      //  $('#txtCC_Image').val(row.BN_Status);
+
+        $('#ckstatus').prop('checked', (row.active / 1 == 1 ? true : false));
+ 
+      
+    }
+
+       
+
+    //-------------end edit a record
+
+    //------------- valid  a record
+    function IsValid() {
+
+        _row.id = _EDIT_ID;
+        _row.BN_Id = _EDIT_ID;
+
+        _row.BN_Name = $('#txtBN_Name').val();
+        _row.BN_Image = $('#txtBN_Image').val();
+        _row.BN_Type = $('#txtBN_Type').val();
+        _row.BN_URL = $('#txtBN_URL').val();     
+        _row.active = ($("#ckstatus").is(':checked') ? 1 : 0);
+        msg = '';
+        if (_row.BN_Image == '')
+            msg += '\n+ Chưa chọn ảnh banner';
+ 
+
+        if (msg != '') {
+           $('#lbthongbao').html('Error: ' + msg);
+            return false;
+        }
+
+        return true;
+    }
+    //------------- end valid a record
+    function _getGroupName(obj)
+    {  
+        var s = '';
+        for (i = 0; i < obj.length; i++)
+        {
+            s += '<span class="groupname" >' + obj[i] + '</span>';
+        }
+        return s;
+    }
+ 
+    function _showGrid() {
+
+        debugger;
+       var crudServiceBaseUrl = controllerURL;
+      
+      
+
+        $("#grid_noidung").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "/GetList/" + js_mn_tt,
+                        dataType: "json"
+                    }
+                },
+
+                //data: data,
+                schema: {
+                    parse : function(data) {
+                                return data.data;
+                        }
+                },
+                pageSize: @ViewBag.pagesize
+            },
+            filterable: {
+               // mode:"row",
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Contains...",
+                        startswith: "Starts with",
+                        eq: "Is equal to"
+                        //, neq: "Is not equal to"
+                    }
+                }
+            },
+
+            // height: 500,
+            //toolbar: ["excel"],
+            scrollable: false,
+            sortable: { mode: "multiple", allowUnsort: true },
+            pageable: { input: false, numeric: true },
+            reorderable: true,
+            resizable: true,
+            groupable: true,
+            allowCopy: true,
+            selectable: "multiple cell",
+            excel: {
+                fileName: exportFileName + ".xlsx",
+                allPages: true,
+                filterable: true
+            },
+            pdf: {
+                author: "RIC Total",
+                creator: "RIC Total",
+                date: new Date(),
+                fileName: exportFileName + ".pdf",
+                subject: "RIC Total: " + exportFileName,
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",
+                landscape: true,
+                scale: 0.8,
+                avoidLinks: true,
+                repeatHeaders: true,
+                template: $("#page-template").html(),
+                allPages: true
+            },
+
+            columns: [
+                {field: "id", title: "No.", template: "#= ++recordnumber#", filterable: false   , sortable: false},
+                {
+                    title: "<input type=checkbox id='ckcheckall' onclick='_checkAll();'>"
+                    , template: "<input type=checkbox value='#=id#'>"               , filterable: false , sortable: false
+                }, {
+                    title: ""
+                    , template: "<a href='javascript://' class='bg-green' title='Thông tin chi tiết => Sửa'  style='padding:5px;' onclick=' _editItem(\"#=id#\",\"#= recordnumber #\")'  data-toggle='modal' data-target='\\#dlg@(ViewBag.tblname)'><i class='fa fa-edit'></a>"
+                    , filterable: false  , sortable: false
+                },
+                { field: "BN_Name", title: "Tên banner", filterable: { cell: { operator: "contains" } } },
+                { field: "BN_Image", title: "Ảnh cho banner", filterable: { cell: { operator: "contains" } } },
+            
+                { field: "active", title: "Status"}
+             
+       ],
+            dataBound: function (e) {
+                recordnumber = 0;
+                for (var i = 0; i < this.columns.length; i++) this.autoFitColumn(i);
+            }
+        }) ;
+        
+         grid = $("#grid_noidung").data("kendoGrid");
+    }
+
+
+ 
+
+    function _gridUpdateItem() {
+       
+        var grid = $("#grid_noidung").data("kendoGrid");
+        var dataSource = grid.dataSource;
+        var dataItem = grid.dataItem("tbody tr:eq(" + _EDIT_INDEX + ")"); //get data
+        dataItem["BN_Name"] = _row.BN_Name;
+        dataItem["BN_Image"] = _row.BN_Image;
+        dataItem["BN_Type"] = _row.BN_Type;
+        dataItem["BN_URL"] = _row.BN_URL;
+        dataItem["BN_Status"] = _row.BN_Status;
+          
+        grid.refresh();
+    }
+    //-------------end edit a record
+
+   
+</script>

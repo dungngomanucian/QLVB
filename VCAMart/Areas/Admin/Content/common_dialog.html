@@ -1,0 +1,513 @@
+﻿<!-- ajax loading-->
+<div class="ajaxloading fa fa-spinner fa-spin" style="display:none;"></div>
+<div class="ajaxloading_bg" style="display:none;"></div>
+<!-- end ajax loading -->
+
+<!-- dailog zoom image -->
+<div class="modal fade" id="dlg_zoom_image" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div style="width:100%;height:100%;">
+    </div>
+</div>
+<!-- END dailog zoom image -->
+
+<!-- dailog Import data -->
+<div style="display:none;z-index:2000;" id="excelImport" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 id="idtitle_import" class="modal-title">IMPORT DỮ LIỆU TỪ EXCEL</h3>
+                <h3 id="idtitle_import_bill" style="display:none" class="modal-title">IMPORT DỮ LIỆU HÓA ĐƠN TỪ EXCEL</h3>
+            </div>
+            <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="form-group" style="padding-top:5px;">
+                        <label for="txtexcelfileimport" class="col-sm-3 control-label">Chọn file Excel:</label>
+                        <div class="col-sm-9">
+                            <input type="file" required style="float:left;" id="txtexcelfileimport" placeholder="Chọn file" accept=".xls,.xlsx"> <button id="cmdexcelimportopen"><i class="fa fa-check-circle"></i> Lấy dữ liệu</button>
+                        </div>
+                    </div>
+                    <div class="form-group" style="padding-top:15px;">
+                        <label for="cbbexcelimportsheets" class="col-sm-3 control-label">Sheets:</label>
+                        <div class="col-sm-9">
+                            <select id="cbbexcelimportsheets"></select>
+                            <a id="iddownload_link" style="float:right" class="btn btn-danger" href="/templatefiles/mauimport.xlsx" target="_blank"><i class="fa fa-download"></i>  Download file Excel mẫu</a>
+                            <a id="iddownload_link_bill" style="float:right;display:none;" class="btn btn-danger" href="/templatefiles/mau_hoadon.xlsx" target="_blank"><i class="fa fa-download"></i>  Download file Excel mẫu</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="padding-top:5px;margin-top:5px;">
+                        <div class="col-sm-12" style="max-height:200px;overflow:auto;">
+                            <table id="tblexcelimportpreview" style="width:100%;"></table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                    <button type="submit" class="btn btn-primary pull-left" id="cmdexcelimportrun"><i class="fa fa-cloud-upload"></i>  Thực hiện Import</button>
+                    <button type="button" class="btn btn-primary pull-left" id="cmdexcelimportrun_bill" style="display:none;"><i class="fa fa-cloud-upload"></i>  Thực hiện Import</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- END dailog Import data -->
+
+ 
+
+<!-- dailog yeu cau mo them chi nhanh  -->
+<div class="modal fade" id="divAddRequest" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">GỬI YÊU CẦU VỀ RIC</h3>
+            </div>
+            <div id="lbthongbao" style="color:red;padding:0px  10px;"></div>
+            <div class="modal-body">
+                <div class="box-body">
+
+
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtnoidungyeucau" class="col-sm-4 control-label">Nội dung:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" required id="txtnoidungyeucau" placeholder="Nhập yêu cầu của bạn"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="padding-top:25px;">
+                        <label for="txtnoidungyeucau" class="col-sm-4 control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="checkbox"   id="cklakho"> <label for="cklakho"> Là kho lưu chuyển hàng hóa, không xuất bán.</label>
+</div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right bg-red" data-dismiss="modal"><i class="fa fa-close"></i>  Đóng</button>
+                    <button type="submit" class="btn btn-primary pull-left bg-green" id="cmdsave_them_yeucau"><i class="fa fa-send-o"></i>&nbsp; Gửi yêu cầu</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- END dailog yeu cau mo them chi nhanh  -->
+
+<!-- DIALOG SEARCH SAN PHAM SU DUNG TRONG BILL/ no using-->
+<div id="dlgsearchproduct" style="display:none;">
+    <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" placeholder="Gõ vào mã/tên hàng hóa" class="form-control" id="txt_bill_searchproduct" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-flat bill_btn_add_product" ng-click="addProduct();">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-flat bill_dlg_timkiem_close">
+                    <i class="fa fa-close"></i>
+                </button>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="col-md-12">
+        <div id="dlgsearchproduct_grid">
+        </div>
+    </div>
+    <div class="col-md-12">
+
+    </div>
+
+</div>
+<!-- end DIALOG SEARCH SAN PHAM -->
+
+<!-- DIALOG SEARCH KHACH HANG SU DUNG TRONG BILL / no using-->
+<div id="dlgsearchkhachhang" style="display:none;">
+    <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" placeholder="Gõ vào mã/tên/địa chỉ/điện thoại..." class="form-control" id="txt_bill_searchkhachhang" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-flat bill_btn_add_khachhang" ng-click="addKhachhang();">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-flat bill_dlg_timkiem_close_khachhang">
+                    <i class="fa fa-close"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="dlgsearchkhachhang_grid">
+        </div>
+    </div>
+    <div class="col-md-12">
+
+    </div>
+
+</div>
+<!-- end DIALOG SEARCH SAN PHAM -->
+
+ <!-- window quick add-->
+<div ng-controller="mtquicaddcate" ng-init="loadCategory()" id="divquickadd">
+    <!-- DIALOG them nhanh hang hoa moi -->
+    <div id="dlgQuickAddProduct" style="display:none;">
+        <table>
+            <tr>
+                <td>Nhóm:</td>
+                <td>
+                    <select class="form-control" id="cbbqap_nhom" placeholder="" style="width:100%" ng-model="hanghoa.nid">
+                        <option ng-repeat="item in nhomhanghoa track by $index" value="{{item.id}}">{{item.ten}}</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mã:</td>
+                <td><input type="text" class="form-control" required id="txtqap_ma" placeholder="Mã: để trống sẽ tự sinh" ng-model="hanghoa.ma"></td>
+            </tr>
+            <tr>
+                <td>Tên:</td>
+                <td><input type="text" class="form-control" required id="txtqap_ten" placeholder="Tên " ng-model="hanghoa.ten"></td>
+            </tr>
+            <tr>
+                <td>Số tồn:</td>
+                <td><input type="number" class="form-control" required id="txtqap_ton" placeholder="Số tồn" value="0" ng-model="hanghoa.ton"></td>
+            </tr>
+            <tr>
+                <td>Giá nhập:</td>
+                <td><input type="number" class="form-control" required id="txtqap_gianhap" placeholder="Giá nhập" value="0" ng-model="hanghoa.gianhap"></td>
+            </tr>
+            <tr>
+                <td>Giá bán buôn:</td>
+                <td><input type="number" class="form-control" required id="txtqap_giabanbuon" placeholder="giá bán buôn" value="0" ng-model="hanghoa.giabanbuon"></td>
+            </tr>
+            <tr>
+                <td>Giá bán lẻ:</td>
+                <td><input type="number" class="form-control" required id="txtqap_giabanle" placeholder="Giá bán lẻ" value="0" ng-model="hanghoa.giabanle"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="quick_add_footer">
+                    <button type="button" class="btn btn-primary pull-left" id="cmdqap_save_cate" ng-click="saveQuickHanghoa()"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <!-- end DIALOG SEARCH SAN PHAM -->
+
+    <!-- DIALOG them nhanh khach hang -->
+    <div id="dlgQuickAddCustomer" style="display:none;">
+        <table>
+            <tr>
+                <td>Khu vực:</td>
+                <td> 
+                    <select class="form-control" id="cbbqac_khuvuc" placeholder="" style="width:100%" ng-model="khachhang.kvid">
+                        <option ng-repeat="item in khuvuc track by $index" value="{{item.id}}" >{{item.ten}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Nhóm:</td>
+                <td>
+                    <select class="form-control" id="cbbqac_nhom" placeholder="" style="width:100%" ng-model="khachhang.nid">
+                        <option ng-repeat="item in nhomkhachhang track by $index" value="{{item.id}}">{{item.ten}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Mã:</td>
+                <td><input type="text" class="form-control" required id="txtqac_ma" placeholder="Mã: để trống sẽ tự sinh" ng-model="khachhang.ma"></td>
+            </tr>
+            <tr>
+                <td>Tên:</td>
+                <td><input type="text" class="form-control" required id="txtqac_ten" placeholder="Tên " ng-model="khachhang.ten"></td>
+            </tr>
+            <tr>
+                <td>Địa chỉ:</td>
+                <td><input type="text" class="form-control" required id="txtqac_diachi" placeholder="Địa chỉ " ng-model="khachhang.diachi"></td>
+            </tr>
+            <tr>
+                <td>Điện thoại:</td>
+                <td><input type="text" class="form-control" required id="txtqac_tel" placeholder="Điện thoại" ng-model="khachhang.tel"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="quick_add_footer">
+                    <button type="button" class="btn btn-primary pull-left" id="cmdqac_save_cate" ng-click="saveQuickKhachhang()"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- end quic add khach hang -->
+
+    <!-- DIALOG them nhanh nhà cung cap -->
+    <div id="dlgQuickAddProvider" style="display:none;">
+        <table>
+            <tr>
+                <td>Khu vực:</td>
+                <td>
+                    <select class="form-control" id="cbbqapr_khuvuc" placeholder="" style="width:100%" ng-model="nhacungcap.kvid">
+                        <option ng-repeat="item in khuvuc track by $index" value="{{item.id}}">{{item.ten}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Nhóm:</td>
+                <td>
+                    <select class="form-control" id="cbbqapr_nhom" placeholder="" style="width:100%" ng-model="nhacungcap.nid">
+                        <option ng-repeat="item in nhomkhachhang track by $index" value="{{item.id}}">{{item.ten}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Mã:</td>
+                <td><input type="text" class="form-control" required id="txtqapr_ma" placeholder="Mã: để trống sẽ tự sinh" ng-model="nhacungcap.ma"></td>
+            </tr>
+            <tr>
+                <td>Tên:</td>
+                <td><input type="text" class="form-control" required id="txtqapr_ten" placeholder="Tên " ng-model="nhacungcap.ten"></td>
+            </tr>
+            <tr>
+                <td>Địa chỉ:</td>
+                <td><input type="text" class="form-control" required id="txtqapr_diachi" placeholder="Địa chỉ " ng-model="nhacungcap.diachi"></td>
+            </tr>
+            <tr>
+                <td>Điện thoại:</td>
+                <td><input type="text" class="form-control" required id="txtqapr_tel" placeholder="Điện thoại" ng-model="nhacungcap.tel"></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="quick_add_footer">
+                    <button type="button" class="btn btn-primary pull-left" id="cmdqapr_save_cate" ng-click="saveQuickNhaCungcap()"><i class="fa fa-save"></i>&nbsp; Lưu</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- end quic add khach hang -->
+
+ 
+</div>
+<!-- end window quick add-->
+<div id="dlgthongbao_mtmain" >
+</div>
+
+<div id="dlgchangepassword" style="display:none;">
+    <table>
+        <tr>
+            <td>Mật khẩu cũ:</td>
+            <td><input type="password" class="form-control" required id="txtchanhepass_oldp" placeholder=""  ></td>
+        </tr>
+        <tr>
+            <td>Mật khẩu mới:</td>
+            <td><input type="password" class="form-control" required id="txtchanhepass_new" placeholder=""  ></td>
+        </tr>
+        <tr>
+            <td>Xác nhận mật khẩu:</td>
+            <td><input type="password" class="form-control" required id="txtchanhepass_new1" ></td>
+        </tr>
+       
+        <tr>
+            <td colspan="2" class="quick_add_footer">
+                <button type="button" class="btn btn-primary pull-left" id="cmdchangepassword_run"  ><i class="fa fa-save"></i>&nbsp; Lưu </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+   
+
+    mtmain.controller('mtquicaddcate', function ($scope) {
+        $scope.loadCategory = loadCategory;
+        $scope.khuvuc = [];
+        $scope.nhomhanghoa = [];
+        $scope.nhomkhachhang = [];
+        $scope.ndtc = [];
+
+        $scope.hanghoa = {id:'',ma:'',ten:'',ton:'',giabanbuon:0,giabanle:0,gianhap:0,nid:'',nten:'',ton:0};
+        $scope.khachhang = { id: '', ma: '', ten: '', diachi: '', tel: '', kvid: '', kvten: '', nid: '', nten: '' };
+        $scope.nhacungcap = { id: '', ma: '', ten: '', diachi: '', tel: '', kvid: '', kvten: '', nid: '', nten: '' };//[{ id: '00000000-0000-0000-0000-000000000000', kvid: '00000000-0000-0000-0000-000000000000', nid: '00000000-0000-0000-0000-000000000000', ten: '', ma: '', diachi: '', tel: '' }];
+        
+        $scope.saveQuickHanghoa = saveQuickHanghoa;
+        $scope.saveQuickKhachhang = saveQuickKhachhang;
+        $scope.saveQuickNhaCungcap = saveQuickNhaCungcap;
+
+        function loadCategory() {
+           
+            
+        }
+
+        //------------ SAVE
+        function saveQuickHanghoa() {
+            
+        }
+
+        function saveQuickKhachhang() {
+            var url1 = '/Customer/SaveQuickAdd';
+            $scope.khachhang.id = kendo.guid();
+            $scope.khachhang.kvten = $('#cbbqac_khuvuc option:selected').text();
+            $scope.khachhang.nten = $('#cbbqac_nhom option:selected').text();
+           
+            if ($scope.khachhang.nid == null || $scope.khachhang.nid=="") $scope.khachhang.nid = "00000000-0000-0000-0000-000000000000";
+            if ($scope.khachhang.kvid == null || $scope.khachhang.kvid == "") $scope.khachhang.kvid = "00000000-0000-0000-0000-000000000000";
+
+            $.post(url1, { data: JSON.stringify($scope.khachhang) }, function (data) {
+                if (data.code == 100) {
+                    // save hang hoa vao bill
+                    var kh = {
+                        id: $scope.khachhang.id, ma: data.data.code, ten: $scope.khachhang.ten, diachi: $scope.khachhang.diachi, tel: $scope.khachhang.tel, nocu: 0
+                        , searchtext: data.data.code + $scope.khachhang.ten + $scope.khachhang.diachi + $scope.khachhang.tel
+                    };
+                    mtclient_customer.value.push(kh);
+                    $('#txtbill_khachhang_' + current_tab_index).data("kendoAutoComplete").dataSource.read();;
+                   // $('#txtbill_search_' + current_tab_index).data("kendoAutoComplete");
+
+                    // set khach hang cho bill hien tai
+                    var obj = document.getElementById('bill' + current_tab_index);
+                    var scope = angular.element(obj).scope();
+                    scope.$apply(function () { scope.setKhachhang(current_tab_index, kh);});
+                    $("#dlgQuickAddCustomer").data("kendoWindow").close();
+                    return;
+                }
+                alert(data.msg);
+            });
+        }
+      
+        function saveQuickNhaCungcap() {
+          
+        }
+        //------------ END SAVE
+    });
+
+    function showHideImportFormObject()
+    {
+        if (bImportBill) {
+            $('#cmdexcelimportrun_bill').show();
+            $('#cmdexcelimportrun').hide();
+            $('#iddownload_link_bill').show();
+            $('#iddownload_link').hide();
+            $('#idtitle_import_bill').show();
+            $('#idtitle_import').hide();
+        } else {
+            $('#cmdexcelimportrun_bill').hide();
+            $('#cmdexcelimportrun').show();
+            $('#iddownload_link_bill').hide();
+            $('#iddownload_link').show();
+            $('#idtitle_import_bill').hide();
+            $('#idtitle_import').show();
+
+        }
+    }
+    $(document).ready(function ()
+    {
+        
+        //showHideImportFormObject();
+ 
+
+        $('#dlgchangepassword').kendoWindow({
+            width: "400px", title: "ĐỔI MẬT KHẨU", visible: false, actions: ["Close"],
+        }).data("kendoWindow");
+
+        $('#cmdchangepassword').click(function () {
+            resetQuickAdd('dlgchangepassword');
+            $("#dlgchangepassword").data("kendoWindow").center().open();
+        });
+        $('#cmdchangepassword_run').click(function () {
+            saveChangePassword();
+        });
+    });
+
+    function saveChangePassword() {
+        var o_p = $.trim($('#txtchanhepass_oldp').val());
+        var n_p = $.trim($('#txtchanhepass_new').val());
+        var n_p1 = $.trim($('#txtchanhepass_new1').val());
+        o_p = o_p.replace(/\'/g,'');
+        n_p = n_p.replace(/\'/g,'');
+        n_p1 = n_p1.replace(/\'/g,'');
+        var msg ='';
+        if (o_p == '') msg += "<br> - Vào mật khẩu cũ."
+        if (n_p == '') msg += "<br> - Vào mật khẩu mới."
+        if (n_p1 == '') msg += "<br> - Vào mật khẩu xác nhận."
+
+        if (n_p != n_p1) msg += "<br> - Mật khẩu mới và mật khẩu Xác nhận phải giống nhau."
+        if (msg!='')
+        {
+            meAlert('Thông báo', 'Lỗi:' + msg, 400);
+            return false;
+        }
+
+        var row = {
+            op:o_p, np: n_p, np1: n_p1 
+        };
+        $.post('/Users/ChangePassword', { data: JSON.stringify(row) }, function(data){
+            if (data.code/1!=100) 
+            {
+                meAlert('Thông báo','Lỗi:' + data.msg, 400);
+                return false;
+            }
+            meAlert('Thông báo','Đổi mật khẩu thành công.',400);
+            $("#dlgchangepassword").data("kendoWindow").close();
+        });
+    }
+
+
+    function fillQuickAddCategory(data) {
+        if (data == null) return;
+        
+        //BindDataCombobox_V2(data.khuvuc, 'cbbqac_khuvuc', 'id', 'ten', '');
+        //BindDataCombobox_V2(data.nhomkhachhang, 'cbbqac_nhom', 'id', 'ten', '');
+
+        //BindDataCombobox_V2(data.khuvuc, 'cbbqapr_khuvuc', 'id', 'ten', '');
+        //BindDataCombobox_V2(data.nhomkhachhang, 'cbbqapr_nhom', 'id', 'ten', '');
+
+        //BindDataCombobox_V2(data.nhomhanghoa, 'cbbqap_nhom', 'id', 'ten', '');
+
+        //$("#cbbqac_khuvuc").kendoMultiSelect().data("kendoMultiSelect");
+        //$("#cbbqac_nhom").kendoMultiSelect().data("kendoMultiSelect");
+        //$("#cbbqapr_khuvuc").kendoMultiSelect().data("kendoMultiSelect");
+        //$("#cbbqapr_nhom").kendoMultiSelect().data("kendoMultiSelect");
+        //$("#cbbqap_nhom").kendoMultiSelect().data("kendoMultiSelect");
+
+      //   $('#cbbqac_khuvuc').select2();
+        //$('#cbbqac_nhom').select2();
+        //$('#cbbqapr_khuvuc').select2();
+        //$('#cbbqapr_nhom').select2();
+        //$('#cbbqap_nhom').select2();
+
+    }
+    function resetQuickAdd(dlg)
+    { // dlg : ten dilog
+        $('#' + dlg + ' input[type=text]').val('');
+        $('#' + dlg + ' textarea').val('');
+        $('#' + dlg + ' input[type=number]').val(0);
+    }
+
+ 
+</script>
+<style>
+    .quick_add_footer {
+        padding-top:10px
+    }
+    #dlgQuickAddProduct .form-control,#dlgQuickAddCustomer .form-control,#dlgQuickAddProvider .form-control, #dlgchangepassword .form-control {
+        margin-top: 5px;
+        padding: 3px 12px;
+    }
+     #dlgQuickAddProduct table, #dlgQuickAddCustomer table,#dlgQuickAddProvider table,#dlgchangepassword table {
+        width:85%;
+        margin:20px;
+    }
+</style>

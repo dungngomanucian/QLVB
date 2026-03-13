@@ -1,0 +1,134 @@
+﻿
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Đăng nhập | AI Platform system</title>
+    <!-- Tell the browser to be responsive to screen width -->
+   
+    <link rel="shortcut icon" href="~/favicon.ico">
+ 
+    <link href="~/Styles/googlefont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Styles/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Styles/skin.css">
+    <link href="~/Styles/common.css?v=3" rel="stylesheet" />
+    <style type="text/css">
+        .bg1{
+            position:fixed;
+            top:0px;
+            left:0px; width:100%;height:100%;
+            background: rgba(255,255,255,0.6);
+            
+        }
+
+       
+    </style>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+</head>
+<body class="hold-transition login-page" style="overflow-y:hidden;" >
+     
+
+        <div class="login-box login-bg" style="z-index:100;border:2px solid green;border-radius:5px;">
+            <div class="login-logo" style="padding-top:10px;margin-bottom:10px;">
+                <a href="#">
+                    <span style="color:#000; margin-top:10px; font-size:20pt;">ĐĂNG NHẬP</span>
+                </a>
+
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body" style="">
+
+
+                <form id="frmlogin">
+                    <div class="form-group has-feedback">
+                        <input id="txtuid" type="text" class="form-control" placeholder="Tên đăng nhập (Email hoặc Số điện thoại)" required>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input id="txtpwd" type="password" class="form-control" placeholder="Mật khẩu" required>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <button type="submit" id="cmdlogin" class="btn bg-green btn-block btn-flat"><span class="glyphicon glyphicon-ok"></span> &nbsp;Đăng nhập</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <br />
+                <a href="/ForgotPassword">Quên mật khẩu</a>  <br>
+                <div style="color:red" id="txtmsg"></div>
+
+            </div>
+
+     
+            <!-- /.login-box-body -->
+        </div>
+         
+    <div class="ajaxloading fa fa-spinner fa-spin" style="display:none;"></div>
+    <div class="ajaxloading_bg" style="display:none;"></div>
+
+    <!-- /.login-box -->
+    <!-- jQuery 3 --> 
+    <script src="~/Scripts/jquery.min.js"></script>
+   
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/validator.min.js"></script>
+    <script src="~/Scripts/common.js"></script>
+
+    <script>
+ 
+
+  function _login() {
+      var uid = $.trim($('#txtuid').val());
+      var pwd = $.trim($('#txtpwd').val());
+      var url = '/Login/LoginProcess';
+ 
+      $.post(url, { u: uid, p: pwd }, function (data) {
+          if (data == '100') {
+             window.location = '/';
+          } else {
+              $('#txtmsg').html(data);
+          }
+
+
+      });
+  }
+  function InitDefault() {
+      bLoadDataCommon = false;
+  }
+
+  $(document).ready(function () {
+      $('.ajaxloading').hide();
+      $('.ajaxloading_bg').hide();
+
+      $('#frmlogin').validator().on('submit', function (e) {
+          if (e.isDefaultPrevented()) {
+          } else {
+              _login();
+              return false;
+          }
+      });
+       
+   
+
+  });
+    </script>
+        <script src="js/talk.js"></script>
+</body>
+
+
+</html>
+ 

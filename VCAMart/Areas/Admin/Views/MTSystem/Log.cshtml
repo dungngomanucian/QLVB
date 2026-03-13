@@ -1,0 +1,428 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/main_layout.cshtml";
+}
+
+
+<script src="~/Scripts/excelexportjs.js"></script>
+<script src="~/Scripts/jspdf.min.js"></script>
+ <script src="~/App/home.js"></script>
+
+    <div class="box" style="padding: 0px;margin: 0px;" id="divcontent">
+        <div class="box-header">
+            <label id="lbcontent_title" style="display:none;text-transform:uppercase">@(ViewBag.Function_Title)</label>
+            
+            <a id="cmdprint_cate" class="hidden-sm hidden-xs btn bg-fuchsia btn-flat ">      <i class="fa fa-print"></i> &nbsp;Print </a>
+       
+            <span style="padding-left:10px">
+                Từ ngày: <input id="txttungay" style="width:110px" />
+                Đến ngày: <input id="txtdenngay" style="width:110px" />
+
+                <a id="cmdbilltimkiem" class="btn bg-olive btn-flat" title="Tìm hóa đơn"> <i class="fa fa-search"></i> &nbsp;Tìm kiếm </a>
+                <span class="input-group-btn" style="display:inline">
+                    <a class="dropdown-toggle btn btn-flat bg-info" data-toggle="dropdown" href="#" title="Lọc theo thời gian"> <i class="fa fa-calendar"></i> </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(1)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Hôm nay</a></li>
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(2)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Hôm qua</a></li>
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(3)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tuần này</a></li>
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(4)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tuần trước</a></li>
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(5)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tháng này</a></li>
+                        <li><a class="btn-flat" href="#" onclick="billListFilter(6)"> <i class="fa fa-calendar-check-o"></i> &nbsp;Tháng trước</a></li>
+                    </ul>
+                </span>
+            </span>
+            <a class="btn_endfullscreen" style="display:none;"><i class="fa fa-close"></i></a>
+            <a class="btn_fullscreen"><i class="glyphicon glyphicon-fullscreen"></i></a>
+
+        </div>
+
+        <div class="box-body home_history">
+            <div id="grid_noidung"></div>
+        </div>
+
+    </div>
+ 
+<div style="display:none" ng-controller="mtbill_home_detail" id="div_home_detail">
+    <div id="windowBillsShow_NX" style="display:none;padding:10px;max-height:550px;">
+        <div class="header">
+            <p>
+                Ngày:  {{billCurrent.ngay}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                Mã phiếu: {{billCurrent.ma}}&nbsp;&nbsp; &nbsp;&nbsp;
+            </p>
+            <p>
+                Từ chi nhánh: {{billCurrent.chid_ten}}&nbsp;&nbsp; &nbsp;&nbsp;
+                <span ng-if="billCurrent.chidto_ten!= ''">
+                    Đến chi nhánh: {{billCurrent.chidto_ten}}
+                </span>
+            </p>
+        </div>
+
+        <table class="k-grid k-widget" role="grid" style="width:100%;">
+            <thead class="k-grid-header" role="rowgroup">
+                <tr role="row">
+                    <th role="columnheader" class="k-header">TT</th>
+                    <th role="columnheader" class="k-header">Mã hàng</th>
+                    <th role="columnheader" class="k-header">Tên</th>
+                    <th role="columnheader" class="k-header">Số lượng</th>
+                    <th role="columnheader" class="k-header">Giá</th>
+                    <th role="columnheader" class="k-header">Tổng tiên</th>
+                    <th role="columnheader" class="k-header">Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody role="rowgroup">
+                <tr ng-repeat="item in billCurrent.products track by $index" role="row">
+                    <td role="gridcell">{{$index+1}}</td>
+                    <td role="gridcell">{{item.ma}}</td>
+                    <td role="gridcell">{{item.ten}}</td>
+                    <td role="gridcell" class="right">{{  item.soluong |number:1}}</td>
+                    <td role="gridcell" class="right">{{  item.gia|number:1}}</td>
+                    <td role="gridcell" class="right">{{  item.phaitra |number:1}}</td>
+                    <td role="gridcell">{{item.ghichu}}</td>
+                </tr>
+
+
+                <tr role="row" class="footer">
+                    <td role="gridcell" colspan="3">Tổng:</td>
+                    <td role="gridcell">{{  billCurrent.soluong |number:1}}</td>
+                    <td role="gridcell"></td>
+
+                    <td role="gridcell">{{  billCurrent.thanhtien -  billCurrent.cktien | number:1}}</td>
+                    <td role="gridcell"></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p>
+
+                Tổng tiền: {{  billCurrent.phaitra |number:1}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                Thanh toán: {{  billCurrent.thanhtoan |number:1}}   &nbsp;&nbsp; &nbsp;&nbsp;
+
+            </p>
+            <p ng-if="billCurrent.ghichu!= ''">
+                Ghi chú: {{billCurrent.ghichu}}
+            </p>
+        </div>
+
+        <div class="tools">
+            <a class="btn bg-red btn-flat" onclick='$("#windowBillsShow_NX").data("kendoWindow").close();'>      <i class="fa fa-close"></i> &nbsp;Đóng </a>
+        </div>
+
+    </div>
+
+    <div id="windowBillsShow_TC" style="display:none;padding:10px;max-height:550px;">
+        <div class="header" style="padding:20px;">
+            <p>
+                Chi nhánh: {{billCurrent.chidten}}&nbsp;&nbsp; &nbsp;&nbsp;
+            </p>
+            <p>
+                Ngày:  {{billCurrent.ngay}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                Mã phiếu: {{billCurrent.ma}}&nbsp;&nbsp; &nbsp;&nbsp;
+            </p>
+            <p>
+                Tên:  {{billCurrent.khten}}  &nbsp;&nbsp; &nbsp;&nbsp;
+                <span ng-if="billCurrent.khdiachi!= ''">
+                    Địa chỉ: {{billCurrent.khdiachi}}
+                </span>&nbsp;&nbsp; &nbsp;&nbsp;
+                <span ng-if="billCurrent.khtel!= ''"> Điện thoại: {{billCurrent.khtel}}</span>&nbsp;&nbsp; &nbsp;&nbsp;
+            </p>
+            <p>
+                Loại Thu/Chi:  {{billCurrent.ndtcten}}
+            </p>
+            <p>
+                Số tiền: {{billCurrent.sotien|number:1}} <i>&nbsp;&nbsp;   ({{billCurrent.sotien_chu}})</i>
+            </p>
+            <p ng-if="billCurrent.noidung!= ''">
+                Nội dung: {{billCurrent.noidung}}
+            </p>
+            <p>
+                Nhân viên: {{billCurrent.nv}}
+            </p>
+
+        </div>
+
+
+        <div class="tools">
+            <a class="btn bg-red btn-flat" onclick='$("#windowBillsShow_TC").data("kendoWindow").close();'>      <i class="fa fa-close"></i> &nbsp;Đóng </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    js_mn_tt = "@ViewBag.mn_tt";
+    // alert(js_mn_tt);
+</script>
+
+<script>
+
+ 
+    var grid , logList = [], thaotacList = [], chucnangList = [];
+
+    $(document).ready(function(){
+        bBillLoadCategory = false;
+        $('#txttungay').kendoDatePicker({ format: "dd/MM/yyyy", value: new Date() });
+        $('#txttungay').trigger('change');
+        $('#txtdenngay').kendoDatePicker({ format: "dd/MM/yyyy", value: new Date() });
+        $('#txtdenngay').trigger('change');
+        _showBillGrid();
+
+        $('#cmdbilltimkiem').click(function(){
+            _loadBillListData();
+        });
+        $(window).resize(function(){
+            resizeBillGrid();
+        });
+ 
+        // XOA NHIEU HOA DON DA CHON
+
+    });
+
+    function billListFilter(type)
+    {
+        var tungay, denngay;
+        var ngay = new Date();
+        var dd = ngay.getDate();
+        var mm = ngay.getMonth()+1;
+        var yy = ngay.getFullYear();
+        tungay = dd + '/' +mm + '/' + yy;
+        denngay = tungay;
+
+        switch (type){
+            case 2: // hom qua
+                ngay.setDate(ngay.getDate() -1);
+                dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                tungay = dd + '/' +mm + '/' + yy; denngay  = tungay;
+                break;
+            case 3: // tuan nay
+                ngay.setDate(ngay.getDate() - (ngay.getDay()==0?7:ngay.getDay())+1);
+                dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                tungay = dd + '/' +mm + '/' + yy; //denngay  = tungay;
+                break;
+            case 4: // tuan truoc
+                ngay.setDate(ngay.getDate() - ngay.getDay()-6);
+                dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                tungay = dd + '/' +mm + '/' + yy; //denngay  = tungay;
+                ngay.setDate(ngay.getDate() + 6);
+                dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                denngay = dd + '/' +mm + '/' + yy;
+                break;
+            case 5: // thang nay
+                tungay = '1/' +mm + '/' + yy; //denngay  = tungay;
+                break;
+            case 6: // thang truoc
+                ngay.setDate(ngay.getDate() - ngay.getDate());
+                dd = ngay.getDate(); mm = ngay.getMonth()+1; yy = ngay.getFullYear();
+                tungay = '1/' +mm + '/' + yy; //denngay  = tungay;
+                denngay = dd + '/' +mm + '/' + yy;
+                break;
+        }
+        $('#txttungay').val(tungay);
+        $('#txtdenngay').val(denngay);
+        _loadBillListData();
+    }
+    
+    function resizeBillGrid(){
+        var h = $(window).height()-300;
+        $('.k-grid-content').height(h);
+        //grid.resize();
+    }
+
+    function getFilterData()
+    {
+        for (i=0; i<logList.length; i++){
+            if ($.inArray(logList[i].thaotac, thaotacList)==-1 )
+            {
+                thaotacList.push(logList[i].thaotac);
+            }
+            if ($.inArray(logList[i].chucnang, chucnangList)==-1 )
+            {
+                chucnangList.push(logList[i].chucnang);
+            }
+        }
+    }
+    function _loadBillListData()
+    {
+        // tim hoa don tu server
+        var url =  '/Log/GetList/' + js_mn_tt;
+        var row = { tungay : $('#txttungay').val(), denngay: $('#txtdenngay').val(), chid:  chid_list };
+
+        $.post(url, {data: JSON.stringify(row) }, function(data){
+            if (data.code == 100)
+            {
+                logList = JSON.parse(data.data);
+                getFilterData();
+               
+                   grid.dataSource.data(logList);
+                   resizeBillGrid();
+                
+            }
+        });
+    }
+
+    function _showBillGridFillData(){
+
+        // fill data ra grid
+        $("#grid_noidung").kendoGrid({
+            dataSource: {data:  logList ,pageSize: 100,
+                
+            },
+            filterable: {
+                //mode:"row",
+                extra: false,
+                operators: {
+                    string: {contains: "Contains...", startswith: "Starts with",gte: " >= ", lte: " <= ", eq: " = "}
+                }
+            },
+            sortable: { mode: "multiple", allowUnsort: true },
+
+            pageable: { input: false, numeric: true },
+            scrollable: true, reorderable: true,resizable: true,
+            groupable: true,
+            allowCopy: false
+            ,selectable: false,
+            excel: {fileName: exportFileName + ".xlsx",allPages: true,filterable: true},
+            pdf: {
+                author: "RIC Total",creator: "RIC Total",subject: "RIC Total: " + exportFileName,
+                fileName: exportFileName + ".pdf",date: new Date(),
+                title: "RIC Total: " + exportFileName,
+                margin: { left: "20pt", right: "20pt", top: "15mm", bottom: "15mm" },
+                paperSize: "A4",landscape: true,scale: 0.8, avoidLinks: true,repeatHeaders: true,
+                template: $("#page-template").html(),allPages: true
+            },
+
+            columns: [
+                {
+                    field: "id", title: "No.", template: "#= ++recordnumber#"
+                    , filterable: false   , sortable: false
+                    // locked: true,
+                    // lockable: false,
+                },
+                 
+                { field: "ngay", title: "Ngày/Giờ" ,filterable: { ui: filterRemoveCombobox }
+                    , template: "#= kendo.toString(kendo.parseDate(ngay), 'dd/MM/yyyy hh:mm:ss') #"
+                },
+                { field: "nv", title: "Nhân viên", filterable: { ui: filterRemoveCombobox }},
+                { field: "thaotac",title: "Thao tác", template: "#= showThaotac(loai,thaotac) #",  filterable: { ui: filterThaotac }},
+                { field: "chucnang", title: "Nghiệp vụ",  filterable: { ui: filterChucnang }},
+                { field: "noidung", title: "Log", template: "#= showNoidungLog(noidung, billid, billtype, loai)  #", filterable: { ui: filterRemoveCombobox }},
+            ],
+            dataBound: function (e) {
+                recordnumber = 0;
+                for (var i = 0; i < this.columns.length-1; i++) this.autoFitColumn(i);
+                $('.noidung_link').click(function () {
+                    var id = $(this).data('billid');
+                    var type = $(this).data('billtype');
+                    _logShowBillDetail(id, type);
+                    
+                })
+            }
+        ,  attributes:{style:"min-height:250px"}
+        }) ;
+        grid = $("#grid_noidung").data("kendoGrid");
+         
+    }
+
+    function showNoidungLog(noidung, billid, billtype, loai)
+    {
+        var r = {
+            billid:billid,noidung:noidung, billtype:billtype, loai:loai
+        };
+        return customizeNoidung(r);
+    }
+
+    function filterThaotac(element) {
+        var form = element.closest("form");  
+        form.find(".k-filter-help-text:first").remove();//text("Select an item from the list:");
+        form.find("select").remove();
+
+        element.kendoDropDownList({
+            dataSource: thaotacList,
+            optionLabel: "--Chọn--"
+        });
+    }
+    function filterChucnang(element) {
+         var form = element.closest("form");  
+        form.find(".k-filter-help-text:first").remove();//text("Select an item from the list:");
+        form.find("select").remove();
+        element.kendoDropDownList({
+            dataSource: chucnangList,
+            optionLabel: "--Chọn--"
+        });
+    }
+
+    function showThaotac(loai, thaotac)
+    {
+        
+        var s = '<div style="padding:3px; 10px;text-align:center;" class=\"' + selectStyleThaoTac(loai) + '\">' + thaotac + '</div>';
+        return s;
+    }
+
+    function _showBillGrid() {
+            var row = {
+                tungay : $('#txttungay').val(), denngay: $('#txtdenngay').val(), chid:  chid_list
+            };
+            $.post( "/Log/GetList/" + js_mn_tt, {data: JSON.stringify( row)}, function(data){
+                if (data.code == 100)
+                {
+                    logList = JSON.parse(data.data);
+                    getFilterData();
+                    _showBillGridFillData()
+                    resizeBillGrid();
+                }
+            });
+            
+    }
+     
+
+    function InitDefault()
+    {
+        pageurl =  '/Log';
+
+        //_login_nv_id ='@ViewBag.login_nv_id';
+        _page_size = @ViewBag.pagesize;
+        iPrintColStart = 1; // cot bat dau in cua kendouigrid
+        iPrintColNumbers = 5; // so cot in
+        columnsWidth = [{ sWidth: '5%' }, { sWidth: '10%' }, { sWidth: '20%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '15%' }, { sWidth: '5%' }];
+        columnAutoWidth = true;
+        bLoadDataCommon = false;
+        title = '@Html.Raw(ViewBag.Function_Title)';
+        document.title = '@Html.Raw(RICTotal.Models.common.app_title_short)' + " - " + title;
+        exportFileName = '@ViewBag.ControllerName';
+        myVersion = 2;
+        jsonData = []; // chua du lieu can bind ra bang
+        urlobj;
+        bAddEdit = true; // true: add, false: edit
+        controllerURL = '/@ViewBag.ControllerName';
+        tblData = '@ViewBag.tblname'; // tên bảng show dữ liệu
+        dlgAddEdit = 'dlg@(ViewBag.tblname)'; // dialog chữa form edit
+        TienTo = ''; // tên trường tiền tố của 1 bảng
+        pageid = 0;
+    }
+
+</script>
+
+<style>
+   
+      .k-grid td {
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    padding: .4em .6em;
+    overflow: hidden;
+    line-height: 1.6em;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+    #windowBillsShow {
+        overflow:hidden;
+    }
+    #windowBillsShow td {
+        padding:5px 10px;
+    }
+      #windowBillsShow .tools {
+        padding-top:10px;
+    }
+  </style>
+ 

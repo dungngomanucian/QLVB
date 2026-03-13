@@ -1,0 +1,478 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Html.Raw(RICTotal.Models.common.app_title)</title>
+    <meta content="@Html.Raw(RICTotal.Models.common.app_keywords)" name="keywords">
+    <meta content="@Html.Raw(RICTotal.Models.common.app_description)" name="description">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <meta property="og:title" content="Nhà xuất bản đại học Sư Phạm" />
+
+    <meta property="og:url" content="@ViewBag.Url_address" />
+    <meta property="og:image" itemprop="thumbnailUrl" content="@ViewBag.Url" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:site_name" content="CPA VietNam" />
+    <meta property="og:description" content="@ViewBag.Description" />
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="~/Styles/googlefont.css" rel="stylesheet" />
+
+   
+
+    <link rel="stylesheet" href="~/Styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Styles/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Styles/skin.css">
+    <link rel="stylesheet" href="~/Styles/common.css">
+    <link rel="stylesheet" href="~/Styles/bill.css">
+
+
+    <link href="~/kendoui/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="~/kendoui/styles/kendo.default.min.css" rel="stylesheet">
+    <link href="~/kendoui/styles/kendo.default.mobile.min.css" rel="stylesheet">
+    <script src="~/js/jquery.min.js"></script>
+    <!--
+    <script src="~/Scripts/jquery.min.js"></script>
+    -->
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <!--
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    -->
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/lib/admin.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+    <script>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Scripts/common.js")))
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/App/mrictotal.js")))
+
+    </script>
+
+
+    <script src="~/kendoui/js/kendo.all.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="~/Marquee/examples.css" />
+
+
+
+    <link href="~/Notification/toastr.css" rel="stylesheet" />
+
+
+    <script src="~/Notification/toastr.js"></script>
+    <script src="~/Notification/script.js"></script>
+    <!--Tao menu dropdown-->
+    <link rel="stylesheet" type="text/css" href="/js/menu/default.css" />
+    <link rel="stylesheet" type="text/css" href="/js/menu/component.css" />
+    <script src="/js/menu/modernizr.custom.js"></script>
+
+
+
+</head>
+
+<body style="margin-left:0px; margin-top:0px" ng-app="mtmain">
+
+    <!--Banner Top-->
+    <div class="section" style="background-color:#ffffff;">
+        <div class="container" style="text-align:center">
+            <div class="row">
+                <img src="~/Images/banner-top.jpg" class="img-responsive" />
+            </div>
+
+        </div>
+    </div>
+    <!--End of BannerTop-->
+    <!-- Menu Top-->
+    <div class="section" style="background-color:#ffffff;  ">
+        <div class="container" style="background-color:#009345; ">
+            <div class="row">
+                <div class="col-lg-9">
+                    @Html.Partial("_header")
+                </div>
+                <div class="col-lg-3">
+                    <div style="float:left">
+                        @Html.Partial("menu_top")
+                    </div>
+
+                    <div class="hidden-xs" style="text-align:right; margin-top:10px; float:right;margin-right:1px; ">
+                        <a href='javascript:displaySearch();'><i style='color:#ffffff' class='glyphicon glyphicon-search'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of MenuTop-->
+    <!-- Hot news scroll-->
+    <div class="section" style="background-color:#ffffff;  ">
+        <div class="container" style="padding-top:2px;padding-bottom:2px;background-color:#E6E6E6;border-top:1px solid #ffffff ">
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-xs-3" style="padding:0px; margin:0px">
+                    <img class="img-hot-new" src="@ViewBag.New_Title_Hot" />
+                </div>
+                <div class="col-lg-11 col-md-11 col-xs-9" style="margin-top:5px;margin-right:0px; padding-right:0px">
+                    <div class="promo-carousel" id="grouploop-1">
+                        <div class="itemMarquee-wrap">
+
+                            @{
+                                for (int i = 0; i < ViewBag.HotNew.Rows.Count; i++)
+                                {
+                                    string hotnew1 = RICTotal.Models.common._createURLFromText(@ViewBag.HotNew.Rows[i]["CA_Title"].ToString());
+                                    hotnew1 = @ViewBag.HotNew.Rows[i]["CA_Identify"].ToString() + "-" + hotnew1;
+                                    <div class="itemMarquee active" style="width:250px;max-width:250px;">
+                                        <a href="/ContentArticlesDetails/@hotnew1"> @ViewBag.HotNew.Rows[i]["CC_Name"].ToString()</a>
+                                    </div>
+                                    <div class="itemMarquee">
+                                        <a href="/ContentArticlesDetails/@hotnew1"> @ViewBag.HotNew.Rows[i]["CA_Title"].ToString()</a>
+
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="navigation" style="background-color:#ffffff;">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_breadcrumb")
+            </div>
+
+        </div>
+    </div>
+    <!--Noi dung chinh trang-->
+    <div class="section" style="background-color:#ffffff;  ">
+        <div class="container" style="background-color:#F2F2F2; ">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-xs-6" >
+                    <div class="row">
+                        @Html.Partial("_menu_left")
+                    </div>
+                    <div class="row" style="height:10px"></div>
+                    <!--Tao lien ket website-->
+                  
+
+                    <div class="row head1" >
+                        @ViewBag.weblink
+                    </div>
+                    <div class="row" style="height:10px"></div>
+                    <div class="row">
+                        <section class="vertical slider">
+                            @{for (int j = 0; j < ViewBag.WeblinkInfo.Rows.Count; j++)
+                                {
+                                    <div style="padding-bottom:10px; margin-left:0px; ">
+                                        <img style="width:95%" class="img-responsive" src="@ViewBag.WeblinkInfo.Rows[j]["WL_Image"].ToString()" alt="">
+
+                                    </div>
+                                }
+                            }
+                        </section>
+                    </div>
+                    <!--End of lien ket website-->
+                    <!--Thong tin VIsitor-->
+                    <div class="row head1" id="responsive-nav" style="padding-top:30px;padding-bottom:10px">
+                        @ViewBag.Visitor
+                    </div>
+                    <div class="row">
+
+                        <div style="background-color:#3B3C58; width:95%; height:125px;border:solid 1px #626379;padding:10px;  ">
+                            <div style="text-align:center; margin-top:10px;margin-bottom:10px;">
+                                <table border="0" cellpadding="5" cellspacing="0" width="98%" align="center">
+                                    <tr>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg1" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg2" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg3" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg4" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg5" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg6" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg7" style="width:20px" /></td>
+                                        <td><img src="~/img/counter/0.gif" id="visitorImg8" style="width:20px" /></td>
+
+
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                            <div class="TitleVisitor"><img src="~/img/counter/mvcvisit.png" style="width:16px" />&nbsp;Visit Today: @HttpContext.Current.Application["visitors_online"].ToString()</div>
+                            <div class="TitleVisitor"><img src="~/img/counter/mvctotal.png" style="width:16px" />&nbsp;Total Visit: @HttpContext.Current.Application["TatCa"].ToString()</div>
+                        </div>
+                    </div>
+                    <!--End of Visitor-->
+                </div>
+                <div class="col-lg-9 col-md-9 col-xs-6" >
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!--Footer -->
+    <footer class="ftco-footer">
+        <div class="container" style="background-color:#123B84">
+            <div class="row mb-5">
+                <div class="col-sm-12 col-md">
+                    <div class="ftco-footer-widget mb-4" align="center">
+                        <a href="index.html"><img class="img-responsive margin0auto" src="~/Images/logo-02.png" width="220" height="150" alt="" /></a>
+                        <p align="center">Nhà xuất bản đại học Sư Phạm</p>
+                        <ul class="ftco-footer-social list-unstyled mt-2">
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">CHÀO BÁN</h2>
+                        <ul class="list-unstyled">
+                            @{if (ViewBag.ProductGroup.Rows.Count > 0)
+                                {
+                                    for (int index_PG = 0; index_PG < ViewBag.ProductGroup.Rows.Count; index_PG++)
+                                    {
+                                        string url = RICTotal.Models.common._createURLFromText(ViewBag.ProductGroup.Rows[index_PG]["PUG_Name"].ToString().Trim());
+                                        url = "/Chaomua/" + ViewBag.ProductGroup.Rows[index_PG]["PUG_Identify"].ToString() + "-" + url;
+                                        <li><a href='@url'><span class="fa fa-chevron-right mr-2"></span>@ViewBag.ProductGroup.Rows[index_PG]["PUG_Name"]</a></li>
+                                    }
+                                }
+
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">CHÀO MUA</h2>
+                        <ul class="list-unstyled">
+                            @{if (ViewBag.ProductGroup.Rows.Count > 0)
+                                {
+                                    for (int index_PG = 0; index_PG < ViewBag.ProductGroup.Rows.Count; index_PG++)
+                                    {
+                                        string url = RICTotal.Models.common._createURLFromText(ViewBag.ProductGroup.Rows[index_PG]["PUG_Name"].ToString().Trim());
+                                        url = "/ChaoBan/" + ViewBag.ProductGroup.Rows[index_PG]["PUG_Identify"].ToString() + "-" + url;
+                                        <li><a href='@url'><span class="fa fa-chevron-right mr-2"></span>@ViewBag.ProductGroup.Rows[index_PG]["PUG_Name"]</a></li>
+                                    }
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">VỀ COSTE</h2>
+                        <ul class="list-unstyled">
+                            @{if (ViewBag.AboutUs.Rows.Count > 0)
+                                {
+                                    for (int index_about = 0; index_about < ViewBag.AboutUs.Rows.Count; index_about++)
+                                    {
+                                        string url = RICTotal.Models.common._createURLFromText(ViewBag.AboutUs.Rows[index_about]["CC_Name"].ToString().Trim());
+                                        url = "/ContentArticles/" + ViewBag.AboutUs.Rows[index_about]["ma"].ToString() + "-" + url;
+                                        <li><a href='@url'><span class="fa fa-chevron-right mr-2"></span>@ViewBag.AboutUs.Rows[index_about]["CC_Name"]</a></li>
+                                    }
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">LIÊN HỆ</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon fa fa-map marker"></span><span class="text">Tầng 3, 4 - Tòa nhà NEDCEN, Ngõ 149 - Giảng Võ - Đống Đa - Hà Nội</span></li>
+                                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">043.8234.456</span></a></li>
+                                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">coste@coste.vn</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid px-0 py-5 " style="background-color:#ffffff">
+            <div class="container" style="background-color:#01A14B">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="mb-0" style="color: rgba(255,255,255,.5);">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://cetic.vn" target="_blank">cetic.vn</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                        <p class="mb-0" style="color: rgba(255,255,255,.5);">
+                            Lượt truy cập: 000.000 | Đang truy cập: 000.000
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--End of footer-->
+
+    <script src="~/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script type="text/javascript" src="~/Marquee/grouploop-1.0.0.min.js"></script>
+    <script>
+            $('#grouploop-1').grouploop({
+                velocity: 1,
+                forward: false,
+                pauseOnHover: true,
+                childNode: ".itemMarquee",
+                childWrapper: ".itemMarquee-wrap",
+                complete: function () { console.log("Initialized a grouploop with id: " + $(this).attr('id')) }
+            });
+
+    </script>
+    <script type="text/javascript">
+            $(document).on('ready', function () {
+                $(".vertical-center-4").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 6,
+                    slidesToScroll: 2,
+                    autoplay: true,
+                });
+                $(".vertical-center-3").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                });
+                $(".vertical-center-2").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                });
+                $(".vertical-center").slick({
+                    dots: true,
+                    vertical: true,
+                    centerMode: true,
+                });
+                $(".vertical").slick({
+                    dots: false,
+                    vertical: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    autoplay: true,
+
+                    speed: 3500,
+                    autoplaySpeed: 0,
+                    centerMode: true,
+                    cssEase: 'linear',
+
+                    infinite: true,
+                    initialSlide: 1,
+                    arrows: false,
+                    buttons: false
+                });
+                $(".regular").slick({
+                    dots: false,
+                    infinite: true,
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    autoplay: true,
+                    nextArrow: '',
+                    prevArrow: '',
+
+                });
+
+
+                $(".center").slick({
+                    dots: true,
+                    infinite: true,
+                    centerMode: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 3
+                });
+                $(".variable").slick({
+                    speed: 7000,
+                    autoplay: true,
+                    autoplaySpeed: 0,
+                    centerMode: true,
+                    cssEase: 'linear',
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+
+                    infinite: true,
+                    initialSlide: 1,
+                    arrows: false,
+                    buttons: false,
+                    focusOnSelect: true,
+                    pauseOnHover: true,
+                });
+                $(".lazy").slick({
+                    lazyLoad: 'ondemand', // ondemand progressive anticipated
+
+                    dots: false,
+                    infinite: true,
+                    autoplay: true,
+                    autoplay: true,
+                    nextArrow: '',
+                    prevArrow: '',
+                    autoplaySpeed:10000,
+
+                });
+            });
+    </script>
+
+    <!--Xu ly thong tin bo dem Visitor-->
+    <script>
+    $(document).ready(function () {
+
+        var total=parseInt( @HttpContext.Current.Application["TatCa"]);
+        var du;
+        var arrImage = ["/img/counter/1.gif", "", "", "", "", "", "", "", ""];
+        var strImage = "visitorImg";
+        var k = 8;
+        while (total != 0)
+        {
+            strImage = "visitorImg";
+            du = total % 10;
+            total = parseInt(total / 10);
+            strImage = strImage + k;
+            k--;
+            var img1 = document.getElementById(strImage);
+            var anh = "/img/counter/" + du + ".gif";
+            img1.src = anh;
+        }
+
+    });
+
+    </script>
+</body>
+
+</html>
+
+<script src="~/js/talk.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/jquery.zoom.min.js"></script>
+<script src="~/js/main.js"></script>

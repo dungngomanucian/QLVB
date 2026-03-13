@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/main_layout.cshtml";
+}
+
+ 
+
+
+<div class="box" style="margin-top: 1px; margin-left:1px;" id="divcontent">
+    <div class="box-header">
+        <label id="lbcontent_title" style="display:none;text-transform:uppercase">THÔNG BÁO</label>
+        <font color="red">
+            <h2>Chức năng này đã hết hạn sử dụng. </h2>
+            <h2>Vui lòng liên hệ với RIC để được gia hạn sử dụng.</h2>
+            <h2>HOTLINE: 097 247 8383</h2>
+            </font>
+</div>
+
+  
+
+</div>
+ <script type="text/javascript">
+    function InitDefault()
+    {
+        bLoadDataCommon = false;
+    }
+</script>
