@@ -12,6 +12,7 @@ namespace LIB
     public static class ConfigInfo
     {
         public const string userLoginedConfirm = "100";
+        public const string MBLoginedConfirm = "100";
     }
 
     public class CLogin
