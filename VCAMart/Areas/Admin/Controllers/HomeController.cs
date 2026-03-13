@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -62,7 +62,15 @@ namespace RICTotalAdmin.Controllers
             ViewBag.user_uid = lg.userUid;
             ViewBag.user_fullname = lg.userFullName;
             ViewBag.user_avata = lg.userAvata; //
-            ViewBag.UserMenu = RICTotalAdmin.Models.common.GetMenuAdmin(lg.userId); //common.GetMenuAdmin(lg.userId);
+            var userMenu = RICTotalAdmin.Models.common.GetMenuAdmin(lg.userId); //common.GetMenuAdmin(lg.userId);
+            if (string.IsNullOrWhiteSpace(userMenu))
+            {
+                // DB/menu query can fail on newly cloned environments.
+                // Keep admin shell usable and show a clear hint instead of a blank page.
+                userMenu = "<li><a href='/Admin/Home'><i class='fa fa-dashboard'></i> <span>Home</span></a></li>";
+                ViewBag.DatabaseWarning = "Khong lay duoc du lieu menu tu CSDL. Vui long kiem tra chuoi ket noi 'cnn' trong Web.config va quyen truy cap database.";
+            }
+            ViewBag.UserMenu = userMenu;
             
 
            // ViewBag.PB_Code  ;
